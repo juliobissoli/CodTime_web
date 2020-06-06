@@ -5,6 +5,9 @@
     </div>
     <div class="row pl-2 ">
       <div class="col-12 mb-3">
+        <button class="btn btn-outline-info btn-sm">start</button>
+      </div>
+      <div class="col-12 mb-3">
         <span class="title">{{ title }}</span>
       </div>
       <div class="col-6 d-flex flex-column text-center">
