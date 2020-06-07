@@ -9,7 +9,7 @@
       <div class="col-4 text-right" style="font-size:30px">
         <span>00:00</span>
       </div>
-      <div class="col-12 my-4">
+      <div v-if="!projectSelected" class="col-12 my-4">
         <button
           @click="modaIsVisible = true"
           class="btn_select_project text-center p-3 "
@@ -17,20 +17,28 @@
           Selecione o projeto
         </button>
       </div>
+      <div v-else class="col-12 p-4">
+        <ProjectDescribe :item="projectSelected" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import ModalSelectProject from "../components/Projects/ModalSelectProject";
-
+import ProjectDescribe from "../components/Projects/ProjectDescibe";
 export default {
   name: "AreaWorking",
-  components: { ModalSelectProject },
+  components: { ModalSelectProject, ProjectDescribe },
   data() {
     return {
       modaIsVisible: false,
     };
+  },
+  computed: {
+    projectSelected() {
+      return this.$store.state.productSelected;
+    },
   },
   methods: {},
 };
@@ -45,8 +53,8 @@ export default {
 }
 .btn_select_project {
   width: 100%;
-  background-color: #eee;
-  border: 1px dashed #f8f8fa;
+  background-color: #fafafa;
+  border: 3px dashed #eee;
   //   border-style: dashed;
   border-radius: 0.5rem;
   font-size: 18px;

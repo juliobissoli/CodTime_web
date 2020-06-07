@@ -13,21 +13,31 @@
       </div>
     </div>
     <div class="row">
-      <div v-for="i in 5" :key="i" class="col-3 mb-3">
-        <CardProject title="Linhagua" tesks="23" hours="34" />
+      <div v-for="(item, i) in projects" :key="i" class="col-3 mb-3">
+        <CardProject
+          :title="item.name"
+          :tesks="item.tescks.length"
+          :hours="item.total_hours"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SelectProject from "../components/SelectProject";
+import SelectProject from "../components/AreaWorking";
 import BarTop from "../components/BarTop";
 import CardProject from "../components/Projects/CardProjects";
 
+import Projects from "../data/projetcs";
 export default {
   name: "CodTime",
   components: { BarTop, SelectProject, CardProject },
+  computed: {
+    projects() {
+      return Projects.projects;
+    },
+  },
 };
 </script>
 

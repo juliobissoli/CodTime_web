@@ -1,22 +1,21 @@
 <template>
-  <div class="card_project p-3 d-flex bg-light">
+  <div class="card_project p-3 d-flex">
     <div class="p-3 icon d-flex align-items-center">
       <img src="../../assets/codTags.svg" alt="" />
     </div>
     <div class="row pl-2 ">
-      <div class="col-12 mb-3">
-        <button class="btn btn-outline-info btn-sm">start</button>
+      <div class="col-12 d-flex d-flex justify-content-end">
+        <span class="">start</span>
       </div>
-      <div class="col-12 mb-3">
+      <div class="col-12 text-rigth mb-3">
         <span class="title">{{ title }}</span>
       </div>
-      <div class="col-6 d-flex flex-column text-center">
-        <span>Horas</span>
-        <span>{{ hours }}h</span>
+
+      <div class="col-6 d-flex text-center">
+        <span>Horas: {{ hours }}h</span>
       </div>
-      <div class="col-6  d-flex flex-column text-center">
-        <span>Tarefas</span>
-        <span>{{ tesks }}</span>
+      <div class="col-6  d-flex text-center">
+        <span>Tarefas: {{ tesks }}</span>
       </div>
     </div>
   </div>
