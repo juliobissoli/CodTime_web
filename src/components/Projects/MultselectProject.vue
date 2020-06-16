@@ -1,7 +1,7 @@
 <template>
   <multiselect
     v-model="value"
-    :options="projects"
+    :options="options_select"
     placeholder="Escolha um projeto para prabalhar"
     noOptions="Nenhum resultado"
     track-by="name"
@@ -18,7 +18,7 @@ import multiselect from "vue-multiselect";
 
 export default {
   name: "MultselectProject",
-  props: ["value_select"],
+  props: ["value_select", "options_select"],
   components: { multiselect },
   data() {
     return {
@@ -28,8 +28,9 @@ export default {
   },
   watch: {
     value() {
-      this.$store.commit("selectProject", this.value);
-      console.log(this.$store.state.productSelected);
+      this.$emit("select_result", this.value);
+      // this.$store.commit("selectProject", this.value);
+      // console.log(this.$store.state.productSelected);
     },
   },
   computed: {

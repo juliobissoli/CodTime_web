@@ -1,24 +1,38 @@
 <template>
   <div class="work_area ">
     <ModalSelectProject v-show="modaIsVisible" @close="modaIsVisible = false" />
-    <h4 class="col-12 mt-4 text-center ">Comesse a Codar!!</h4>
-    <div class="row p-4">
-      <div class="col-8">
-        <div class="btn btn-lg  btn-outline-dark">Start</div>
-      </div>
-      <div class="col-4 text-right" style="font-size:30px">
-        <span>00:00</span>
-      </div>
-      <div v-if="!projectSelected" class="col-12 my-4">
-        <button
-          @click="modaIsVisible = true"
-          class="btn_select_project text-center p-3 "
-        >
-          Selecione o projeto
-        </button>
-      </div>
-      <div v-else class="col-12 p-4">
+    <div v-if="!projectSelected">
+      <h4 class="col-12 mt-4 text-center ">Começar a Codar!!</h4>
+      <div class="row p-4">
+        <!-- <div class="col-8">
+          <div class="btn btn-lg  btn-outline-dark" disabled>Start</div>
+        </div>
+        <div class="col-4 text-right" style="font-size:30px">
+          <span>00:00</span>
+        </div> -->
+        <div class="col-12 my-4">
+          <button
+            @click="modaIsVisible = true"
+            class="btn_select_project text-center p-3 "
+          >
+            Selecione o projeto
+          </button>
+        </div>
+        <!-- <div v-else class="col-12 p-4">
         <ProjectDescribe :item="projectSelected" />
+      </div> -->
+      </div>
+    </div>
+
+    <div v-else>
+      <h4 class="col-12 mt-4 text-center ">Codando!!</h4>
+      <div class="row p-4">
+        <div class="col-12">
+          <Chronometer />
+        </div>
+        <div class="col-12 p-4">
+          <ProjectDescribe :item="projectSelected" />
+        </div>
       </div>
     </div>
   </div>
@@ -27,9 +41,11 @@
 <script>
 import ModalSelectProject from "../components/Projects/ModalSelectProject";
 import ProjectDescribe from "../components/Projects/ProjectDescibe";
+import Chronometer from "../components/chronometer/Chronometer";
+import moment from "moment";
 export default {
   name: "AreaWorking",
-  components: { ModalSelectProject, ProjectDescribe },
+  components: { ModalSelectProject, ProjectDescribe, Chronometer },
   data() {
     return {
       modaIsVisible: false,
@@ -38,6 +54,12 @@ export default {
   computed: {
     projectSelected() {
       return this.$store.state.productSelected;
+    },
+    isRunig() {
+      return this.$store.state.timeRuning.isRunig;
+    },
+    timeNow() {
+      return moment().format("YYYY-MM-DD HH:MM");
     },
   },
   methods: {},

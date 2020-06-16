@@ -5,10 +5,7 @@
         <div class="col-10 ">
           <span>Selecionar projeto</span>
         </div>
-        <div
-          class="col-2 p-0 d-flex justify-content-end"
-          @click="$emit('close')"
-        >
+        <div class="col-2 p-0 d-flex justify-content-end" @click="closeModal()">
           <button class="btn btn-lg btn-outline-dark" style="border:none">
             X
           </button>
@@ -17,13 +14,21 @@
 
       <div class="row mt-5">
         <div class="col-12">
-          <multiselect />
+          <multiselect
+            @select_result="projectsSelecting"
+            :options_select="projects"
+          />
+        </div>
+      </div>
+      <div class="row p-3">
+        <div v-if="projectSelected !== null" class="col-12 ">
+          <ProjectDescribe :item="projectSelected" />
         </div>
       </div>
 
       <footer class="row mt-5 footer">
         <div class="p-3 col-12 d-flex justify-content-end">
-          <button class="btn btn-outline-dark">
+          <button @click="startTime()" class="btn btn-outline-dark">
             Start
           </button>
         </div>
@@ -34,14 +39,39 @@
 
 <script>
 import multiselect from "./MultselectProject";
-
+import ProjectDescribe from "./ProjectDescibe";
+import momet from "moment";
 export default {
   name: "ModalSelectProject",
-  components: { multiselect },
-  data() {
-    return {
-      value: null,
-    };
+  components: { multiselect, ProjectDescribe },
+  computed: {
+    projectSelected() {
+      return this.$store.state.productSelected;
+    },
+    timeNow() {
+      return momet();
+    },
+    projects() {
+      const list = this.$store.state.projects;
+      return list.map((el) => {
+        return el;
+      });
+    },
+  },
+  methods: {
+    closeModal() {
+      this.$store.commit("cleanSelectProject");
+      this.$emit("close");
+    },
+    startTime() {
+      this.$store.commit("startTime", this.timeNow);
+      this.$emit("close");
+      console.log(this.$store.state.timeRuning);
+    },
+    projectsSelecting(item) {
+      this.$store.commit("selectProject", item);
+      console.log(this.$store.state.productSelected);
+    },
   },
 };
 </script>
