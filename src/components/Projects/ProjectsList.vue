@@ -6,6 +6,7 @@
       class="col-xl-3 col-lg-4 col-md-6 col-sm-12  mb-3"
     >
       <CardProject
+        @card-clicked="cardClicked(item)"
         :title="item.name"
         :tesks="item.tasks.length"
         :hours="item.totla_minuts"
@@ -26,5 +27,11 @@ export default {
   name: "ProjectList",
   props: ["list"],
   components: { CardProject },
+  methods: {
+    cardClicked(item) {
+      this.$store.commit("detailProject", item);
+      this.$router.push({ name: "Project" });
+    },
+  },
 };
 </script>

@@ -15,7 +15,10 @@ export default new Vuex.Store({
     isLogged: false,
     projects: [],
     projectSelected: null,
+    projectDetail: null,
     timeRuning: null,
+    loading: null,
+    dataTamp: null,
   },
   getters: {
     projects(state) {
@@ -29,9 +32,20 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    //Tamp
+    setTemp(state, data) {
+      state.dataTamp = data;
+    },
+    cleanTemp(state) {
+      state.dataTamp = null;
+    },
     //Project
     selectProject(state, item) {
       state.projectSelected = item;
+    },
+
+    detailProject(state, item) {
+      state.projectDetail = item;
     },
     cleanSelectProject(state) {
       state.projectSelected = null;
@@ -122,12 +136,13 @@ export default new Vuex.Store({
       }
     },
 
-    async finishTime({ commit, state }) {
+    async finishTime({ commit, dispatch, state }) {
       let uid = state.uid;
 
       try {
         await api.put(`/running_stop/${uid}`).then((res) => {
           commit("updataRunning", res.data);
+          dispatch("setValues");
         });
       } catch (error) {
         console.error(error);
@@ -152,6 +167,23 @@ export default new Vuex.Store({
         await api.post(`/commits`, body).then(console.log("commito"));
       } catch (err) {
         console.error(err);
+      }
+    },
+
+    //Task
+    async createTask({ state, commit }, name) {
+      const body = {
+        project_id: state.projectSelected.id,
+        name: name,
+      };
+      console.log(body);
+      try {
+        await api.post("/tasks", body).then((res) => {
+          commit("setTemp", res.data);
+          state.projectSelected.tasks.push(res.data);
+        });
+      } catch (error) {
+        console.error(error);
       }
     },
   },

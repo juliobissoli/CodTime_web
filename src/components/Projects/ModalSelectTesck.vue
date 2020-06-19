@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="row p-3 " v-show="!notTesck">
-          <div class="col-12 p-3 bg-light rounded">
+          <div v-if="!newTask" class="col-12 p-3 bg-light rounded">
             <div class="">
               <multselectProjetc
                 @select_result="taskSelecting"
@@ -37,7 +37,36 @@
               />
             </div>
             <div class=" text-center mt-3">
-              <button class="btn">+ Tarefa</button>
+              <button @click="newTask = true" class="btn">+ Tarefa</button>
+            </div>
+          </div>
+          <!-- New task -->
+          <div v-else class="col-12 p-3 bg-light rounded">
+            <div class="">
+              <div class="col-12">
+                <div class="form-group row">
+                  <input
+                    type="text"
+                    class="form-control col-10 pr-1"
+                    placeholder="Nome da tarefa"
+                    v-model="newTaskName"
+                  />
+                  <div class="col-2 pr-0">
+                    <button
+                      style="width:100%"
+                      class="btn btn-lg btn-outline-dark rounded"
+                      @click="createTask()"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=" text-center mt-3">
+              <button @click="newTask = false" class="btn">
+                Voltar
+              </button>
             </div>
           </div>
         </div>
@@ -60,9 +89,12 @@
       <div v-show="mensageError" class="alert alert-danger">
         {{ mensageError }}
       </div>
+      <div v-show="mensageSuccess" class="alert alert-success">
+        {{ mensageSuccess }}
+      </div>
       <footer class="row mt-5 footer">
         <div class="p-3 col-12 d-flex justify-content-end">
-          <button @click="finishRunning()" class="btn btn-outline-dark">
+          <button @click="finishRunning()" class="btn btn-outline-dark rounded">
             Commit
           </button>
         </div>
@@ -88,6 +120,9 @@ export default {
       task: "",
       task_id: null,
       mensageError: "",
+      newTask: false,
+      newTaskName: "",
+      mensageSuccess: "",
     };
   },
   watch: {
@@ -96,6 +131,13 @@ export default {
         setInterval(() => {
           this.mensageError = "";
         }, 4000);
+      }
+    },
+    mensageSuccess() {
+      if (this.mensageSuccess.length > 0) {
+        setInterval(() => {
+          this.mensageSuccess = "";
+        }, 8000);
       }
     },
   },
@@ -111,7 +153,7 @@ export default {
 
     taskSelecting(item) {
       this.task_selected = item;
-      this.task_selected = item.name;
+      this.task = item.name;
       this.task_id = item.id;
     },
     swethChange(value) {
@@ -139,8 +181,16 @@ export default {
           })
           .then(this.$store.dispatch("finishTime"), this.$emit("close"));
       }
-      // this.$store.dispatch("finishTime");
-      // this.$emit("close");
+    },
+    async createTask() {
+      if (this.newTaskName.length > 5) {
+        await this.$store.dispatch("createTask", this.newTaskName);
+        this.task_selected = this.$store.state.dataTamp;
+        this.mensageSuccess = `A tarefa '${this.task_selected.name}' foi criada com sucesso`;
+        console.log(this.$store.state.dataTamp);
+      } else {
+        this.mensageError = "Escreve certo essa tarefa irmão!!";
+      }
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <div class="card_project p-3 d-flex">
+  <div @click="$emit('card-clicked')" class="card_project p-3 d-flex">
     <div class="p-3 icon d-flex align-items-center">
       <img src="../../assets/codTags.svg" alt="" />
     </div>

@@ -99,7 +99,7 @@ export default {
   watch: {
     isLogged() {
       if (this.isLogged) {
-        this.$router.push({ name: "User" });
+        this.$router.push({ name: "Home" });
       }
     },
   },
