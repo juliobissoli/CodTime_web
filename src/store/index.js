@@ -11,15 +11,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: null,
+    uid: null,
     isLogged: false,
     projects: [],
-    productSelected: null,
-    timeRuning: {
-      isRuning: false,
-      idCommit: null,
-      minuts: null,
-      date_start: null,
-    },
+    projectSelected: null,
+    timeRuning: null,
   },
   getters: {
     projects(state) {
@@ -28,35 +24,46 @@ export default new Vuex.Store({
         el.total = el.tescks.lenght;
       });
     },
+    isRunning(state) {
+      return state.timeRuning ? state.timeRuning.is_running : false;
+    },
   },
   mutations: {
+    //Project
     selectProject(state, item) {
-      state.productSelected = item;
+      state.projectSelected = item;
     },
     cleanSelectProject(state) {
-      state.productSelected = null;
+      state.projectSelected = null;
     },
-    startTime(state) {
-      state.timeRuning = {
-        date_start: moment().format("YYYY-MM-DD HH:mm:ss"),
-        minuts: 0,
-        isRuning: true,
-        idCommit: 1,
-      };
+
+    setProjects(state, data) {
+      state.projects = data;
     },
-    finishTime(state) {
-      state.timeRuning = {
-        date_start: null,
-        minuts: 0,
-        isRuning: false,
-        idCommit: null,
-      };
+
+    //Ruuning
+    setRunnig(state, data) {
+      state.timeRuning = data;
+      let projetc_id = data.project_id;
+      if (data.is_running) {
+        const running = state.projects.filter((el) => {
+          return el.id == projetc_id;
+        });
+        console.log(running);
+        state.projectSelected = running[0];
+      }
     },
+
+    updataRunning(state, data) {
+      state.timeRuning = data;
+    },
+
     clockStriking(state) {
       let start = state.timeRuning.date_start;
       state.timeRuning.minuts = moment().diff(start, "minutes");
     },
 
+    //Login
     changeLogged(state, logged) {
       state.isLogged = logged;
     },
@@ -64,18 +71,17 @@ export default new Vuex.Store({
       state.isLogged = false;
       auth.logout();
     },
+
+    //User
     setUser(state, data) {
       state.user = data;
+      state.uid = data.id;
       console.log("set userr");
-    },
-    setProjects(state, data) {
-      state.projects = data;
     },
   },
   actions: {
     async setValues({ commit }) {
       const uid = jwt_decode(auth.token()).uid;
-
       try {
         await api.get(`/projects/${uid}`).then((res) => {
           commit("setProjects", res.data);
@@ -86,6 +92,7 @@ export default new Vuex.Store({
       try {
         await api.get(`/users/${uid}`).then((res) => {
           commit("setUser", res.data);
+          commit("setRunnig", res.data.running);
         });
       } catch (e) {
         console.log(e);
@@ -95,6 +102,59 @@ export default new Vuex.Store({
         commit("changeLogged", true);
       }, 1000);
     },
+
+    //Running
+    async startTime({ commit, state }) {
+      let uid = state.uid;
+      let body = {
+        date_start: moment().format("YYYY-MM-DD HH:mm:ss"),
+        project_id: state.projectSelected.id,
+        is_running: true,
+        minuts: 0,
+      };
+
+      try {
+        await api.put(`/running_start/${uid}`, body).then((res) => {
+          commit("updataRunning", res.data);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async finishTime({ commit, state }) {
+      let uid = state.uid;
+
+      try {
+        await api.put(`/running_stop/${uid}`).then((res) => {
+          commit("updataRunning", res.data);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    //Commit
+    async setCommit({ state }, data) {
+      let start = state.timeRuning.date_start;
+      let time_running = moment().diff(start, "minutes");
+      let body = {
+        mensage: data.mensage,
+        task: data.task,
+        task_id: data.task_id,
+        project_id: state.projectSelected.id,
+        time_start: start,
+        time_end: moment().format("YYYY-MM-DD HH:mm:ss"),
+        minuts: time_running,
+      };
+      console.log("vai commitar", body);
+      try {
+        await api.post(`/commits`, body).then(console.log("commito"));
+      } catch (err) {
+        console.error(err);
+      }
+    },
   },
+
   modules: {},
 });

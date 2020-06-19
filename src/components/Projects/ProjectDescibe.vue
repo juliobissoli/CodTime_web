@@ -2,7 +2,7 @@
   <div class="row body p-3">
     <h4 class="col-12 p-1 text-center title">{{ item.name }}</h4>
     <div class="col-6">
-      <strong> Total de horas: {{ item.totla_minuts }} h</strong>
+      <strong> Total de horas: {{ timeFormat(item.totla_minuts) }}</strong>
     </div>
     <div class="col-6 text-right">
       <strong> Total de tarefas: {{ item.tasks.length }}</strong>
@@ -16,7 +16,7 @@
           <td class="col-10">
             {{ line.mensage }}
           </td>
-          <td class="col-2 text-right ">{{ line.minuts }}Horas</td>
+          <td class="col-2 text-right ">{{ timeFormat(line.minuts) }}</td>
         </tr>
       </table>
     </div>
@@ -27,6 +27,13 @@
 export default {
   name: "PorjectDescribe",
   props: ["item"],
+  methods: {
+    timeFormat(minutis) {
+      return minutis < 60
+        ? `${parseInt(minutis, 10)} min`
+        : `${(minutis / 60).toFixed(0)}:${(minutis % 60).toFixed(0)}min`;
+    },
+  },
 };
 </script>
 

@@ -34,6 +34,7 @@ export default {
   },
   created() {
     // if (this.$store.state.timeRuning.isRuning) {
+    this.$store.commit("clockStriking");
     setInterval(() => {
       this.$store.commit("clockStriking");
     }, 60000);

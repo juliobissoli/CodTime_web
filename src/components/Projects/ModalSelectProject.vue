@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     projectSelected() {
-      return this.$store.state.productSelected;
+      return this.$store.state.projectSelected;
     },
     timeNow() {
       return momet();
@@ -76,13 +76,13 @@ export default {
       this.$emit("close");
     },
     startTime() {
-      this.$store.commit("startTime");
+      this.$store.dispatch("startTime");
       this.$emit("close");
       console.log(this.$store.state.timeRuning);
     },
     projectsSelecting(item) {
       this.$store.commit("selectProject", item);
-      console.log(this.$store.state.productSelected);
+      console.log(this.$store.state.projectSelected);
     },
   },
 };

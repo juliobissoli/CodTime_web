@@ -30,7 +30,7 @@ export default {
     value() {
       this.$emit("select_result", this.value);
       // this.$store.commit("selectProject", this.value);
-      // console.log(this.$store.state.productSelected);
+      // console.log(this.$store.state.projectSelected);
     },
   },
 };

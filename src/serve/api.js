@@ -4,7 +4,7 @@ const token = localStorage.getItem("token");
 const headers = { Authorization: "Bearer " + token };
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:3333",
+  baseURL: process.env.VUE_APP_API_BASE_URL,
   headers,
 });
 export default api;

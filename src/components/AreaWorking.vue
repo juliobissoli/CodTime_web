@@ -1,7 +1,9 @@
 <template>
   <div class="work_area ">
+    <!-- {{ projectSelected }}<br />
+    >>{{ isRunig }} -->
     <ModalSelectProject v-show="modaIsVisible" @close="modaIsVisible = false" />
-    <div v-if="!projectSelected">
+    <div v-if="!isRunig">
       <h4 class="col-12 mt-4 text-center ">Começar a Codar!!</h4>
       <div class="row p-4">
         <!-- <div class="col-8">
@@ -53,13 +55,10 @@ export default {
   },
   computed: {
     projectSelected() {
-      return this.$store.state.productSelected;
+      return this.$store.state.projectSelected;
     },
     isRunig() {
-      return this.$store.state.timeRuning.isRunig;
-    },
-    timeNow() {
-      return moment().format("YYYY-MM-DD HH:MM");
+      return this.$store.getters.isRunning;
     },
   },
   methods: {},

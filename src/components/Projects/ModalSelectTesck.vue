@@ -51,17 +51,18 @@
               type="text"
               rows="3"
               class="form-control"
-              placeholder="Mensagem"
+              placeholder="Escreva a descrição da atividade realizada!!"
+              v-model="mensage"
             />
-            <small id="emailHelp" class="form-text text-muted"
-              >Escreva a descrição da atividade realizada!!</small
-            >
           </div>
         </form>
       </div>
+      <div v-show="mensageError" class="alert alert-danger">
+        {{ mensageError }}
+      </div>
       <footer class="row mt-5 footer">
         <div class="p-3 col-12 d-flex justify-content-end">
-          <button @click="startTime()" class="btn btn-outline-dark">
+          <button @click="finishRunning()" class="btn btn-outline-dark">
             Commit
           </button>
         </div>
@@ -82,32 +83,64 @@ export default {
   data() {
     return {
       notTesck: false,
-      tescks_selected: null,
+      task_selected: null,
+      mensage: "",
+      task: "",
+      task_id: null,
+      mensageError: "",
     };
+  },
+  watch: {
+    mensageError() {
+      if (this.mensageError.length > 0) {
+        setInterval(() => {
+          this.mensageError = "";
+        }, 4000);
+      }
+    },
   },
   computed: {
     tescks() {
-      return this.$store.state.productSelected.tasks;
-    },
-    timeNow() {
-      return moment();
+      return this.$store.state.projectSelected.tasks;
     },
   },
   methods: {
     closeModal() {
-      // this.$store.commit("cleanSelectProject");
       this.$emit("close");
     },
-    startTime() {
-      this.$store.commit("startTime", this.timeNow);
-      console.log(this.timeNow);
-      this.$emit("close");
-    },
+
     taskSelecting(item) {
-      this.tescks_selected = item;
+      this.task_selected = item;
+      this.task_selected = item.name;
+      this.task_id = item.id;
     },
     swethChange(value) {
       this.notTesck = value.value;
+    },
+    validateCommit() {
+      if (this.mensage.length < 5) {
+        this.mensageError = "Escreve direito esse commit !!";
+        return false;
+      } else if (!this.notTesck && this.task_selected == null) {
+        this.mensageError =
+          'Selecione uma tarefa ou desmarque "Associar a uma tarefa"';
+        return false;
+      }
+      return true;
+    },
+    async finishRunning() {
+      if (this.validateCommit()) {
+        console.log("vai dar bom");
+        await this.$store
+          .dispatch("setCommit", {
+            mensage: this.mensage,
+            task: this.name,
+            task_id: this.task_id,
+          })
+          .then(this.$store.dispatch("finishTime"), this.$emit("close"));
+      }
+      // this.$store.dispatch("finishTime");
+      // this.$emit("close");
     },
   },
 };
