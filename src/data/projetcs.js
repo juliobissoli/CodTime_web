@@ -1,92 +1,70 @@
 export default {
   projects: [
     {
-      name: "Linhagua",
+      id: 1,
+      user_id: 1,
+      name: "CodTime",
       type: "Web",
-      total_hours: "32",
-      status: "prtogress", //finished, deleted
+      totla_minuts: "0.00",
+      status: "progres",
+      created_at: "2020-06-17 12:50:30",
+      updated_at: "2020-06-17 12:50:30",
       commits: [
         {
-          mensage: "Criar projeto no git, inicializar pagina de login",
-          time_start: "2020-06-07 07:35:00",
-          time_end: "2020-06-07 17:35:00",
-          hours: "12",
-          tesck: "Inicilização do progeto",
-        },
-        {
-          mensage: "Criar projeto no git, inicializar pagina de login",
-          time_start: "2020-06-07 07:35:00",
-          time_end: "2020-06-07 17:35:00",
-          hours: "12",
-          tesck: "Inicilização do progeto",
-        },
-        {
-          mensage: "Criar projeto no git, inicializar pagina de login",
-          time_start: "2020-06-07 07:35:00",
-          hours: "12",
-          time_end: "2020-06-07 17:35:00",
-          tesck: "Inicilização do progeto",
+          id: 2,
+          mensage: "frist commit",
+          project_id: 1,
+          task: "Inicialização do projeto",
+          task_id: 1,
+          minuts: 12,
+          time_start: "2020-06-17 07:05:30",
+          time_end: "2020-06-17 10:52:30",
+          created_at: "2020-06-17 13:10:26",
+          updated_at: "2020-06-17 13:10:26",
         },
       ],
-      tescks: [
-        {
-          id: 1,
-          name: "Inicialização do projeto",
-          project_id: 1,
-          user_id: 1,
-          status: "produce", //produce, paused, deleted
-        },
+      tasks: [
         {
           id: 1,
           name: "Pagina de login",
           project_id: 1,
-          user_id: 1,
-          status: "produce", //produce, paused, deleted
+          status: "produce",
+          created_at: "2020-06-17 13:12:12",
+          updated_at: "2020-06-17 13:12:12",
         },
       ],
     },
     {
-      name: "CodTime",
+      id: 2,
+      user_id: 1,
+      name: "Linhagua",
       type: "Web",
-      total_hours: "12",
-      status: "prtogress", //finished, deleted
+      totla_minuts: "0.00",
+      status: "progres",
+      created_at: "2020-06-17 12:58:21",
+      updated_at: "2020-06-17 12:58:21",
       commits: [
         {
-          mensage: "Criar projeto no git, inicializar pagina de login",
-          time_start: "2020-06-07 07:35:00",
-          time_end: "2020-06-07 17:35:00",
-          hours: "12",
-          tesck: "Inicilização do progeto",
-        },
-        {
-          mensage: "Criar projeto no git, inicializar pagina de login",
-          time_start: "2020-06-07 07:35:00",
-          time_end: "2020-06-07 17:35:00",
-          hours: "12",
-          tesck: "Inicilização do progeto",
-        },
-        {
-          mensage: "Criar projeto no git, inicializar pagina de login",
-          time_start: "2020-06-07 07:35:00",
-          hours: "12",
-          time_end: "2020-06-07 17:35:00",
-          tesck: "Inicilização do progeto",
+          id: 3,
+          mensage: "frist commit",
+          project_id: 2,
+          task: "Inicialização do projeto",
+          task_id: 1,
+          minuts: 12,
+          time_start: "2020-06-17 07:05:30",
+          time_end: "2020-06-17 10:52:30",
+          created_at: "2020-06-18 10:43:32",
+          updated_at: "2020-06-18 10:43:32",
         },
       ],
-      tescks: [
+      tasks: [
         {
-          id: 1,
-          name: "Inicialização do projeto",
-          project_id: 1,
-          user_id: 1,
-          status: "produce", //produce, paused, deleted
-        },
-        {
-          id: 1,
+          id: 2,
           name: "Pagina de login",
-          project_id: 1,
-          user_id: 1,
-          status: "produce", //produce, paused, deleted
+          project_id: 2,
+          status: "produce",
+          created_at: "2020-06-18 10:43:21",
+          updated_at: "2020-06-18 10:43:21",
         },
       ],
     },

@@ -3,7 +3,7 @@
     <BarTop />
     <div class="row my-5 ">
       <div class="col-md-12 d-flex justify-content-center">
-        <SelectProject />
+        <AreaWorking />
       </div>
     </div>
 
@@ -12,30 +12,44 @@
         <h3>Projetos</h3>
       </div>
     </div>
-    <div class="row">
-      <div v-for="(item, i) in projects" :key="i" class="col-3 mb-3">
+    <ProjectList :list="projects" />
+    <!-- <div class="row">
+      <div
+        v-for="(item, i) in projects"
+        :key="i"
+        class="col-xl-3 col-lg-4 col-md-6 col-sm-12  mb-3"
+      >
         <CardProject
           :title="item.name"
-          :tesks="item.tescks.length"
-          :hours="item.total_hours"
+          :tesks="item.tescks.lenght"
+          :hours="item.totla_minuts"
         />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import SelectProject from "../components/AreaWorking";
+import AreaWorking from "../components/AreaWorking";
 import BarTop from "../components/BarTop";
-import CardProject from "../components/Projects/CardProjects";
+// import CardProject from "../components/Projects/CardProjects";
+import ProjectList from "../components/Projects/ProjectsList";
 
 import Projects from "../data/projetcs";
 export default {
   name: "CodTime",
-  components: { BarTop, SelectProject, CardProject },
+  components: { BarTop, AreaWorking, ProjectList },
+  created() {
+    if (!this.user || !this.projects) {
+      this.$store.dispatch("setValues");
+    }
+  },
   computed: {
+    user() {
+      return this.$store.state.user;
+    },
     projects() {
-      return Projects.projects;
+      return this.$store.state.projects;
     },
   },
 };

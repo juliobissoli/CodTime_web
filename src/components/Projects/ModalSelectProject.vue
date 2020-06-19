@@ -40,10 +40,19 @@
 <script>
 import multiselect from "./MultselectProject";
 import ProjectDescribe from "./ProjectDescibe";
+import Projects from "../../data/projetcs";
 import momet from "moment";
 export default {
   name: "ModalSelectProject",
   components: { multiselect, ProjectDescribe },
+  data() {
+    return {
+      option: null,
+    };
+  },
+  created() {
+    this.option = this.projects;
+  },
   computed: {
     projectSelected() {
       return this.$store.state.productSelected;
@@ -53,9 +62,12 @@ export default {
     },
     projects() {
       const list = this.$store.state.projects;
-      return list.map((el) => {
+      // const list = Projects.projects;
+      const l = list.map((el) => {
         return el;
       });
+      console.log(l);
+      return l;
     },
   },
   methods: {
@@ -64,7 +76,7 @@ export default {
       this.$emit("close");
     },
     startTime() {
-      this.$store.commit("startTime", this.timeNow);
+      this.$store.commit("startTime");
       this.$emit("close");
       console.log(this.$store.state.timeRuning);
     },

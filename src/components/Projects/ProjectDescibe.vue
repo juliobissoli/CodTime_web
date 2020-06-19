@@ -2,10 +2,10 @@
   <div class="row body p-3">
     <h4 class="col-12 p-1 text-center title">{{ item.name }}</h4>
     <div class="col-6">
-      <strong> Total de horas: {{ item.total_hours }} h</strong>
+      <strong> Total de horas: {{ item.totla_minuts }} h</strong>
     </div>
     <div class="col-6 text-right">
-      <strong> Total de tarefas: {{ item.tescks.length }}</strong>
+      <strong> Total de tarefas: {{ item.tasks.length }}</strong>
     </div>
     <div class="col-12 mt-5 ">
       <legend class="subtitle mb-2">
@@ -16,7 +16,7 @@
           <td class="col-10">
             {{ line.mensage }}
           </td>
-          <td class="col-2 text-right ">{{ line.hours }}Horas</td>
+          <td class="col-2 text-right ">{{ line.minuts }}Horas</td>
         </tr>
       </table>
     </div>

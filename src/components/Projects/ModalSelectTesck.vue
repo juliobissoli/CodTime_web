@@ -5,7 +5,10 @@
         <div class="col-10 ">
           <span>Finalizar Trabalho</span>
         </div>
-        <div class="col-2 p-0 d-flex justify-content-end" @click="closeModal()">
+        <div
+          class="col-2 pr-3 d-flex justify-content-end"
+          @click="closeModal()"
+        >
           <button class="btn btn-lg btn-outline-dark" style="border:none">
             X
           </button>
@@ -25,15 +28,17 @@
             />
           </div>
         </div>
-        <div class="row  p-4 rounded bg-light" v-show="!notTesck">
-          <div class="col-12">
-            <multselectProjetc
-              @select_result="taskSelecting"
-              :options_select="tescks"
-            />
-          </div>
-          <div class="col-12 mt-1 text-center">
-            <button class="btn">+ Tarefa</button>
+        <div class="row p-3 " v-show="!notTesck">
+          <div class="col-12 p-3 bg-light rounded">
+            <div class="">
+              <multselectProjetc
+                @select_result="taskSelecting"
+                :options_select="tescks"
+              />
+            </div>
+            <div class=" text-center mt-3">
+              <button class="btn">+ Tarefa</button>
+            </div>
           </div>
         </div>
       </div>
@@ -82,7 +87,7 @@ export default {
   },
   computed: {
     tescks() {
-      return this.$store.state.productSelected.tescks;
+      return this.$store.state.productSelected.tasks;
     },
     timeNow() {
       return moment();
@@ -90,7 +95,7 @@ export default {
   },
   methods: {
     closeModal() {
-      this.$store.commit("cleanSelectProject");
+      // this.$store.commit("cleanSelectProject");
       this.$emit("close");
     },
     startTime() {

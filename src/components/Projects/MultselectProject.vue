@@ -18,7 +18,7 @@ import multiselect from "vue-multiselect";
 
 export default {
   name: "MultselectProject",
-  props: ["value_select", "options_select"],
+  props: ["options_select"],
   components: { multiselect },
   data() {
     return {
@@ -31,14 +31,6 @@ export default {
       this.$emit("select_result", this.value);
       // this.$store.commit("selectProject", this.value);
       // console.log(this.$store.state.productSelected);
-    },
-  },
-  computed: {
-    projects() {
-      const list = this.$store.state.projects;
-      return list.map((el) => {
-        return el;
-      });
     },
   },
 };

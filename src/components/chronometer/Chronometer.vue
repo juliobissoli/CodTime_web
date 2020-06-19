@@ -36,7 +36,6 @@ export default {
     // if (this.$store.state.timeRuning.isRuning) {
     setInterval(() => {
       this.$store.commit("clockStriking");
-      console.log("comitto");
     }, 60000);
     // }
   },
