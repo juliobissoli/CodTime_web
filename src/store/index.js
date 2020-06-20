@@ -186,6 +186,19 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    //Projects
+    async createProject({ state, dispatch }, data) {
+      const body = {
+        ...data,
+        user_id: state.uid,
+      };
+      try {
+        await api.post("/projects", body);
+        dispatch("setValues");
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
 
   modules: {},

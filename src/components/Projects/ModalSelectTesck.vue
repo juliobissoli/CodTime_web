@@ -93,7 +93,14 @@
         {{ mensageSuccess }}
       </div>
       <footer class="row mt-5 footer">
-        <div class="p-3 col-12 d-flex justify-content-end">
+        <div class="p-3 col-12 d-flex justify-content-between">
+          <button
+            @click="calcelCommit()"
+            style="border: none"
+            class="btn btn-outline-danger rounded"
+          >
+            Cancelar
+          </button>
           <button @click="finishRunning()" class="btn btn-outline-dark rounded">
             Commit
           </button>
@@ -172,14 +179,13 @@ export default {
     },
     async finishRunning() {
       if (this.validateCommit()) {
-        console.log("vai dar bom");
-        await this.$store
-          .dispatch("setCommit", {
-            mensage: this.mensage,
-            task: this.name,
-            task_id: this.task_id,
-          })
-          .then(this.$store.dispatch("finishTime"), this.$emit("close"));
+        await this.$store.dispatch("setCommit", {
+          mensage: this.mensage,
+          task: this.name,
+          task_id: this.task_id,
+        });
+        await this.$store.dispatch("finishTime");
+        this.$emit("close");
       }
     },
     async createTask() {
@@ -187,10 +193,13 @@ export default {
         await this.$store.dispatch("createTask", this.newTaskName);
         this.task_selected = this.$store.state.dataTamp;
         this.mensageSuccess = `A tarefa '${this.task_selected.name}' foi criada com sucesso`;
-        console.log(this.$store.state.dataTamp);
       } else {
         this.mensageError = "Escreve certo essa tarefa irmão!!";
       }
+    },
+    async calcelCommit() {
+      await this.$store.dispatch("finishTime");
+      this.$emit("close");
     },
   },
 };
@@ -230,12 +239,6 @@ export default {
     // display: flex;
     // align-items: flex-end;
     // background: red;
-  }
-  .btn {
-    color: #444;
-    border-bottom: 1px solid #444;
-    padding: 4px;
-    border-radius: 0;
   }
 }
 </style>
