@@ -32,7 +32,7 @@ export default {
     clock(minutis) {
       return minutis < 60
         ? `${parseInt(minutis, 10)} min`
-        : `${(minutis / 60).toFixed(0)}:${(minutis % 60).toFixed(0)}min`;
+        : `${Math.trunc(minutis / 60)}:${(minutis % 60).toFixed(0)}min`;
     },
   },
 };

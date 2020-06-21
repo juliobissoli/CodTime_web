@@ -3,10 +3,19 @@
     <div class="row my-4">
       <h3 class=" col-12 text-center">Projeto: {{ project.name }}</h3>
       <div class="col-12 mt-5 text-center">
-        <h5>Horas trabalhadas: {{ timeFormat(project.totla_minuts) }}</h5>
+        <h5>Horas trabalhadas: {{ timeFormated(project.totla_minuts) }}</h5>
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-12 p-4">
+        <div class="row body">
+          <legend class="subtitle mb-2 p-3">
+            Ultimas atividades:
+          </legend>
+          <ChartHorizontal :list="task_list" />
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-12">
         <div class="body">
@@ -51,19 +60,11 @@
                 {{ dataFormat(line.time_end) }}
               </div>
 
-              <div class="text-right col-1">{{ timeFormat(line.minuts) }}</div>
+              <div class="text-right col-1">
+                {{ timeFormated(line.minuts) }}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 p-4">
-        <div class="row body">
-          <legend class="subtitle mb-2 p-3">
-            Ultimas atividades:
-          </legend>
-          <ChartHorizontal :list="task_list" />
         </div>
       </div>
     </div>
@@ -94,17 +95,17 @@ export default {
           label:
             el.minuts < 60
               ? `${el.minuts} min`
-              : `${(el.minuts / 60).toFixed(0)}:${el.minuts % 60} hrs`,
+              : `${Math.trunc(el.minuts / 60)}:${el.minuts % 60} hrs`,
         };
       });
     },
   },
 
   methods: {
-    timeFormat(minutis) {
+    timeFormated(minutis) {
       return minutis < 60
         ? `${minutis}min`
-        : `${(minutis / 60).toFixed(0)}:${(minutis % 60).toFixed(0)}min`;
+        : `${Math.trunc(minutis / 60)}:${minutis % 60}min`;
     },
     dataFormat(item) {
       return moment(item).format("(HH:ss) DD MMM");

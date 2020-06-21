@@ -29,7 +29,7 @@ export default {
       let c = this.$store.state.timeRuning.minuts;
       return c < 60
         ? `${c} min`
-        : `${(c / 60).toFixed(0)}h e ${(c % 60).toFixed(0)}min`;
+        : `${Math.trunc(c / 60)}:${(c % 60).toFixed(0)} hrs`;
     },
   },
   created() {

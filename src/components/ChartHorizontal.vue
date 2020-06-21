@@ -3,7 +3,7 @@
     <div class="row ml-1 py-2 px-2 mb-2">
       <div class="col-md-4">
         <strong class="">
-          Commit
+          Tarefas
         </strong>
       </div>
       <div class="col-md-8 text-center">

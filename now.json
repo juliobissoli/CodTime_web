@@ -1,0 +1,8 @@
+{
+    "name": "sello-club-backoffice",
+    "build": {
+        "env": {
+          "VUE_APP_API_BASE_URL": "//api.qa.sello.club/"
+        }
+      }
+}
