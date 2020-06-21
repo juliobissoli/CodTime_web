@@ -81,10 +81,21 @@ export default {
       return this.$store.state.projectDetail;
     },
     task_list() {
-      let max = 100;
+      let tasks = this.project.tasks;
+      // let max = 100;
       let min = 0;
-      return this.project.tasks.map((el) => {
-        return { name: el.name, minuts: Math.random() * (max - min) + min };
+      let max = tasks.reduce(function(a, b) {
+        return Math.max(a.minuts, b.minuts);
+      });
+      return tasks.map((el) => {
+        return {
+          name: el.name,
+          minuts: (el.minuts / max) * 100,
+          label:
+            el.minuts < 60
+              ? `${el.minuts} min`
+              : `${(el.minuts / 60).toFixed(0)}:${el.minuts % 60} hrs`,
+        };
       });
     },
   },

@@ -20,12 +20,12 @@
             <h5 style="font-size:20px">
               Associar a uma tarefa
             </h5>
-            <toggle-button
+            <!-- <toggle-button
               :value="notTesck"
               @change="swethChange"
               widt="80"
               :labels="{ checked: 'on', unchecked: 'off' }"
-            />
+            /> -->
           </div>
         </div>
         <div class="row p-3 " v-show="!notTesck">
@@ -181,7 +181,7 @@ export default {
       if (this.validateCommit()) {
         await this.$store.dispatch("setCommit", {
           mensage: this.mensage,
-          task: this.name,
+          task: this.task,
           task_id: this.task_id,
         });
         await this.$store.dispatch("finishTime");

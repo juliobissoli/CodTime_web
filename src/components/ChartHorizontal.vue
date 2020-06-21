@@ -26,9 +26,9 @@
                 class="bar_success legend"
                 :style="getSizeWidth(item.minuts)"
               >
-                <span class=" value_primary mr-1">{{
-                  (item.minuts * 1).toFixed(0)
-                }}</span>
+                <span class=" value_primary mr-1">
+                  {{ item.label }}
+                </span>
               </div>
             </div>
           </div>
