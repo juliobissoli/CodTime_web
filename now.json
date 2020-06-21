@@ -1,8 +1,8 @@
 {
-    "name": "sello-club-backoffice",
-    "build": {
-        "env": {
-          "VUE_APP_API_BASE_URL": "//api.qa.sello.club/"
-        }
-      }
+  "name": "CodTime",
+  "build": {
+    "env": {
+      "VUE_APP_API_BASE_URL": "http://3.133.161.97:3333"
+    }
+  }
 }
