@@ -1,5 +1,5 @@
 import CodTime from "../views/CodTime";
-import userRouter from "./user";
+import userRouter from "./home";
 
 const CodTimeRouter = {
   path: "/",

@@ -6,7 +6,12 @@
         <h2>CodTime</h2>
       </div>
       <div class="setings d-flex align-items-center">
-        <img src="../assets/setings.svg" class="mr-2" alt="" />
+        <img
+          @click="logout()"
+          src="../assets/setings.svg"
+          class="mr-2"
+          alt=""
+        />
         <Avatar />
       </div>
     </div>
@@ -18,6 +23,12 @@ import Avatar from "./Avatar";
 export default {
   name: "BarTop",
   components: { Avatar },
+  methods: {
+    logout() {
+      this.$store.commit("logout");
+      this.$router.push({ name: "Login" });
+    },
+  },
 };
 </script>
 

@@ -79,7 +79,7 @@
 
 <script>
 import AnimateLogin from "../components/AnimateLogin";
-
+import auth from "../utils/auth";
 export default {
   name: "Login",
   components: { AnimateLogin },
@@ -87,13 +87,40 @@ export default {
     return {
       email: "",
       password: "",
-      isLogged: false,
       mensagemError: "",
     };
   },
+  computed: {
+    isLogged() {
+      return this.$store.state.isLogged;
+    },
+  },
+
+  watch: {
+    isLogged() {
+      if (this.isLogged) {
+        this.$router.push({ name: "Home" });
+      }
+    },
+  },
   methods: {
-    login() {
-      this.$router.push({ name: "User" });
+    async login() {
+      // this.$store.commit("loading");
+      console.log(auth.loggedIn());
+      const isLogeed = await auth.login(this.email, this.password);
+      if (isLogeed) {
+        if (this.$route.query && this.$route.query.redirect) {
+          this.$router.push(this.$route.query.redirect);
+        } else {
+          // this.$store.commit("setUser");
+          // this.$store.commit("notLoading");
+          // await this.$store.commit("changeLogged", true);
+          await this.$store.dispatch("setValues");
+        }
+      } else {
+        this.$store.commit("notLoading");
+        this.mensagemError = "Erro na autenticação :(";
+      }
     },
   },
 };

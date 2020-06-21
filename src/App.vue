@@ -12,5 +12,8 @@
   font-family: "Avenir Next W01", "Lato", "Karla", "Proxima Nova W01", "Rubik",
     -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
     Arial, sans-serif;
+  .rounded {
+    border-radius: 0.6rem !important;
+  }
 }
 </style>
