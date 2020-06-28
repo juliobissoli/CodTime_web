@@ -85,17 +85,25 @@ export default {
       let tasks = this.project.tasks;
       // let max = 100;
       let min = 0;
-      let max = tasks.reduce(function(a, b) {
-        return Math.max(a.minuts, b.minuts);
-      });
+      let max = tasks
+        .map((el) => {
+          return el.minuts;
+        })
+        .reduce(function(a, b) {
+          return Math.max(a, b);
+        });
+
       return tasks.map((el) => {
         return {
           name: el.name,
-          minuts: (el.minuts / max) * 100,
+          minuts:
+            Math.trunc((el.minuts / max) * 100) > 2
+              ? Math.trunc((el.minuts / max) * 100)
+              : 5,
           label:
             el.minuts < 60
-              ? `${el.minuts} min`
-              : `${Math.trunc(el.minuts / 60)}:${el.minuts % 60} hrs`,
+              ? `00:${el.minuts}`
+              : `${Math.trunc(el.minuts / 60)}:${el.minuts % 60}`,
         };
       });
     },
