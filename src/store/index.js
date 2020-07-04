@@ -19,16 +19,21 @@ export default new Vuex.Store({
     timeRuning: null,
     loading: null,
     dataTamp: null,
+    commits: null,
   },
   getters: {
     projects(state) {
-      console.log("tatqcxds");
       return state.projects.map((el) => {
         el.total = el.tescks.lenght;
       });
     },
     isRunning(state) {
       return state.timeRuning ? state.timeRuning.is_running : false;
+    },
+    commitList(state) {
+      return state.commits
+        ? state.commits
+        : { data: [], currentPage: null, perPage: 20 };
     },
   },
   mutations: {
@@ -92,6 +97,11 @@ export default new Vuex.Store({
       state.uid = data.id;
       console.log("set userr");
     },
+
+    //Commits
+    setCommits(state, data) {
+      state.commits = data;
+    },
   },
   actions: {
     async setValues({ commit }) {
@@ -107,7 +117,7 @@ export default new Vuex.Store({
       try {
         console.log(body);
 
-        await api.get(`/projects/${uid}`, body).then((res) => {
+        await api.get("/projects/" + uid, { params: body }).then((res) => {
           commit("setProjects", res.data);
         });
       } catch (error) {
@@ -208,6 +218,22 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error);
       }
+    },
+    //Commits
+    async getCommits({ state, commit }, { currentPage, perPage }) {
+      let project_id = state.projectDetail.id;
+      console.log("correntPage", currentPage);
+      let body = {
+        currentPage: currentPage ? currentPage : 1,
+        perPage: perPage ? perPage : 20,
+      };
+
+      console.log(body);
+      api.get(`/commits/${project_id}`, { params: body }).then((res) => {
+        commit("setCommits", res.data);
+      });
+      try {
+      } catch (error) {}
     },
   },
 
