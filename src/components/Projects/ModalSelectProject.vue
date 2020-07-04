@@ -99,15 +99,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
   opacity: 1;
 }
 
 .modal_body {
   background-color: #ffffff;
   width: 40%;
-  // height: 670px;
   border-radius: 0.5rem;
+  max-height: 80vh;
+  overflow-y: auto;
 
   .header {
     font-weight: 300;

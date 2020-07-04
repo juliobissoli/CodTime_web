@@ -9,7 +9,7 @@
     </div>
     <div class="col-12 mt-5 ">
       <legend class="subtitle mb-2">
-        Ultimas atividades:
+        Atividade nos ultimos trés dias:
       </legend>
       <table>
         <tr class="line" v-for="(line, i) in item.commits" :key="i">

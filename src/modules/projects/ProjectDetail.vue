@@ -25,10 +25,10 @@
 
           <div class="p-4">
             <div class="row">
-              <div class="col-4">
+              <div class="col-5">
                 Commit
               </div>
-              <div class="col-3">
+              <div class="col-2">
                 Tarefa
               </div>
               <div class="col-2">
@@ -44,13 +44,13 @@
 
             <div
               class="line row my-2"
-              v-for="(line, i) in project.commits"
+              v-for="(line, i) in commits.data"
               :key="i"
             >
-              <div class="col-4">
+              <div class="col-5">
                 {{ line.mensage }}
               </div>
-              <div class="col-3">
+              <div class="col-2">
                 {{ line.task }}
               </div>
               <div class="col-2">
@@ -66,6 +66,12 @@
             </div>
           </div>
         </div>
+        <div class="col-12 mt-2 p-0 d-flex justify-content-end">
+          <pagination
+            :totalPages="parseInt(commits.lastPage)"
+            @change-page="changePageCommit"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -74,28 +80,51 @@
 <script>
 import moment from "moment";
 import ChartHorizontal from "../../components/ChartHorizontal";
+import pagination from "../../components/Pagination";
 export default {
   name: "ProjectDetail",
-  components: { ChartHorizontal },
+  components: { ChartHorizontal, pagination },
+  data() {
+    return {
+      perPage: 15,
+    };
+  },
+  created() {
+    this.$store.dispatch("getCommits", {
+      cuurentPage: 1,
+      perPage: this.perPage,
+    });
+  },
   computed: {
     project() {
       return this.$store.state.projectDetail;
+    },
+    commits() {
+      return this.$store.getters.commitList;
     },
     task_list() {
       let tasks = this.project.tasks;
       // let max = 100;
       let min = 0;
-      let max = tasks.reduce(function(a, b) {
-        return Math.max(a.minuts, b.minuts);
-      });
+      let max = tasks
+        .map((el) => {
+          return el.minuts;
+        })
+        .reduce(function(a, b) {
+          return Math.max(a, b);
+        });
+
       return tasks.map((el) => {
         return {
           name: el.name,
-          minuts: (el.minuts / max) * 100,
+          minuts:
+            Math.trunc((el.minuts / max) * 100) > 2
+              ? Math.trunc((el.minuts / max) * 100)
+              : 5,
           label:
             el.minuts < 60
-              ? `${el.minuts} min`
-              : `${Math.trunc(el.minuts / 60)}:${el.minuts % 60} hrs`,
+              ? `00:${el.minuts}`
+              : `${Math.trunc(el.minuts / 60)}:${el.minuts % 60}`,
         };
       });
     },
@@ -109,6 +138,13 @@ export default {
     },
     dataFormat(item) {
       return moment(item).format("(HH:ss) DD MMM");
+    },
+    changePageCommit(page) {
+      console.log(page);
+      this.$store.dispatch("getCommits", {
+        currentPage: page,
+        perPage: this.perPage,
+      });
     },
   },
 };
@@ -130,5 +166,9 @@ export default {
     font-size: 18px;
     border-bottom: 1px solid #ccc;
   }
+}
+
+.pagnation {
+  width: 30%;
 }
 </style>
