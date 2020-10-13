@@ -27,6 +27,12 @@ export default new Vuex.Store({
         el.total = el.tescks.lenght;
       });
     },
+    avatar(state){
+      if(state.user){
+        return state.user.thumbnail.lenght > 0 ? state.user.thumbnail[0].url : null
+      }
+      else return null
+    },
     isRunning(state) {
       return state.timeRuning ? state.timeRuning.is_running : false;
     },
@@ -126,6 +132,7 @@ export default new Vuex.Store({
       try {
         await api.get(`/users/${uid}`).then((res) => {
           commit("setUser", res.data);
+          console.log('usuario => ', res.data)
           commit("setRunnig", res.data.running);
         });
       } catch (e) {

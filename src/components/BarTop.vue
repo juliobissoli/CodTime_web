@@ -12,7 +12,7 @@
           class="mr-2"
           alt=""
         />
-        <Avatar />
+        <Avatar  :item="imageAvatar" />
       </div>
     </div>
   </div>
@@ -23,6 +23,11 @@ import Avatar from "./Avatar";
 export default {
   name: "BarTop",
   components: { Avatar },
+  computed: {
+     imageAvatar() {
+      return this.$store.getters.avatar;
+    },
+  },
   methods: {
     logout() {
       this.$store.commit("logout");
