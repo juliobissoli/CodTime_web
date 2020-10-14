@@ -1,5 +1,6 @@
 <template>
   <div class="modal">
+    <Loading v-show="isLoading" />
     <div class="modal_body p-3">
       <header class="row header">
         <div class="col-10 ">
@@ -37,6 +38,9 @@
           </select>
         </div>
       </form>
+      <div v-show="mensageError.length > 0" class="alert col-12 alert-danger">
+        {{mensageError}}
+      </div>
       <footer class="row mt-5 footer">
         <div class="p-3 col-12 d-flex justify-content-end">
           <button @click="criateProject()" class="btn btn-outline-dark">
@@ -49,13 +53,17 @@
 </template>
 
 <script>
+import Loading from '../AnimateLoad'
+
 export default {
   name: "NewProject",
+  components: {Loading},
   data() {
     return {
       project_name: "",
       project_type: "Web",
       mensageError: "",
+      isLoading: false
     };
   },
   methods: {
@@ -63,12 +71,18 @@ export default {
       if (this.project_name.length < 2 || this.project_type === null) {
         this.mensageError = "Coloca o nome bom pra esse projeto!!";
       } else {
+      this.isLoading = true
         await this.$store.dispatch("createProject", {
           name: this.project_name,
           type: this.project_type,
+        }).then(res => {
+          console.log('deu bom')
+        }).catch(erro => {
+          console.log('deu ruin')
         });
         this.$emit("close");
       }
+        this.isLoading = false
     },
   },
 };
