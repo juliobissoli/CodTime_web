@@ -22,6 +22,7 @@
         </div>
       </div>
       <div class="col-lg-4 p-0">
+        <Loading v-show="isLoading" />
         <div class="left-area p-4 bg-whigt">
           <div class="my-5">
             <h1 class="mt-5">
@@ -80,14 +81,17 @@
 <script>
 import AnimateLogin from "../components/AnimateLogin";
 import auth from "../utils/auth";
+import Loading from "../components/AnimateLoad";
+
 export default {
   name: "Login",
-  components: { AnimateLogin },
+  components: { AnimateLogin, Loading },
   data() {
     return {
       email: "",
       password: "",
       mensagemError: "",
+      isLoading: false,
     };
   },
   computed: {
@@ -106,6 +110,7 @@ export default {
   methods: {
     async login() {
       // this.$store.commit("loading");
+      this.isLoading = true;
       console.log(auth.loggedIn());
       const isLogeed = await auth.login(this.email, this.password);
       if (isLogeed) {
@@ -116,10 +121,12 @@ export default {
           // this.$store.commit("notLoading");
           // await this.$store.commit("changeLogged", true);
           await this.$store.dispatch("setValues");
+          this.isLoading = false;
         }
       } else {
         this.$store.commit("notLoading");
         this.mensagemError = "Erro na autenticação :(";
+        this.isLoading = false;
       }
     },
   },

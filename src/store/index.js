@@ -29,7 +29,7 @@ export default new Vuex.Store({
     },
     avatar(state){
       if(state.user){
-        return state.user.thumbnail.lenght > 0 ? state.user.thumbnail[0].url : null
+        return state.user.thumbnail.length > 0 ? state.user.thumbnail[0].url : null
       }
       else return null
     },
