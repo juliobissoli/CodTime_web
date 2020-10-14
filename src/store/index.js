@@ -27,6 +27,13 @@ export default new Vuex.Store({
         el.total = el.tescks.lenght;
       });
     },
+    avatar(state) {
+      if (state.user) {
+        return state.user.thumbnail.length > 0
+          ? state.user.thumbnail[0].url
+          : null;
+      } else return null;
+    },
     isRunning(state) {
       return state.timeRuning ? state.timeRuning.is_running : false;
     },
@@ -126,6 +133,7 @@ export default new Vuex.Store({
       try {
         await api.get(`/users/${uid}`).then((res) => {
           commit("setUser", res.data);
+          console.log("usuario => ", res.data);
           commit("setRunnig", res.data.running);
         });
       } catch (e) {
@@ -137,6 +145,22 @@ export default new Vuex.Store({
       }, 1000);
     },
 
+    // export const actionSetUser = async ({ commit }) => {
+    //   let decoded = jwt_decode(auth.token());
+    //   commit(type.SET_UID, decoded.uid);
+    //   return new Promise((resolve, reject ) => {
+    //     api.get(`/user/${decoded.uid}`).then(
+    //       (res) => {
+    //       commit(type.SET_USER, res.data);
+    //       },
+    //       (error) => {
+    //         console.log('ta errado =>',error.response),
+    //         reject(error.response)
+    //       }
+
+    //     );
+    //   })
+
     //Running
     async startTime({ commit, state }) {
       let uid = state.uid;
@@ -147,13 +171,23 @@ export default new Vuex.Store({
         minuts: 0,
       };
 
-      try {
-        await api.put(`/running_start/${uid}`, body).then((res) => {
-          commit("updataRunning", res.data);
-        });
-      } catch (error) {
-        console.error(error);
-      }
+      return new Promise((resolve, reject) => {
+        api.put(`/running_start/${uid}`, body).then(
+          (res) => {
+            commit("updataRunning", res.data);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+      });
+      // try {
+      //   await api.put(`/running_start/${uid}`, body).then((res) => {
+      //     commit("updataRunning", res.data);
+      //   });
+      // } catch (error) {
+      //   console.error(error);
+      // }
     },
 
     async finishTime({ commit, dispatch, state }) {
@@ -212,12 +246,23 @@ export default new Vuex.Store({
         ...data,
         user_id: state.uid,
       };
-      try {
-        await api.post("/projects", body);
-        dispatch("setValues");
-      } catch (error) {
-        console.error(error);
-      }
+
+      return new Promise((resolve, reject) => {
+        api.post("/projects", body).then(
+          (res) => {
+            dispatch("setValues");
+          },
+          (error) => {
+            reject(error), console.error(error);
+          }
+        );
+      });
+      // try {
+      //   await api.post("/projects", body);
+      //   dispatch("setValues");
+      // } catch (error) {
+      //   console.error(error);
+      // }
     },
     //Commits
     async getCommits({ state, commit }, { currentPage, perPage }) {

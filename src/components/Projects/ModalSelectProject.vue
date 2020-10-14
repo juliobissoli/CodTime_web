@@ -1,5 +1,6 @@
 <template>
   <div class="modal">
+    <Loading v-show="isLoading" />
     <div class="modal_body p-3">
       <header class="row header">
         <div class="col-10 ">
@@ -41,13 +42,15 @@
 import multiselect from "./MultselectProject";
 import ProjectDescribe from "./ProjectDescibe";
 import Projects from "../../data/projetcs";
+import Loading from "../AnimateLoad";
 import momet from "moment";
 export default {
   name: "ModalSelectProject",
-  components: { multiselect, ProjectDescribe },
+  components: { multiselect, ProjectDescribe, Loading },
   data() {
     return {
       option: null,
+      isLoading: false,
     };
   },
   created() {
@@ -75,10 +78,19 @@ export default {
       this.$store.commit("cleanSelectProject");
       this.$emit("close");
     },
-    startTime() {
-      this.$store.dispatch("startTime");
-      this.$emit("close");
-      console.log(this.$store.state.timeRuning);
+    async startTime() {
+      // this.isLoading = true;
+      await this.$store
+        .dispatch("startTime")
+        .then((res) => {
+          this.$emit("close");
+          // this.isLoading = false;
+          console.log(this.$store.state.timeRuning);
+        })
+        .catch((error) => {
+          console.log("deu ruin");
+          // this.isLoading = false;
+        });
     },
     projectsSelecting(item) {
       this.$store.commit("selectProject", item);
