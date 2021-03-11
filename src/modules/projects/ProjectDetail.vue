@@ -10,7 +10,7 @@
       <div class="col-12 p-4">
         <div class="row body">
           <legend class="subtitle mb-2 p-3">
-            Ultimas atividades:
+            Horas trabalhadas:
           </legend>
           <ChartHorizontal :list="task_list" />
         </div>

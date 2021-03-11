@@ -54,11 +54,11 @@
             </button>
             <div class="row mt-3">
               <div class="col-lg-6">
-                <input type="checkbox" />
-                <span class="ml-2">Lembrar-me</span>
+                <input id="remember" type="checkbox" />
+                <label for="remember" class="ml-2">Lembrar-me</label>
               </div>
               <div class="col-lg-6 text-right">
-                <span class="text-danger">
+                <span class="text-danger" style="cursor: pointer;">
                   Esqueci minha senha
                 </span>
               </div>
@@ -136,16 +136,16 @@ export default {
     color: #333333;
     font-weight: 300;
   }
-  span {
-    // color: #3f67cc;
+  span, label {
     font-size: 13px;
-    // color: #022069
+    cursor: pointer;
   }
   .btn {
     background-color: transparent;
     border: 1px solid #333333;
     border-radius: 0.5rem !important;
     color: #333333;
+  
   }
 }
 .reght-area {

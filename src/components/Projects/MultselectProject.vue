@@ -2,7 +2,7 @@
   <multiselect
     v-model="value"
     :options="options_select"
-    placeholder="Escolha um projeto para prabalhar"
+    placeholder="Escolha um projeto para trabalhar"
     noOptions="Nenhum resultado"
     track-by="name"
     label="name"
