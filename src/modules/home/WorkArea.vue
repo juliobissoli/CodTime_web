@@ -24,8 +24,8 @@
 
 <script>
 import AreaWorking from "../../components/AreaWorking";
-import ProjectList from "../../components/Projects/ProjectsList";
-import NewProject from "../../components/Projects/NewProject";
+import ProjectList from "../../components/statistcst/ProjectsList";
+import NewProject from "../../components/statistcst/NewProject";
 export default {
   name: "WorArea",
   components: { AreaWorking, ProjectList, NewProject },

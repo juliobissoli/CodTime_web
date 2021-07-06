@@ -30,7 +30,7 @@ export default {
   methods: {
     cardClicked(item) {
       this.$store.commit("detailProject", item);
-      this.$router.push({ name: "Project" });
+      this.$router.push({ name: "StatistcstDetail" });
     },
   },
 };

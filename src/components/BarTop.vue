@@ -1,9 +1,22 @@
 <template>
-  <div class="row">
-    <div class="bar_top col-12 p-2">
-      <div class="logo d-flex align-items-center">
+  <div class="bg-white">
+    <div class="bar_top divider_bottom  p-0 px-4">
+      <router-link
+        :to="{ name: 'Home' }"
+        class="logo d-flex align-items-center"
+      >
         <img src="../assets/logo.svg" alt="" />
-        <h2>CodTime</h2>
+      </router-link>
+      <div class="btn_area">
+        <button class="btn_menu_item">
+          <router-link :to="{ name: 'Projects' }"><span class="m-1">Projetos</span></router-link>
+        </button>
+        <button class="btn_menu_item">
+          <router-link :to="{ name: 'Tasks' }"><span class="m-1">Tarefas</span></router-link>
+        </button>
+        <button class="btn_menu_item">
+          <router-link :to="{ name: 'Performance' }"><span class="m-1">Desempenho</span></router-link>
+        </button>
       </div>
       <div class="setings d-flex align-items-center">
         <img
@@ -34,10 +47,34 @@ export default {
 
 <style lang="scss" scoped>
 .bar_top {
-  border-bottom: 1px solid #f1f1f1;
+  height: 60px;
+  // border-bottom: 1px solid #f1f1f1;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  .btn_area{
+    flex: 0 40%;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+  }
+  .btn_menu_item {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    margin-top: 20px;
+    height: 27px;
+    // background-color: red;
+    // border-bottom: 2px solid #444444;
+    font-size: 18px;
+    font-weight: 400;
+    a {
+      // background: red;
+      height: 60px;
+      text-decoration: none;
+      color: #444444;
+    }
+  }
 
   .logo {
     h2 {
@@ -46,8 +83,8 @@ export default {
       color: #444;
     }
     img {
-      height: 50px;
-      width: 50px;
+      height: 40px;
+      width: 40px;
     }
   }
   .setings {

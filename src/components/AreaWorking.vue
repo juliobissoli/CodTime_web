@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import ModalSelectProject from "../components/Projects/ModalSelectProject";
-import ProjectDescribe from "../components/Projects/ProjectDescibe";
+import ModalSelectProject from "../components/statistcst/ModalSelectProject";
+import ProjectDescribe from "../components/statistcst/ProjectDescibe";
 import Chronometer from "../components/chronometer/Chronometer";
 import moment from "moment";
 export default {

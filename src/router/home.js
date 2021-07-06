@@ -1,9 +1,9 @@
 import Home from "../modules/home/Home";
 import WorkArea from "../modules/home/WorkArea";
-import Project from "../modules/projects/ProjectDetail";
+import StatistcstDetail from "../modules/statistcs/StatistcstDetail";
 
 const userRouter = {
-  path: "/user",
+  path: "/home",
   name: "Home",
   component: Home,
   redirect: { name: "WorkArea" },
@@ -15,9 +15,9 @@ const userRouter = {
       props: true,
     },
     {
-      path: "detail",
-      name: "Project",
-      component: Project,
+      path: "statistics",
+      name: "StatistcstDetail",
+      component: StatistcstDetail,
       props: true,
     },
   ],

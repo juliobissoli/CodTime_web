@@ -1,14 +1,17 @@
 <template>
-  <div class="px-5 py-2">
-    <BarTop />
-    <router-view />
+  <div class="app p-0 m-0">
+    <div>
+      <BarTop />
+    </div>
+    <div class="main">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
 import BarTop from "../components/BarTop";
 
-import Projects from "../data/projetcs";
 export default {
   name: "CodTime",
   components: { BarTop },
@@ -19,3 +22,22 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.app {
+  // display: flex;
+  background-color: #FAFAFA;
+  flex-direction: row;
+  height: 100%;
+  overflow: inherit !important;
+
+  .main {
+    // background-color: #f8f9fa;
+    width: 100vw;
+    height: calc(100vh - 65px);
+    
+    overflow-x: auto;
+    padding: 0 1rem 0 1rem;
+  }
+}
+</style>

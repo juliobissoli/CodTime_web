@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ModalSelectTesck from "../Projects/ModalSelectTesck";
+import ModalSelectTesck from "../statistcst/ModalSelectTesck";
 import moment from "moment";
 export default {
   name: "Chronometer",
