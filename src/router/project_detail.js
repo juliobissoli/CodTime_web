@@ -1,5 +1,3 @@
-// import Task from "../modules/tasks/Task";
-// import ProjectsList from "../modules/projects/ProjectsList";
 import ProjectDetail from "../modules/projects/ProjectDetail";
 
 import ProjectTask from "../modules/projects/ProjectTask";

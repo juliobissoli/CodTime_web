@@ -7,7 +7,6 @@
           <div class="col-10">
             <input type="text" class="form-control" />
           </div>
-
           <button class="col-2 btn btn-dark">Filter</button>
         </div>
       </div>
@@ -15,59 +14,72 @@
     <div class="row page-wrapper p-2">
       <div class="col-12 ">
         <div class="row">
-          <button class="col-6  p-1 pb-3 "
-          @click.prevent="changeToPage()"
-          >
+          <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
             <div class="p-5 shadow-sm bg-white rounded">
               <span> Projeto 1 </span> <br />
               <small>Descrição do projeto</small> <br /><br />
             </div>
-          </button>
-          <button class="col-6  p-1 pb-3 "
-          @click.prevent="changeToPage()"
-          >
+          </router-link>
+          <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
+            <div class="p-5 shadow-sm bg-white rounded">
+              <span> Projeto 1 </span> <br />
+              <small>Descrição do projeto</small> <br /><br />
+            </div>
+          </router-link><router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
+            <div class="p-5 shadow-sm bg-white rounded">
+              <span> Projeto 1 </span> <br />
+              <small>Descrição do projeto</small> <br /><br />
+            </div>
+          </router-link><router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
+            <div class="p-5 shadow-sm bg-white rounded">
+              <span> Projeto 1 </span> <br />
+              <small>Descrição do projeto</small> <br /><br />
+            </div>
+          </router-link><router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
+            <div class="p-5 shadow-sm bg-white rounded">
+              <span> Projeto 1 </span> <br />
+              <small>Descrição do projeto</small> <br /><br />
+            </div>
+          </router-link>
+
+          <!-- <button class="col-6  p-1 pb-3 " @click.prevent="changeToPage()">
             <div class="p-5 shadow-sm bg-white rounded">
               <span> Projeto 1 </span><br />
               <small>Descrição do projeto</small><br /><br />
             </div>
           </button>
-          <button class="col-6  p-1 pb-3 "
-          @click.prevent="changeToPage()"
-          >
+          <button class="col-6  p-1 pb-3 " @click.prevent="changeToPage()">
             <div class="p-5 shadow-sm bg-white rounded">
               <span> Projeto 1 </span><br />
               <small>Descrição do projeto</small><br /><br />
             </div>
           </button>
-          <button class="col-6  p-1 pb-3 "
-          @click.prevent="changeToPage()"
-          >
+          <button class="col-6  p-1 pb-3 " @click.prevent="changeToPage()">
             <div class="p-5 shadow-sm bg-white rounded">
               <span> Projeto 1 </span><br />
               <small>Descrição do projeto</small><br /><br />
             </div>
-          </button>
+          </button> -->
         </div>
       </div>
     </div>
   </section>
 </template>
 
-
 <script>
 export default {
   name: "ProjectList",
 
   methods: {
-    changeToPage(){
-        this.$router.push({ name: "ProjectDetail" });
-    }
-  }
-}
+    changeToPage() {
+      this.$router.push({ name: "ProjectDetail" });
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
-button{
-  border: none;
-  background-color: transparent;
-}
+// button{
+//   border: none;
+//   background-color: transparent;
+// }
 </style>

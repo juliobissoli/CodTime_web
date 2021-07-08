@@ -26,6 +26,11 @@
   border-bottom: 1px solid #EAEAEA;
 }
 
+.btn-dark {
+     background-color: #333333;
+    border-color: #333333;
+}
+
 .page-wrapper {
   margin: 0 auto;
   max-width: 1000px;

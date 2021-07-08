@@ -25,14 +25,18 @@
           class="mr-2"
           alt=""
         />
-        <Avatar />
+        <router-link :to="{name: 'UserSettings'}"
+        style="width: 50px; height: 50px"
+        >
+          <Avatar  />
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Avatar from "./Avatar";
+import Avatar from "./utils/Avatar.vue";
 export default {
   name: "BarTop",
   components: { Avatar },

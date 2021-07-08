@@ -2,7 +2,7 @@ import Home from "../modules/home/Home";
 import WorkArea from "../modules/home/WorkArea";
 import StatistcstDetail from "../modules/statistcs/StatistcstDetail";
 
-const userRouter = {
+const homeRouter = {
   path: "/home",
   name: "Home",
   component: Home,
@@ -23,4 +23,4 @@ const userRouter = {
   ],
 };
 
-export default userRouter;
+export default homeRouter;

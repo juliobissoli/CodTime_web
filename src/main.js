@@ -4,6 +4,8 @@ import router from "./router";
 import store from "./store";
 import moment from "moment";
 
+import "./assets/Icons/icons.scss";
+
 moment.locale("pt-br");
 
 Vue.config.productionTip = false;
