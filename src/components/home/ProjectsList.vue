@@ -3,13 +3,11 @@
     <div
       v-for="(item, i) in list"
       :key="i"
-      class="col-xl-3 col-lg-4 col-md-6 col-sm-12  mb-3"
+      class="col-12  mb-3"
     >
       <CardProject
         @card-clicked="cardClicked(item)"
-        :title="item.name"
-        :tesks="item.tasks.length"
-        :hours="item.totla_minuts"
+        :project="item"
       />
     </div>
   </div>
@@ -21,7 +19,7 @@
 </template>
 
 <script>
-import CardProject from "./CardProjects";
+import CardProject from "./CardProjects.vue";
 
 export default {
   name: "ProjectList",

@@ -22,12 +22,29 @@
           </div>
           <div class="row box-input divider_bottom" style="  margin-top: 6em;">
             <label class="col-12" for="">
-                Email de acesso
+              Email de acesso
               <button class="btn p-0">
                 <i class="icon icon-edite"></i>
               </button>
             </label>
             <h1 class="col-12">dev@master.com</h1>
+          </div>
+
+          <div class="row box-input divider_bottom" style="  margin-top: 6em;">
+            <label class="col-12 mb-4">
+              Redefinir senha
+            </label>
+            <div class="col-12 col-md-4 d-flex flex-column  mb-3">
+              <small class="text-muted">Data de entrada</small>
+              <input type="password" placeholder="Senha" class="form-control" />
+            </div>
+            <div class="col-12 col-md-4 d-flex flex-column  mb-3">
+              <small class="text-muted">Data de entrada</small>
+              <input type="password" placeholder="Senha" class="form-control" />
+            </div>
+            <div class="col-4 d-flex flex-column-reverse mb-3">
+              <button class="btn btn-outline-dark align-content-end" disabled>Salvar</button>
+              </div>
           </div>
         </aside>
       </div>

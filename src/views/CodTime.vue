@@ -1,7 +1,7 @@
 <template>
   <div class="app p-0 m-0">
     <div>
-      <BarTop />
+      <MainMenu />
     </div>
     <div class="main">
       <router-view />
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import BarTop from "../components/BarTop";
+import MainMenu from "../components/MainMenu.vue";
 
 export default {
   name: "CodTime",
-  components: { BarTop },
+  components: { MainMenu },
   created() {
     if (!this.user || !this.projects) {
       this.$store.dispatch("setValues");

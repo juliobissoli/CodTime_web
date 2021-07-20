@@ -10,6 +10,15 @@ moment.locale("pt-br");
 
 Vue.config.productionTip = false;
 
+Vue.filter('formatFloatGlobal', function (value) {
+  if(value === 0) return `0,00`
+  else if (!value && !isNaN(value)) return ''
+  return  value.toLocaleString('pt-br', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+})
+
 new Vue({
   router,
   store,

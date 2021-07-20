@@ -22,9 +22,9 @@
 .title18{font-size: 18px;}
 
 .text14_light{font-size: 14px; color: #999999;}
-.divider_bottom{
-  border-bottom: 1px solid #EAEAEA;
-}
+.divider_bottom{border-bottom: 1px solid #EAEAEA;}
+.divider_top{border-top: 1px solid #EAEAEA;}
+
 
 .btn-dark {
      background-color: #333333;

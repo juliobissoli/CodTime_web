@@ -1,17 +1,17 @@
 import Home from "../modules/home/Home";
-import WorkArea from "../modules/home/WorkArea";
+import Overview from "../modules/home/Overview";
 import StatistcstDetail from "../modules/statistcs/StatistcstDetail";
 
 const homeRouter = {
   path: "/home",
   name: "Home",
   component: Home,
-  redirect: { name: "WorkArea" },
+  redirect: { name: "Overview" },
   children: [
     {
       path: "list",
-      name: "WorkArea",
-      component: WorkArea,
+      name: "Overview",
+      component: Overview,
       props: true,
     },
     {

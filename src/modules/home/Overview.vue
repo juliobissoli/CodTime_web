@@ -1,0 +1,75 @@
+<template>
+  <div>
+    <NewProject v-show="newProject" @close="newProject = false" />
+    <div class="row  bg-white ">
+      <div class="col-12  my-5 pb-5  page-wrapper ">
+        <div class="row p-0">
+          <div class="col-7">
+            <UserOverview />
+          </div>
+          <div class="col-5  d-flex justify-content-end bg-white  p-0">
+            <div>
+              <button
+                @click="newProject = !newProject"
+                class="btn btn-outline-dark px-5"
+              >
+                Projeto
+              </button>
+            </div>
+            <div class="pl-3">
+              <button @click="newProject = !newProject" class=" btn btn-dark px-5">
+                Iniciar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3  describe-area">
+      <div class=" page-wrapper col-12">
+        <div class="row">
+          <div class="col-7 ">
+            <ProjectList :list="projects" />
+
+          </div>
+          <div class="col-5 pl-5">
+            <h3>Últimos commits:</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import AreaWorking from "../../components/AreaWorking";
+import ProjectList from "../../components/home/ProjectsList.vue";
+import NewProject from "../../components/statistcst/NewProject";
+
+import UserOverview from '../../components/home/UserOverview.vue'
+
+export default {
+  name: "WorArea",
+  components: { AreaWorking, ProjectList, NewProject, UserOverview },
+  data() {
+    return {
+      newProject: false,
+    };
+  },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+    projects() {
+      return this.$store.state.projects;
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.describe-area{
+  margin-top: -40px
+}
+</style>
