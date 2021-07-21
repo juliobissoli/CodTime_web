@@ -8,35 +8,45 @@
         <img src="../assets/logo.svg" alt="" />
       </router-link>
       <div class="btn_area">
-        <button class="btn_menu_item" :class="selected === 'Projects' ? 'selected' : ''">
+        <button
+          class="btn_menu_item"
+          :class="selected === 'Projects' ? 'selected' : ''"
+        >
           <router-link :to="{ name: 'Projects' }"
             ><span class="m-1">Projetos</span></router-link
           >
         </button>
-        <button class="btn_menu_item" :class="selected === 'TaskList' ? 'selected' : ''">
+        <button
+          class="btn_menu_item"
+          :class="selected === 'TaskList' ? 'selected' : ''"
+        >
           <router-link :to="{ name: 'Tasks' }"
             ><span class="m-1">Tarefas</span></router-link
           >
         </button>
-        <button class="btn_menu_item" :class="selected === 'Performance' ? 'selected' : ''">
+        <button
+          class="btn_menu_item"
+          :class="selected === 'Performance' ? 'selected' : ''"
+        >
           <router-link :to="{ name: 'Performance' }"
             ><span class="m-1">Desempenho</span></router-link
           >
         </button>
       </div>
       <div class="setings d-flex align-items-center">
-        <img
-          @click="logout()"
-          src="../assets/setings.svg"
-          class="mr-2"
-          alt=""
-        />
-        <router-link
-          :to="{ name: 'UserSettings' }"
-          style="width: 50px; height: 50px"
-        >
-          <Avatar />
-        </router-link>
+        <div class="mr-4">
+          <DropdownMenu
+            :list_inputs="list_menu"
+            :css_styles="position_dropdown"
+            @item-clicked="handleClickDropdown"
+          >
+            <template v-slot:header>
+              <div class="p-0" style="height: 40px; width: 40px">
+                <Avatar size="40" />
+              </div>
+            </template>
+          </DropdownMenu>
+        </div>
       </div>
     </div>
   </div>
@@ -44,26 +54,55 @@
 
 <script>
 import Avatar from "./utils/Avatar.vue";
+import DropdownMenu from "./DropdownMenu.vue";
+
+import auth from '../utils/auth'
 export default {
   name: "BarTop",
-  components: { Avatar },
+  components: { Avatar, DropdownMenu },
   data() {
     return {
-      selected: '',
+      selected: "",
+      list_menu: [
+        { danger: false, label: "Iniciar Trabalho" },
+        { danger: false, label: "Criara Projeto" },
+        { danger: false, label: "Configurações" },
+        { danger: true, label: "Deslogar" },
+      ],
+      position_dropdown: {
+        right: "0.3rem",
+        top: "3rem",
+        width: "250px",
+      },
+      // position_dropdown: 'right: 0.6rem;  top: 2rem; width: 250px;'
     };
   },
-    created() {
+  created() {
     this.selected = this.$router.history.current.name;
   },
   methods: {
     logout() {
+      auth.logout()
       this.$store.commit("logout");
       this.$router.push({ name: "Login" });
+    },
+
+    goToSettings(){
+         this.$router.push({ name: "UserSettings" });
+    },
+
+    handleClickDropdown(id) {
+      switch (id) {
+        case 2: this.goToSettings(); break;
+        case 3: this.logout(); break;
+        default:
+          console.log(`Resolver esses botoes ${expr}.`);
+      }
     },
   },
   watch: {
     $route(to, from) {
-      this.selected = to.name
+      this.selected = to.name;
     },
   },
 };
@@ -86,7 +125,7 @@ export default {
     padding: 0;
     background-color: transparent;
     border: none;
-    margin-top: 20px;   
+    margin-top: 20px;
     // background-color: red;
     border-bottom: 3px solid #ffffff;
     font-size: 18px;
@@ -96,7 +135,6 @@ export default {
       height: 60px;
       text-decoration: none;
       color: #444444;
-   
     }
   }
 
