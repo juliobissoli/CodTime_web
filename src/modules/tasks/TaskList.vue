@@ -17,29 +17,39 @@
     </div>
     <div class="col-12">
       <div class="row p-3">
-        <div class="col-3 px-1 ">
-          <div class="p-4 shadow-sm bg-white rounded">
-            <span class="title18">Pendente</span>
-          </div>
+        <div class="col-3 px-2 ">
+          <TaskListItem title="Pendente" badge_class="badge-danger" :list="taskList" />
         </div>
-        <div class="col-3 px-1 ">
-          <div class="p-4 shadow-sm bg-white rounded">
-            <span class="title18">Em andamento</span>
-          </div>
+        <div class="col-3 px-2 ">
+           <TaskListItem title="Em andamento" badge_class="badge-primary" :list="taskList" />
         </div>
-        <div class="col-3 px-1 ">
-          <div class="p-4 shadow-sm bg-white rounded">
-            <span class="title18">Em revisão</span>
-          </div>
+        <div class="col-3 px-2 ">
+           <TaskListItem title="Em revisão" badge_class="badge-warning" :list="taskList" />
         </div>
-        <div class="col-3 px-1 ">
-          <div class="p-4 shadow-sm bg-white rounded">
-            <span class="title18">Concluída</span>
-          </div>
+        <div class="col-3 px-2 ">
+          <TaskListItem title="Concluído" badge_class="badge-success" :list="taskList" />
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import TaskListItem from '../../components/task/ListTaskItem.vue'
+import {mapActions, mapGetters} from 'vuex'
+export default {
+  name: "TaskList",
+  components: {TaskListItem},
+  created(){
+    this.setTasks()
+  },
+  computed: {
+    ...mapGetters('task',['taskList'])
+  },
+  methods: {
+    ...mapActions('task',['setTasks'])
+  }
+}
+</script>
 
 <style lang="scss" scoped></style>

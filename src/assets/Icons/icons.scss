@@ -11,6 +11,11 @@
   mask-repeat: no-repeat;
 }
 
+.icon-thermostat{
+  mask: url(./svg//thermostat.svg);
+  mask-repeat: no-repeat;
+  mask-size: 100%;
+}
 .icon-dashboard {
   mask: url(./svg/dashboard.svg);
   mask-repeat: no-repeat;

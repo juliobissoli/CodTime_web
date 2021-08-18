@@ -4,6 +4,8 @@ import Vuex from "vuex";
 import api from "../serve/api";
 import auth from "../utils/auth";
 import jwt_decode from "jwt-decode";
+import modules from "./modules";
+
 
 import moment from "moment";
 Vue.use(Vuex);
@@ -236,6 +238,5 @@ export default new Vuex.Store({
       } catch (error) {}
     },
   },
-
-  modules: {},
+  modules
 });
