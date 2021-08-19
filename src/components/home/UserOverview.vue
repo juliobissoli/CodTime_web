@@ -10,7 +10,7 @@
         <LabelColor
           v-for="(item, i) in percentStatsUser.list"
           :key="i"
-          :color="item.color"
+          :class_color="item.class"
         >
           <small class="mr-4">{{ item.label }}: <small class="text-muted">{{item.value | formatFloatGlobal}}%</small></small>
         </LabelColor>
@@ -31,9 +31,9 @@ export default {
       return {
         total: 10,
         list: [
-          { color: "#50E3C2", value: 3.33333, label: "Concluídas" },
-          { color: "#BF78CA", value: 3.33333, label: "Revisão" },
-          { color: "#DB717E", value: 3.43333, label: "Pendente" },
+          { color: "#50E3C2", class: "success" ,value: 3.33333, label: "Concluídas" },
+          { color: "#BF78CA", class: "warning" ,value: 3.33333, label: "Revisão" },
+          { color: "#DB717E", class: "danger" ,value: 3.43333, label: "Pendente" },
         ],
       };
     },

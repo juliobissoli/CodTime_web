@@ -16,6 +16,10 @@
     border-radius: 0.6rem !important;
   }
   color: #444444;
+  a {
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+  }
 }
 
 .title22{font-size: 22px;}
@@ -23,6 +27,8 @@
 
 .text14_light{font-size: 14px; color: #999999;}
 .divider_bottom{border-bottom: 1px solid #EAEAEA;}
+.divider_left{border-left: 1px solid #EAEAEA;}
+.divider_right{border-right: 1px solid #EAEAEA;}
 .divider_top{border-top: 1px solid #EAEAEA;}
 
 
@@ -48,12 +54,12 @@
   line-height: 0px;
 }
 
-  .badge-primary {
+  .badge-success {
     border: 1px solid #12B893;
     color: #048E6F;
     background-color: rgba($color: #50E3C2, $alpha: 0.5);
   }
-    .badge-success {
+    .badge-primary {
     border: 1px solid #0070F3;
     color: #0751A8;
     background-color: rgba($color: #0070F3, $alpha: 0.5);

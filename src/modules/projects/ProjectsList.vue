@@ -15,31 +15,18 @@
       <div class="col-12 ">
         <div class="row">
           <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
-            <div class="p-5 shadow-sm bg-white rounded">
-              <span> Projeto 1 </span> <br />
-              <small>Descrição do projeto</small> <br /><br />
-            </div>
+            <CadProject />
           </router-link>
           <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
-            <div class="p-5 shadow-sm bg-white rounded">
-              <span> Projeto 1 </span> <br />
-              <small>Descrição do projeto</small> <br /><br />
-            </div>
-          </router-link><router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
-            <div class="p-5 shadow-sm bg-white rounded">
-              <span> Projeto 1 </span> <br />
-              <small>Descrição do projeto</small> <br /><br />
-            </div>
-          </router-link><router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
-            <div class="p-5 shadow-sm bg-white rounded">
-              <span> Projeto 1 </span> <br />
-              <small>Descrição do projeto</small> <br /><br />
-            </div>
-          </router-link><router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
-            <div class="p-5 shadow-sm bg-white rounded">
-              <span> Projeto 1 </span> <br />
-              <small>Descrição do projeto</small> <br /><br />
-            </div>
+            <CadProject /> </router-link
+          ><router-link
+            class="col-6  p-1 pb-3 "
+            :to="{ name: 'ProjectDetail' }"
+          >
+            <CadProject />
+          </router-link>
+          <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
+            <CadProject />
           </router-link>
 
           <!-- <button class="col-6  p-1 pb-3 " @click.prevent="changeToPage()">
@@ -67,9 +54,10 @@
 </template>
 
 <script>
+import CadProject from "../../components/project/CadProject.vue";
 export default {
   name: "ProjectList",
-
+  components: { CadProject },
   methods: {
     changeToPage() {
       this.$router.push({ name: "ProjectDetail" });

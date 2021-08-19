@@ -35,8 +35,6 @@ export default {
             avatar_url: null
         }
       },
-
-
       {
         id: 112,
         status: 0,
@@ -99,7 +97,7 @@ export default {
         }
       },
       {
-        id: 113,
+        id: 114,
         status: 1,
         difficulty: 114,
         name: "Filtro do Kamban",
@@ -121,6 +119,137 @@ export default {
             id: 12,
             name: "Tela de Tasks",
             priority: 1,
+        },
+        collaborator: {
+            id: 90,
+            name: "DevMaster",
+            is_admin: true,
+            role: "Gerente",
+            avatar_url: null
+        }
+      },
+
+      {
+        id: 2001,
+        status: 3,
+        difficulty: 8,
+        name: "Refatorar: incluir sucata no calculo do valor do pedido",
+        describe: "Adicionar um novo condicionante para calculo do valor do produto (sucata). Na homologação decrementa do valor * qtd_quebra_com_lacre ",
+        commits: [
+            {id: 20001, message: "Add input para armazenar o valor da sucata", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
+            {id: 20002, message: "Add campo no banco para armazenar valor da sucata", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
+            {id: 20001, message: "Redefinir calculo a nota", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(2, 'hours').format('YYYY-MM-DD HH:mm')}
+        ],
+        sprint: {
+            id: 2,
+            date_stat: moment().add(-4, 'days').format('YYYY-MM-DD'),
+            date_end: moment().add(10, 'days').format('YYYY-MM-DD')
+        },
+        
+        project: {
+            id: 2,
+            name: 'Linhagua',
+        },
+        epc: {
+            id: 1,
+            name: "Refatoração",
+            priority: 2,
+        },
+        collaborator: {
+            id: 90,
+            name: "DevMaster",
+            is_admin: true,
+            role: "Gerente",
+            avatar_url: null
+        }
+      },
+
+      {
+        id: 2002,
+        status: 2,
+        difficulty: 2,
+        name: "Corrigir bug: (Contar sucata no agendamento por mês) ",
+        describe: "Add sucata no agendamento por mês",
+        commits: [
+            {id: 20001, message: "Add input para armazenar o valor da sucata", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
+        ],
+        sprint: {
+            id: 2,
+            date_stat: moment().add(-4, 'days').format('YYYY-MM-DD'),
+            date_end: moment().add(10, 'days').format('YYYY-MM-DD')
+        },
+        
+        project: {
+            id: 2,
+            name: 'Linhagua',
+        },
+        epc: {
+            id: 1,
+            name: "Refatoração",
+            priority: 2,
+        },
+        collaborator: {
+            id: 90,
+            name: "DevMaster",
+            is_admin: true,
+            role: "Gerente",
+            avatar_url: null
+        }
+      },
+
+      {
+        id: 301,
+        status: 3,
+        difficulty: 3,
+        name: "Montar ambiente iOS",
+        describe: "Instalar ferramentas necessárias para testar app no iOS",
+        commits: [
+            {id: 20001, message: "Instalação das ferramentes e teste no emulador ok", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
+        ],
+        sprint: {
+            id: 32,
+            date_stat: moment().add(-4, 'days').format('YYYY-MM-DD'),
+            date_end: moment().add(10, 'days').format('YYYY-MM-DD')
+        },
+        
+        project: {
+            id: 3,
+            name: 'Stonebox',
+        },
+        epc: {
+            id: 31,
+            name: "Rodas app no iOS",
+            priority: 0,
+        },
+        collaborator: {
+            id: 90,
+            name: "DevMaster",
+            is_admin: true,
+            role: "Gerente",
+            avatar_url: null
+        }
+      },
+      {
+        id: 301,
+        status: 0,
+        difficulty: 8,
+        name: "Testar app no iOS",
+        describe: "Testar as funcionalidades estão rodando certas na versão para iPhone",
+        commits: [],
+        sprint: {
+            id: 32,
+            date_stat: moment().add(-4, 'days').format('YYYY-MM-DD'),
+            date_end: moment().add(10, 'days').format('YYYY-MM-DD')
+        },
+        
+        project: {
+            id: 3,
+            name: 'Stonebox',
+        },
+        epc: {
+            id: 31,
+            name: "Rodas app no iOS",
+            priority: 0,
         },
         collaborator: {
             id: 90,

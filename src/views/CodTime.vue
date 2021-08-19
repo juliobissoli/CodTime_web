@@ -26,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 .app {
   // display: flex;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   flex-direction: row;
   height: 100%;
   overflow: inherit !important;
@@ -35,9 +35,23 @@ export default {
     // background-color: #f8f9fa;
     width: 100vw;
     height: calc(100vh - 65px);
-    
-    overflow-x: auto;
+
+    // overflow-x: auto;
+    overflow-y: scroll;
     padding: 0 1rem 0 1rem;
+
+
   }
+
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .main {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .main::-webkit-scrollbar {
+      display: none;
+    }
 }
 </style>

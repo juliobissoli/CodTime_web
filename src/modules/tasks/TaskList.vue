@@ -18,16 +18,16 @@
     <div class="col-12">
       <div class="row p-3">
         <div class="col-3 px-2 ">
-          <TaskListItem title="Pendente" badge_class="badge-danger" :list="taskList" />
+          <TaskListItem title="Pendente" badge_class="badge-danger" :list="mapTasks2State.get(0)" />
         </div>
         <div class="col-3 px-2 ">
-           <TaskListItem title="Em andamento" badge_class="badge-primary" :list="taskList" />
+           <TaskListItem title="Em andamento" badge_class="badge-primary" :list="mapTasks2State.get(1)" />
         </div>
         <div class="col-3 px-2 ">
-           <TaskListItem title="Em revisão" badge_class="badge-warning" :list="taskList" />
+           <TaskListItem title="Em revisão" badge_class="badge-warning" :list="mapTasks2State.get(2)" />
         </div>
         <div class="col-3 px-2 ">
-          <TaskListItem title="Concluído" badge_class="badge-success" :list="taskList" />
+          <TaskListItem title="Concluído" badge_class="badge-success" :list="mapTasks2State.get(3)" />
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@ export default {
     this.setTasks()
   },
   computed: {
-    ...mapGetters('task',['taskList'])
+    ...mapGetters('task',['mapTasks2State'])
   },
   methods: {
     ...mapActions('task',['setTasks'])

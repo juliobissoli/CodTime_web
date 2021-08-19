@@ -24,9 +24,9 @@ export default {
 }
 
 .avatar-item{
-    height: 40px;
-    width: 40px;
-    margin-left: -4em;
+    height: 30px;
+    width: 30px;
+    margin-left: -10px;
 
 }
 
