@@ -27,7 +27,7 @@ export default {
             id: 12,
             priority: 0,
         },
-        collaborator: {
+        collaborator: {//Alterar para "responsável" ou "dono da tarefa"?! 
             id: 90,
             name: "DevMaster",
             is_admin: true,
@@ -56,7 +56,7 @@ export default {
             id: 13,
             priority: 1,
         },
-        collaborator: {
+        collaborator: { 
             id: 90,
             name: "DevMaster",
             is_admin: true,

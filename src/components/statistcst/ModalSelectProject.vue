@@ -40,7 +40,7 @@
 <script>
 import multiselect from "./MultselectProject";
 import ProjectDescribe from "./ProjectDescibe";
-import Projects from "../../data/projetcs";
+// import Projects from "../../data/projects";
 import momet from "moment";
 export default {
   name: "ModalSelectProject",

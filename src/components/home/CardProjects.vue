@@ -30,7 +30,7 @@
           <span>{{ tesks }}</span>
         </div>
       </div> -->
-      <footer class="col-12 divider_top p-3 px-4  d-flex justify-content-end">
+      <footer class="col-12 p-3 divider_top   d-flex flex-row-reverse">
         <AvatarList :list="collaborator"/>
       </footer>
     </div>

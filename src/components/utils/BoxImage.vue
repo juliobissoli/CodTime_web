@@ -4,13 +4,14 @@
       <div class="item" >
         <img
           :src="image"
-          :class="small ? 'small' : ''"
+         
           class="rounded"
+
           
         />
       </div>
     </div>
-    <div v-else class="avatar ">
+    <div v-else class="avatar"  :style="styleSize">
       <img  src="../../assets/img/thumb_default.png" class="" />
     </div>
   </div>
@@ -19,8 +20,11 @@
 <script>
 export default {
   name: "BoxImage",
-  props: ["image", "size", 'small'],
+  props: {image: String, size: Number, small: Boolean},
   computed: {
+    styleSize(){
+      return this.size ? {height: `${this.size}px`} : {height: `226px`}
+    }
     // src() {
     //   const images = require.context("../../assets/images/", false, /\.jpg$/);
     //   return images("./" + this.image);
@@ -41,7 +45,7 @@ export default {
   }
 .avatar {
   // overflow: hidden;
-  height: 230px;
+  // height: 230px;
 //   border-radius: 50%;
 
   .item {

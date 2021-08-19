@@ -37,6 +37,26 @@ export default new Vuex.Store({
         ? state.commits
         : { data: [], currentPage: null, perPage: 20 };
     },
+
+    mapPriority() {
+      return new Map([
+        [0, { label: "Alta", badge: "badge-danger" ,class: "danger" }],
+        [1, { label: "Media",badge: "badge-warning" ,class: "warning" }],
+        [2, { label: "Baixa",badge: "badge-secondary" ,class: "secondary"}]
+      ]
+      );
+    },
+
+    mapGlobalTaskStatusStyle(state) {
+      return new Map([
+        [-1,  { color: "#DB717E", class: "danger",  label: "Solicitado",  status: "solicited" }],
+        [ 0,  { color: "#DB717E", class: "danger",  label: "Pendente",    status: "pending"   }],
+        [ 1,  { color: "#0070F3", class: "primary", label: "Andamento",   status: "progress"  }],
+        [ 2,  { color: "#BF78CA", class: "warning", label: "Revisão",     status: "review"    }], 
+        [ 3,  { color: "#50E3C2", class: "success", label: "Concluídas",  status: "finish"    }]
+      ]
+      );
+    },
   },
   mutations: {
     //Tamp

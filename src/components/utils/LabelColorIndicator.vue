@@ -24,7 +24,8 @@ export default {
           ['success', "#50E3C2"],
           ['danger', '#DB717E'],
           ['warning', '#BF78CA'],
-          ['secondary', '#999999']
+          ['secondary', '#999999'],
+          ['primary', "#0070F3"]
         ]
       )
     }

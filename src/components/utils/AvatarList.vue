@@ -1,5 +1,5 @@
 <template>
-    <ul class="avatar-list p-0">
+    <ul class="avatar-list p-0 m-0">
         <li class="avatar-item" v-for="(item, i) in list" :key="i">
             <Avatar :item="item.url"/>
         </li>

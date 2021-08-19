@@ -14,10 +14,10 @@
     <div class="row page-wrapper p-2">
       <div class="col-12 ">
         <div class="row">
-          <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
-            <CadProject />
-          </router-link>
-          <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
+          <div v-for="(project, i) in projectList" :key="i" class="col-6  p-1 pb-3 ">
+            <CadProject :project="project" />
+          </div>
+          <!-- <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
             <CadProject /> </router-link
           ><router-link
             class="col-6  p-1 pb-3 "
@@ -27,7 +27,7 @@
           </router-link>
           <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
             <CadProject />
-          </router-link>
+          </router-link> -->
 
           <!-- <button class="col-6  p-1 pb-3 " @click.prevent="changeToPage()">
             <div class="p-5 shadow-sm bg-white rounded">
@@ -54,11 +54,20 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import CadProject from "../../components/project/CadProject.vue";
 export default {
   name: "ProjectList",
   components: { CadProject },
+  created(){
+    this.setProjects()
+  },
+  computed: {
+    ...mapGetters('project' ,['projectList']),
+  },
   methods: {
+    ...mapActions('project', ['setProjects']),
+
     changeToPage() {
       this.$router.push({ name: "ProjectDetail" });
     },
