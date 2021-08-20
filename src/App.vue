@@ -7,9 +7,10 @@
 <style lang="scss">
 @import "./assets/styles/variables";
 @import "./assets/styles/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;1,500&display=swap');
 
 .app {
-  font-family: "Poppins", "Avenir Next W01", "Lato", "Karla", "Proxima Nova W01", "Rubik",
+  font-family: 'Poppins', sans-serif, "Avenir Next W01", "Lato", "Karla", "Proxima Nova W01", "Rubik",
     -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
     Arial, sans-serif;
   .rounded {

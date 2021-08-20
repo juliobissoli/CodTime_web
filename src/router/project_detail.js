@@ -6,7 +6,7 @@ import ProjectHours from "../modules/projects/ProjectHours";
 import ProjectOverview from "../modules/projects/ProjectOverview";
 
 const project_detailRouter = {
-  path: "/projects_detail",
+  path: "project/:id(\\d+)",
   name: "ProjectDetail",
   component: ProjectDetail,
   redirect: { name: "ProjectOverview" },

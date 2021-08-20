@@ -15,11 +15,14 @@
       <div class="col-12 ">
         <div class="row">
           <div v-for="(project, i) in projectList" :key="i" class="col-6  p-1 pb-3 ">
-            <CadProject :project="project" />
+            <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail',  params: {id: project.id} }">
+              <CadProject :project="project" /> 
+             </router-link>
           </div>
           <!-- <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
             <CadProject /> </router-link
-          ><router-link
+          >
+          <router-link
             class="col-6  p-1 pb-3 "
             :to="{ name: 'ProjectDetail' }"
           >

@@ -2,19 +2,25 @@
 import ProjectsList from "../modules/projects/ProjectsList";
 import ProjectDetail from '../modules/projects/ProjectDetail'
 
+
+import ProjectTask from "../modules/projects/ProjectTask";
+import ProjectEpc from "../modules/projects/ProjectEpc";
+import ProjectHours from "../modules/projects/ProjectHours";
+import ProjectOverview from "../modules/projects/ProjectOverview";
+
+
 const projectRouter = {
   path: "/projects",
   name: "Projects",
   component: ProjectsList,
-//   redirect: { name: "TaskList" },
-//   children: [
-//     {
-//       path: "detail",
-//       name: "ProjectDetail",
-//       component: ProjectDetail,
-//       meta: { requiresAuth: true,},
-//     },
-//   ],
+  redirect: { name: "ProjectsList" },
+  children: [
+    {
+      path: "list",
+      name: "ProjectsList",
+      component: ProjectsList,
+    },
+  ],
 };
 
 export default projectRouter;
