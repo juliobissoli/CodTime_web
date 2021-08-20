@@ -4,7 +4,7 @@
       <nav class="px-2 btn_area page-wrapper">
         <button class="btn_menu_item title">
           <router-link :to="{ name: 'ProjectOverview' }">
-            <span class="m-1">CodTime</span> <span class="mx-2 divider">/</span> </router-link>
+            <span class="m-1">{{projectDetail.name}}</span> <span class="mx-2 divider">/</span> </router-link>
         </button>
         <button class="btn_menu_item f-light" :class="selected === 'ProjectOverview' ? 'selected' : ''">
           <router-link :to="{ name: 'ProjectOverview' }">
@@ -15,7 +15,7 @@
             <span class="p-3">Epcs</span></router-link >
         </button>
         <button  class="btn_menu_item f-light"   :class="selected === 'ProjectTask' ? 'selected' : ''">
-          <router-link :to="{ name: 'ProjectTask' }"  ><span class="p-3">Taréfas</span></router-link>
+          <router-link :to="{ name: 'ProjectTask' }"  ><span class="p-3">Tarefas</span></router-link>
         </button>
         <button  class="btn_menu_item f-light"   :class="selected === 'ProjectHours' ? 'selected' : ''">
           <router-link :to="{ name: 'ProjectHours' }"  ><span class="p-3">Horas</span></router-link>
@@ -29,18 +29,30 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "ProjectDetail",
+  props: ['id'],
   data (){
     return {
       selected: "ProjectOverview"
     }
+  },
+  created(){
+    this.getProjectDetail(this.id)
   },
    watch: {
     $route(to, from) {
       this.selected = to.name;
     },
   },
+  computed: {
+    ...mapGetters('project', ['projectDetail']),
+  },
+  methods: {
+    ...mapActions('project', ['getProjectDetail'])
+  }
+
 }
 </script>
 

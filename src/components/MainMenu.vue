@@ -10,9 +10,9 @@
       <div class="btn_area">
         <button
           class="btn_menu_item"
-          :class="selected === 'Projects' ? 'selected' : ''"
+          :class="selected === 'ProjectsList' ? 'selected' : ''"
         >
-          <router-link :to="{ name: 'Projects' }"
+          <router-link :to="{ name: 'ProjectsList' }"
             ><span class="m-1">Projetos</span></router-link
           >
         </button>

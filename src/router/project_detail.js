@@ -7,6 +7,7 @@ import ProjectOverview from "../modules/projects/ProjectOverview";
 
 const project_detailRouter = {
   path: "project/:id(\\d+)",
+  props: true,
   name: "ProjectDetail",
   component: ProjectDetail,
   redirect: { name: "ProjectOverview" },

@@ -6,7 +6,7 @@ export default {
       id: 1,
       name: "CodTime",
       type: "Web",
-      describe: "Plataforma de gerencia de projetos e contabilização de horas trabalhadas. Com foco em desenvolvedores freelance na gestão de seus projetos, usando uma abordagem ágil e aproximando-o ao cliente com formas de prestação de conta dos serviços prestados. :)",
+      description: "Plataforma de gerencia de projetos e contabilização de horas trabalhadas. Com foco em desenvolvedores freelance na gestão de seus projetos, usando uma abordagem ágil e aproximando-o ao cliente com formas de prestação de conta dos serviços prestados. :)",
       thumbnail: null, 
       tasks: [
         //Retornar as tarefas ques tão dentro da sprint que acabe no período atual
@@ -15,7 +15,7 @@ export default {
           status: 0,
           difficulty: 8,
           name: "Criar componente de listagem de tarefas",
-          describe: "Desenvolver componentes responsivos para ",
+          description: "Desenvolver componentes responsivos para ",
           commits: [],
           collaborator_id: 90,
         },
@@ -24,7 +24,7 @@ export default {
           status: 0,
           difficulty: 8,
           name: "Criar componente de listagem de tarefas",
-          describe: "Desenvolver componentes responsivos para ",
+          description: "Desenvolver componentes responsivos para ",
           commits: [],
           collaborator_id: 90,
         },
@@ -34,7 +34,7 @@ export default {
           difficulty: 114,
           collaborator_id: 90,
           name: "Modelar relações entre Epcs, Sprints e Tesks no BD",
-          describe: "Definir quais são os relacionamentos cardinalidades e como essas estruturas serão avaliadas no sistema.",
+          description: "Definir quais são os relacionamentos cardinalidades e como essas estruturas serão avaliadas no sistema.",
           commits: [{id: 113001, message: "Perguntar para a professora!", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')}],
         },
         {
@@ -43,7 +43,7 @@ export default {
           difficulty: 114,
           collaborator_id: 90,
           name: "Filtro do Kamban",
-          describe: "Criar filtro dropdown da tela de Kamban. Filtrando por projetos, colaboradores e sprint (período).",
+          description: "Criar filtro dropdown da tela de Kamban. Filtrando por projetos, colaboradores e sprint (período).",
           commits: [{id: 113001, message: "Criação do designe do filtro", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')}],
         }
       ],
@@ -57,7 +57,7 @@ export default {
         },
         {
           id: 91,
-          name: "Patricia Profa.",
+          name: "Patricia Profaaaaaaaaa.",
           is_admin: true,
           role: "Gerente",
           avatar_url: null
@@ -75,7 +75,7 @@ export default {
       id: 2,
       name: "Linhagua",
       type: "Web",
-      describe: "ERP para gerenciamento de produção, venda, agendamento, licenciamentos da empresa Linhagua Mineração ",
+      description: "ERP para gerenciamento de produção, venda, agendamento, licenciamentos da empresa Linhagua Mineração ",
       thumbnail: null, 
       tasks: [
         {
@@ -84,7 +84,7 @@ export default {
           difficulty: 8,
           collaborator_id: 90,
           name: "Refatorar: incluir sucata no calculo do valor do pedido",
-          describe: "Adicionar um novo condicionante para calculo do valor do produto (sucata). Na homologação decrementa do valor * qtd_quebra_com_lacre ",
+          description: "Adicionar um novo condicionante para calculo do valor do produto (sucata). Na homologação decrementa do valor * qtd_quebra_com_lacre ",
           commits: [
               {id: 20001, message: "Add input para armazenar o valor da sucata", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
               {id: 20002, message: "Add campo no banco para armazenar valor da sucata", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
@@ -97,7 +97,7 @@ export default {
           difficulty: 2,
           collaborator_id: 90,
           name: "Corrigir bug: (Contar sucata no agendamento por mês) ",
-          describe: "Add sucata no agendamento por mês",
+          description: "Add sucata no agendamento por mês",
           commits: [
               {id: 20001, message: "Add input para armazenar o valor da sucata", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
           ],

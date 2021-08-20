@@ -21,9 +21,32 @@ const router = new VueRouter({
   routes,
 });
 
+// router.beforeEach((to, from, next) => {
+//   if (to.name !== "Login" && !Auth.loggedIn()) next({ name: "Login" });
+//   else next();
+// });
+
+
+
 router.beforeEach((to, from, next) => {
-  if (to.name !== "Login" && !Auth.loggedIn()) next({ name: "Login" });
-  else next();
+  
+  if (
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    !Auth.loggedIn()
+  ) {
+    next(
+      {
+        path: "/login",
+        query: { redirect: to.fullPath },
+      }
+    );
+  } else if (to.matched.some((record) => record.name === "Login") && Auth.loggedIn()) {
+    next({ name: "Home" });
+  } 
+  else {
+    next();
+  }
 });
+
 
 export default router;

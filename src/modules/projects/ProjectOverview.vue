@@ -10,18 +10,16 @@
           <legend>Descrição</legend>
           <div class="pr-4 describe_area divider_right">
             <p class="text-describe">
-              Descrição do projeto, Descrição do projeto,Descrição do
-              projeto,Descrição do projeto,Descrição do projeto,Descrição do
-              projeto,Descrição do projeto,
+              {{projectDetail.description}}
             </p>
-            <span class="text-muted mt-4">Tipo do projeto: <span class="text-dark">Web</span></span>
+            <span class="text-muted mt-4">Tipo do projeto: <span class="text-dark">{{projectDetail.type}}</span></span>
             <div class="row mt-2 p-2 m-0 rounded shadow-sm bg-white d-flex justify-content-around">
                 <div class="d-flex flex-column col-4 align-items-center">
                     <span class="text-secondary">EPCS</span>
                     <span>12</span>
                 </div>
                    <div class="divider_left divider_right d-flex flex-column col-4 align-items-center">
-                    <span class="text-secondary">Taréfaz</span>
+                    <span class="text-secondary">Tarefas</span>
                     <span>12</span>
                 </div>   <div class="d-flex flex-column col-4 align-items-center">
                     <span class="text-secondary">COMMITS</span>
@@ -30,8 +28,12 @@
             </div>
           </div>
         </section>
-        <div class=" col-4">
+        <div class=" col-4 p-1">
           <legend>Colaboradores</legend>
+          <div v-for="(collaborator, c) in projectDetail.collaborators" :key="c">
+            <CollaboratorItem class="mt-3" :collaborator="collaborator"/>
+          </div>
+          <button class="mt-3 btn btn-sm btn-block btn-dark">+ colaborador</button>
         </div>
       </div>
       <div class="row mt-5">
@@ -45,11 +47,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import BoxImage from "../../components/utils/BoxImage.vue";
+import CollaboratorItem from '../../components/project/CollaboratorItemAction.vue'
 
 export default {
   name: "ProjectOverview",
-  components: { BoxImage },
+  components: { BoxImage, CollaboratorItem },
+  computed: {
+    ...mapGetters('project', ['projectDetail'])
+  }
 };
 </script>
 

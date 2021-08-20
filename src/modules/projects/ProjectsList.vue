@@ -15,41 +15,10 @@
       <div class="col-12 ">
         <div class="row">
           <div v-for="(project, i) in projectList" :key="i" class="col-6  p-1 pb-3 ">
-            <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail',  params: {id: project.id} }">
+            <div class=" p-1 pb-3 " @click="changeToPage(project)">
               <CadProject :project="project" /> 
-             </router-link>
+             </div>
           </div>
-          <!-- <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
-            <CadProject /> </router-link
-          >
-          <router-link
-            class="col-6  p-1 pb-3 "
-            :to="{ name: 'ProjectDetail' }"
-          >
-            <CadProject />
-          </router-link>
-          <router-link class="col-6  p-1 pb-3 " :to="{ name: 'ProjectDetail' }">
-            <CadProject />
-          </router-link> -->
-
-          <!-- <button class="col-6  p-1 pb-3 " @click.prevent="changeToPage()">
-            <div class="p-5 shadow-sm bg-white rounded">
-              <span> Projeto 1 </span><br />
-              <small>Descrição do projeto</small><br /><br />
-            </div>
-          </button>
-          <button class="col-6  p-1 pb-3 " @click.prevent="changeToPage()">
-            <div class="p-5 shadow-sm bg-white rounded">
-              <span> Projeto 1 </span><br />
-              <small>Descrição do projeto</small><br /><br />
-            </div>
-          </button>
-          <button class="col-6  p-1 pb-3 " @click.prevent="changeToPage()">
-            <div class="p-5 shadow-sm bg-white rounded">
-              <span> Projeto 1 </span><br />
-              <small>Descrição do projeto</small><br /><br />
-            </div>
-          </button> -->
         </div>
       </div>
     </div>
@@ -71,8 +40,8 @@ export default {
   methods: {
     ...mapActions('project', ['setProjects']),
 
-    changeToPage() {
-      this.$router.push({ name: "ProjectDetail" });
+    changeToPage(project) {
+      this.$router.push({ name: "ProjectDetail", params: {id: project.id} });
     },
   },
 };
