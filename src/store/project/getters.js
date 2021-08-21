@@ -1,3 +1,5 @@
+import Epcs from '../../data/epc'
+
 export default{
 
     projectList(state){
@@ -13,5 +15,9 @@ export default{
             collaborators:[],
             thumbnail: null
         }
+    },
+
+    epcList(state){
+        return state.project_detail ?  Epcs.epcs.filter(el => el.project_id == state.project_detail.id) : []
     }
 }

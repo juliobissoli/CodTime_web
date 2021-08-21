@@ -49,11 +49,11 @@ export default new Vuex.Store({
 
     mapGlobalTaskStatusStyle(state) {
       return new Map([
-        [-1,  { color: "#DB717E", class: "danger",  label: "Solicitado",  status: "solicited" }],
-        [ 0,  { color: "#DB717E", class: "danger",  label: "Pendente",    status: "pending"   }],
-        [ 1,  { color: "#0070F3", class: "primary", label: "Andamento",   status: "progress"  }],
-        [ 2,  { color: "#BF78CA", class: "warning", label: "Revisão",     status: "review"    }], 
-        [ 3,  { color: "#50E3C2", class: "success", label: "Concluídas",  status: "finish"    }]
+        [-1,  { color: "#999999", bg_color: "#666666", opacity: 0.5, class: "danger",  label: "solicitado",  status: "solicited" }],
+        [ 0,  { color: "#DB717E", bg_color: "#db717e", opacity: 0.5, class: "danger",  label: "pendente",    status: "pending"   }],
+        [ 1,  { color: "#0070F3", bg_color: "#0070F3", opacity: 0.5, class: "primary", label: "andamento",   status: "progress"  }],
+        [ 2,  { color: "#BF78CA", bg_color: "#bf78ca", opacity: 0.5, class: "warning", label: "revisão",     status: "review"    }], 
+        [ 3,  { color: "#50E3C2", bg_color: "#50e3c2", opacity: 0.5, class: "success", label: "concluídas",  status: "finish"    }]
       ]
       );
     },

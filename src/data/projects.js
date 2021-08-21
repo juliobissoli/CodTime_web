@@ -7,7 +7,7 @@ export default {
       name: "CodTime",
       type: "Web",
       description: "Plataforma de gerencia de projetos e contabilização de horas trabalhadas. Com foco em desenvolvedores freelance na gestão de seus projetos, usando uma abordagem ágil e aproximando-o ao cliente com formas de prestação de conta dos serviços prestados. :)",
-      thumbnail: null, 
+      thumbnail: null,
       tasks: [
         //Retornar as tarefas ques tão dentro da sprint que acabe no período atual
         {
@@ -57,7 +57,7 @@ export default {
         },
         {
           id: 91,
-          name: "Patricia Profaaaaaaaaa.",
+          name: "Patricia Prof.",
           is_admin: true,
           role: "Gerente",
           avatar_url: null

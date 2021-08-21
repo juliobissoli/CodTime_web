@@ -6,21 +6,13 @@
           <div
             v-for="(item, i) in data_list"
             :key="i"
-            :style="getStyles(item)"
-            class="sub-bar-item"
+            :style="getStyles(item).style"
+            class="sub-bar-item p-1 d-flex align-items-center"
+            :class="statusStyles.get(item.priority).class"
           >
-          teste
+          {{getStyles(item).percent}}% {{statusStyles.get(item.priority).label}}
           </div>
-          <!-- <div
-            :class="getClass(data).sub_total"
-            :style="getSizeWidth(data ? (data.value > 0 ? 100 - data.value : 100) : 0)"
-          ></div> -->
         </div>
-        <!-- <div class="col-12 p-0 legend">
-          <span class="value_primary text-right"
-            >{{ getClass(data).label }}
-          </span>
-        </div> -->
       </div>
     </div>
   </div>
@@ -31,11 +23,22 @@ export default {
   name: "CharHorizontal",
   props: {
     total: Number,
-    data_list: Array
+    data_list: Array,
+  },
+  computed: {
+    statusStyles(){
+     return this.$store.getters.mapGlobalTaskStatusStyle
+    }
   },
   methods: {
     getStyles(element) {
-      return `width: ${( (element.value / this.total ) * 100).toFixed(0)}% !important;  background-color: ${element.color};` 
+      let percent =  ( (element.value / this.total ) * 100).toFixed(0)
+      let style = {  width: `${percent}%`,}
+      return {
+        percent, 
+        style,
+        label: this.statusStyles.get(element.priority).label
+      }
     },
   },
 };
@@ -49,6 +52,7 @@ export default {
     font-weight: 100;
     text-align: right;
     color: #999;
+    // background: rgba($color: #000000, $alpha: 1.0);
   }
   .lineSelected {
     // border: 1px solid #adcdf5;
@@ -75,37 +79,36 @@ export default {
       border-radius:5px;
       .sub-bar-item{
          height: 100%;
-          border-radius: 5px;
+          // border-radius: 5px;
+       
       }
+      .sub-bar-item:first-child{border-radius: 5px 0 0 5px;}
+      .sub-bar-item:last-child{border-radius: 0 5px   5px 0;}
+
       .success {
         height: 100%;
-        // border-radius: 0 5px 5px 0;
-        border-radius: 5px;
-        background-color: #54b889;
+        color: #50E3C2;
+        background-color: rgba($color: #50E3C2, $alpha: 0.5)
       }
       .warning {
         height: 100%;
-        // border-radius: 0 5px 5px 0;
-        border-radius: 5px;
-        background-color: #fcd07a;
+        color: #BF78CA;
+        background-color: rgba($color: #BF78CA, $alpha: 0.5)
       }
       .primary {
         height: 100%;
-        // border-radius: 0 5px 5px 0;
-        border-radius: 5px;
-        background-color: #9cb8ff;
+        color: #0070F3;
+        background-color: rgba($color: #0070F3, $alpha: 0.5)
       }
       .secondary {
         height: 100%;
-        // border-radius: 0 5px 5px 0;
-        border-radius: 5px;
-        background-color: #cccccc;
+        color: #999999;
+        background-color: rgba($color: #999999, $alpha: 0.5)
       }
       .danger {
         height: 100%;
-        //border-radius: 5px 0 0 4rem;
-        border-radius: 5px;
-        background-color: #cf566c;
+        color: #DB717E;
+        background-color: rgba($color: #DB717E, $alpha: 0.5);
       }
     }
   }
