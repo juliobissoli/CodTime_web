@@ -1,6 +1,6 @@
 <template>
-  <section class="row">
-    <div class="col-12 p-0 bg-white divider_bottom"> 
+  <section class="row p-0">
+    <div class="col-12 m-0 p-0 bg-white divider_bottom"> 
       <nav class="px-2 btn_area page-wrapper">
         <button class="btn_menu_item title">
           <router-link :to="{ name: 'ProjectOverview' }">
@@ -22,7 +22,7 @@
         </button>
       </nav>
     </div>
-    <div class="col-12 page-wrapper py-3">
+    <div class="col-12">
       <router-view />
     </div>
   </section>
@@ -40,9 +40,12 @@ export default {
   },
   created(){
     this.getProjectDetail(this.id)
+     let router = this.$router.history.current.name;
+     this.selected = router
   },
    watch: {
     $route(to, from) {
+      console.log(to.name)
       this.selected = to.name;
     },
   },

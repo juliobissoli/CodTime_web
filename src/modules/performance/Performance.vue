@@ -7,7 +7,7 @@
           <div class="col-8">
             <span class="title22">
               Estatísticas desse mês
-              <small class="text14_light">(01 a 30 Abr 2021)</small></span
+              <small class="f14-light">(01 a 30 Abr 2021)</small></span
             >
           </div>
           <div class="col-4 d-flex justify-content-end">

@@ -4,13 +4,11 @@
       <div class="col-lg-8 p-0 m-0 reght-area">
         <div class="row p-0 mt-3 mb-3 mx-0 d-flex logo justify-content-center">
           <img src="../assets/logo.svg" alt="" class="logo" />
-          <span class="ml-2">
-            CodTime
-          </span>
+          <span class="ml-2"> CodTime </span>
         </div>
         <div class="row logo p-0 m-0">
           <span
-            style="font-size: 22px;"
+            style="font-size: 22px"
             class="col-md-12 p-3 d-flex justify-content-center"
           >
             Sua plataforma de gerenciamento de trabalho personalizada.
@@ -22,11 +20,12 @@
         </div>
       </div>
       <div class="col-lg-4 p-0">
+        <div>
+          <Loading v-show="isLoading" />
+        </div>
         <div class="left-area p-4 bg-whigt">
           <div class="my-5">
-            <h1 class="mt-5">
-              Bem-vindo ;)
-            </h1>
+            <h1 class="mt-5">Bem-vindo ;)</h1>
           </div>
 
           <form class="mt-5 pt-5">
@@ -49,16 +48,14 @@
                 id="input-password"
               />
             </div>
-            <button @click.prevent="login" class="btn btn-block">
-              Entrar
-            </button>
+            <button @click.prevent="login" class="btn btn-block">Entrar</button>
             <div class="row mt-3">
               <div class="col-lg-6">
                 <input id="remember" type="checkbox" />
                 <label for="remember" class="ml-2">Lembrar-me</label>
               </div>
               <div class="col-lg-6 text-right">
-                <span class="text-danger" style="cursor: pointer;">
+                <span class="text-danger" style="cursor: pointer">
                   Esqueci minha senha
                 </span>
               </div>
@@ -80,46 +77,77 @@
 <script>
 import AnimateLogin from "../components/AnimateLogin";
 import auth from "../utils/auth";
+import Loading from "../components/utils/AnimateLoad.vue";
 export default {
   name: "Login",
-  components: { AnimateLogin },
+  components: { AnimateLogin, Loading },
   data() {
     return {
       email: "",
       password: "",
       mensagemError: "",
+      isLoading: false,
+      isLogged: false,
     };
   },
   computed: {
-    isLogged() {
-      return this.$store.state.isLogged;
-    },
+    // isLogged() {
+    //   return this.$store.state.isLogged;
+    // },
   },
 
   watch: {
-    isLogged() {
-      if (this.isLogged) {
-        this.$router.push({ name: "Home" });
-      }
+    // isLogged() {
+    //   if (this.isLogged) {
+    //     this.$router.push({ name: "Home" });
+    //   }
+    // },
+    mensagemError() {
+      if (this.mensagemError.length > 0) {
+        setTimeout(() => {
+          document.querySelector(".alert").classList.add("alert-remove");
+        }, 2000);
+        setTimeout(() => {
+          this.mensagemError = "";
+          document.querySelector(".alert").classList.add("alert-remove");
+        }, 3000);
+      } else document.querySelector(".alert").classList.add("alert-remove");
     },
   },
   methods: {
+    // async login() {
+    //   // this.$store.commit("loading");
+    //   console.log(auth.loggedIn());
+    //   const isLogeed = await auth.login(this.email, this.password);
+    //   if (isLogeed) {
+    //     if (this.$route.query && this.$route.query.redirect) {
+    //       this.$router.push(this.$route.query.redirect);
+    //     } else {
+    //       // this.$store.commit("setUser");
+    //       // this.$store.commit("notLoading");
+    //       // await this.$store.commit("changeLogged", true);
+    //       await this.$store.dispatch("setValues");
+    //     }
+    //   } else {
+    //     this.$store.commit("notLoading");
+    //     this.mensagemError = "Erro na autenticação :(";
+    //   }
+    // },
     async login() {
-      // this.$store.commit("loading");
-      console.log(auth.loggedIn());
-      const isLogeed = await auth.login(this.email, this.password);
-      if (isLogeed) {
+      this.isLoading = true;
+      this.isLogged = await auth.login(this.email, this.password);
+      if (this.isLogged) {
         if (this.$route.query && this.$route.query.redirect) {
           this.$router.push(this.$route.query.redirect);
         } else {
-          // this.$store.commit("setUser");
-          // this.$store.commit("notLoading");
-          // await this.$store.commit("changeLogged", true);
-          await this.$store.dispatch("setValues");
+          // this.setUserLogin(this.isLogged);
+          this.$router.push({ name: "Home" });
+
+          this.isLoading = false;
         }
       } else {
-        this.$store.commit("notLoading");
-        this.mensagemError = "Erro na autenticação :(";
+        this.isLoading = false;
+        this.mensagemError = "Erro na autenticação";
       }
     },
   },
@@ -136,7 +164,8 @@ export default {
     color: #333333;
     font-weight: 300;
   }
-  span, label {
+  span,
+  label {
     font-size: 13px;
     cursor: pointer;
   }
@@ -145,7 +174,6 @@ export default {
     border: 1px solid #333333;
     border-radius: 0.5rem !important;
     color: #333333;
-  
   }
 }
 .reght-area {

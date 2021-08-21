@@ -3,7 +3,7 @@
     <div class="col-12 p-4 px-4 bg-white divider_bottom">
       <div class="row ">
         <div class="col-4 ">
-          <span class="title22">Essa semana  <small class="text14_light">(04 a 10 Jun 2021)</small></span>
+          <span class="title22">Essa semana  <small class="f14-light">(04 a 10 Jun 2021)</small></span>
         </div>
         <div class="col-4">
           <input type="text" class="form-control" />

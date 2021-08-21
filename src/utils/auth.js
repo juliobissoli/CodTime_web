@@ -11,7 +11,10 @@ class Auth {
       password,
     };
     try {
+      let user = null
       await api.post("/login", body).then((res) => {
+        // user = res.data.user
+        // localStorage.setItem("token", res.data.session.token);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("logged", true);
       });

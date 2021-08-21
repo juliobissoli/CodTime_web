@@ -22,11 +22,14 @@
     text-decoration: inherit; /* no underline */
   }
 }
+.f-14{  font-size: 14;}
+.f-14{  font-size: 14;}
+.f-14{  font-size: 14;}
 
 .title22{font-size: 22px;}
 .title18{font-size: 18px;}
 
-.text14_light{font-size: 14px; color: #999999;}
+.f14-light{font-size: 14px; color: #999999;}
 .divider_bottom{border-bottom: 1px solid #EAEAEA;}
 .divider_left{border-left: 1px solid #EAEAEA;}
 .divider_right{border-right: 1px solid #EAEAEA;}
