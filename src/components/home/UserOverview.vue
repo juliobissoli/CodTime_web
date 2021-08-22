@@ -5,7 +5,7 @@
     </div>
     <div class="col-7 d-flex flex-column">
       <h1>Dev Master</h1>
-      <Chart :total="10" :data_list="percentStatsUser.list" />
+      <Chart :small="true" :total="10" :data_list="percentStatsUser.list" />
       <section class="d-flex flex-wrap">
         <LabelColor
           v-for="(item, i) in percentStatsUser.list"
@@ -31,9 +31,9 @@ export default {
       return {
         total: 10,
         list: [
-          { color: "#50E3C2", class: "success" ,value: 3.33333, label: "Concluídas" },
-          { color: "#BF78CA", class: "warning" ,value: 3.33333, label: "Revisão" },
-          { color: "#DB717E", class: "danger" ,value: 3.43333, label: "Pendente" },
+          { color: "#50E3C2", status: 3 ,class: "success" ,value: 3.33333, label: "Concluídas" },
+          { color: "#BF78CA", status:2  ,class: "warning" ,value: 3.33333, label: "Revisão" },
+          { color: "#DB717E", status: 0 ,class: "danger" ,value: 3.43333, label: "Pendente" },
         ],
       };
     },

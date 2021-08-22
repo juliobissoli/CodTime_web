@@ -19,6 +19,14 @@ Vue.filter('formatFloatGlobal', function (value) {
   });
 })
 
+Vue.filter('horusFormatGlobal', function (minutes) {
+  if(minutes === 0) return `--`
+  else if (!minutes && !isNaN(minutes)) return ''
+  return minutes < 60
+        ? `${minutes}min`
+        : `${Math.trunc(minutes / 60)}:${minutes % 60}h`;
+})
+
 new Vue({
   router,
   store,

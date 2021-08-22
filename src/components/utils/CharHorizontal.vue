@@ -1,25 +1,20 @@
 <template>
   <div class="chart px-1">
-    <div class=" line chart-content">
+    <div class=" line chart-content" :class="small ? 'small' : 'big'">
       <div class="col-md-12 p-0 ">
         <div class="bar-item">
           <div
-            v-for="(item, i) in data_list"
+            v-for="(item, i) in list_valit"
             :key="i"
-            :style="getStyles(item)"
-            class="sub-bar-item"
+            :style="getStyles(item).style"
+            class="sub-bar-item p-1 d-flex align-items-center"
+            :class='[statusStyles.get(item.status).class, {"unit" : list_valit.length === 1 }]'
           >
-          </div>
-          <!-- <div
-            :class="getClass(data).sub_total"
-            :style="getSizeWidth(data ? (data.value > 0 ? 100 - data.value : 100) : 0)"
-          ></div> -->
-        </div>
-        <!-- <div class="col-12 p-0 legend">
-          <span class="value_primary text-right"
-            >{{ getClass(data).label }}
+          <span  v-show="getStyles(item).percent != 0 && !small" class="p-1 text-truncate">
+            {{getStyles(item).percent}}% {{statusStyles.get(item.status).label}}
           </span>
-        </div> -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -30,70 +25,27 @@ export default {
   name: "CharHorizontal",
   props: {
     total: Number,
-    data_list: Array
+    data_list: Array,
+    small: Boolean
+  },
+  computed: {
+    statusStyles(){
+     return this.$store.getters.mapGlobalTaskStatusStyle
+    },
+    list_valit(){
+      return this.data_list.filter(el => el.value > 0)
+    }
   },
   methods: {
-    // getClass(data) {
-    //   if (!data) {
-    //     return {
-    //       total: "primary",
-    //       sub_total: "secondary",
-    //       label: `0% preenchidos`,
-    //     };
-    //   }
-    //   if (data.exceeded) {
-    //     return {
-    //       total: "danger",
-    //       sub_total: "warning",
-    //       label: !data.not_label
-    //         ? `${100 - data.value.toFixed(0)}% acima do total`
-    //         : "",
-    //     };
-    //   } else {
-    //     if (data.value === 0) {
-    //       return {
-    //         total: "secondary",
-    //         sub_total: "secondary",
-    //         label: !data.not_label
-    //           ? `${100 - data.value.toFixed(0)}% restante`
-    //           : "",
-    //       };
-    //     } else if (data.value < 30) {
-    //       return {
-    //         total: "primary",
-    //         sub_total: "secondary",
-    //         label: !data.not_label
-    //           ? `${100 - data.value.toFixed(0)}% restante`
-    //           : "",
-    //       };
-    //     } else if (data.value < 55) {
-    //       return {
-    //         total: "primary",
-    //         sub_total: "warning",
-    //         label: !data.not_label
-    //           ? `${100 - data.value.toFixed(0)}% restante`
-    //           : "",
-    //       };
-    //     } else {
-    //       return {
-    //         total: "primary",
-    //         sub_total: "secondary",
-    //         label: !data.not_label
-    //           ? `${data.value.toFixed(0)}% preenchidos`
-    //           : "",
-    //       };
-    //     }
-    //   }
-    // },
-    // getSizeWidth(data) {
-    //   return "width:" + (data * 1).toFixed(0) + "%; ";
-    // },
     getStyles(element) {
-      return `width: ${( (element.value / this.total ) * 100).toFixed(0)}% !important;  background-color: ${element.color};` 
+      let percent =  ( (element.value / this.total ) * 100).toFixed(0)
+      let style = {  width: `${percent}%`,}
+      return {
+        percent, 
+        style,
+        label: this.statusStyles.get(element.status).label
+      }
     },
-    // date(date) {
-    //   return moment(date).format("DD/MM/YYYY");
-    // },
   },
 };
 </script>
@@ -106,6 +58,7 @@ export default {
     font-weight: 100;
     text-align: right;
     color: #999;
+    // background: rgba($color: #000000, $alpha: 1.0);
   }
   .lineSelected {
     // border: 1px solid #adcdf5;
@@ -114,7 +67,7 @@ export default {
   }
   .chart-content {
     width: 100%;
-    height: 30px;
+    height: 100%;
     // margin-top: 8px;
     display: flex;
     align-items: center;
@@ -122,49 +75,52 @@ export default {
     // border-top: 1px solid #e0e0e0;
     display: flex;
     justify-content: space-around;
-
     .bar-item {
-      height: 6px;
+      // height: 100%;
       background-color: #ddd;
       display: flex;
       flex-direction: row;
       align-items: center;
-      border-radius: 4rem;
+      border-radius:5px;
       .sub-bar-item{
-         height: 100%;
-          border-radius: 4rem;
+        height: 100%;
+          // border-radius: 5px;
+       
       }
+      .sub-bar-item:first-child{border-radius: 5px 0 0 5px;}
+      .sub-bar-item:last-child{border-radius: 0 5px   5px 0;}
+      
+      .unit{border-radius:5px !important}
+
       .success {
         height: 100%;
-        // border-radius: 0 4rem 4rem 0;
-        border-radius: 4rem;
-        background-color: #54b889;
+        color: #5DBCA7;
+        background-color: rgba($color: #50E3C2, $alpha: 0.5)
       }
       .warning {
         height: 100%;
-        // border-radius: 0 4rem 4rem 0;
-        border-radius: 4rem;
-        background-color: #fcd07a;
+        color: #BF78CA;
+        background-color: rgba($color: #BF78CA, $alpha: 0.5)
       }
       .primary {
         height: 100%;
-        // border-radius: 0 4rem 4rem 0;
-        border-radius: 4rem;
-        background-color: #9cb8ff;
+        color: #0070F3;
+        background-color: rgba($color: #0070F3, $alpha: 0.5)
       }
       .secondary {
         height: 100%;
-        // border-radius: 0 4rem 4rem 0;
-        border-radius: 4rem;
-        background-color: #cccccc;
+        color: #999999;
+        background-color: rgba($color: #999999, $alpha: 0.5)
       }
       .danger {
         height: 100%;
-        //border-radius: 4rem 0 0 4rem;
-        border-radius: 4rem;
-        background-color: #cf566c;
+        color: #DB717E;
+        background-color: rgba($color: #DB717E, $alpha: 0.5);
       }
     }
+  .small{  height: 5px;}
+  .big{  height: 40px; }
+
   }
 }
 </style>

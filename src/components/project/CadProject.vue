@@ -57,6 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .card {
+  cursor: pointer;
   .text-secondary {
     color: #999999;
     font-weight: 400;

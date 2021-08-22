@@ -45,7 +45,6 @@ export default {
   },
    watch: {
     $route(to, from) {
-      console.log(to.name)
       this.selected = to.name;
     },
   },
