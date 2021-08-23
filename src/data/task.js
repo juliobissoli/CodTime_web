@@ -8,8 +8,8 @@ export default {
         difficulty: 12,
         name: "Criação do component de input",
         commits: [],
-        describe: "Construir component responsivo de input compatível com todos navegadores",
-        // Ferificar com a professora como modelar a sprint
+        description: "Construir component responsivo de input compatível com todos navegadores",
+        // Verificar com a professora como modelar a sprint
         // Criara uma tabela so para armazenar esse dado??
         // Ou apenas armazenar date de inicio e fim??
         // Epcs tem sprints? ou tarefas tem sprints?
@@ -40,7 +40,7 @@ export default {
         status: 0,
         difficulty: 8,
         name: "Criar componente de listagem de tarefas",
-        describe: "Desenvolver componentes responsivos para ",
+        description: "Desenvolver componentes responsivos para ",
         commits: [],
         sprint: {
             id: 123,
@@ -69,7 +69,7 @@ export default {
         status: 1,
         difficulty: 114,
         name: "Modelar relações entre Epcs, Sprints e Tesks no BD",
-        describe: "Definir quais são os relacionamentos cardinalidades e como essas estruturas serão avaliadas no sistema.",
+        description: "Definir quais são os relacionamentos cardinalidades e como essas estruturas serão avaliadas no sistema.",
         commits: [
             {id: 113001, message: "Perguntar para a professora!", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')}
         ],
@@ -101,7 +101,7 @@ export default {
         status: 1,
         difficulty: 114,
         name: "Filtro do Kamban",
-        describe: "Criar filtro dropdown da tela de Kamban. Filtrando por projetos, colaboradores e sprint (período).",
+        description: "Criar filtro dropdown da tela de Kamban. Filtrando por projetos, colaboradores e sprint (período).",
         commits: [
             {id: 113001, message: "Criação do designe do filtro", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')}
         ],
@@ -134,7 +134,7 @@ export default {
         status: 3,
         difficulty: 8,
         name: "Refatorar: incluir sucata no calculo do valor do pedido",
-        describe: "Adicionar um novo condicionante para calculo do valor do produto (sucata). Na homologação decrementa do valor * qtd_quebra_com_lacre ",
+        description: "Adicionar um novo condicionante para calculo do valor do produto (sucata). Na homologação decrementa do valor * qtd_quebra_com_lacre ",
         commits: [
             {id: 20001, message: "Add input para armazenar o valor da sucata", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
             {id: 20002, message: "Add campo no banco para armazenar valor da sucata", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
@@ -165,13 +165,13 @@ export default {
       },
 
       {
-        id: 2002,
+        id: 202,
         status: 2,
         difficulty: 2,
         name: "Corrigir bug: (Contar sucata no agendamento por mês) ",
-        describe: "Add sucata no agendamento por mês",
+        description: "Add sucata no agendamento por mês",
         commits: [
-            {id: 20001, message: "Add input para armazenar o valor da sucata", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
+            {id: 20010, message: "Add input para armazenar o valor da sucata", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
         ],
         sprint: {
             id: 2,
@@ -202,7 +202,7 @@ export default {
         status: 3,
         difficulty: 3,
         name: "Montar ambiente iOS",
-        describe: "Instalar ferramentas necessárias para testar app no iOS",
+        description: "Instalar ferramentas necessárias para testar app no iOS",
         commits: [
             {id: 20001, message: "Instalação das ferramentes e teste no emulador ok", date_init: moment().format('YYYY-MM-DD HH:mm'), date_end: moment().add(3, 'hours').format('YYYY-MM-DD HH:mm')},
         ],
@@ -234,7 +234,7 @@ export default {
         status: 0,
         difficulty: 8,
         name: "Testar app no iOS",
-        describe: "Testar as funcionalidades estão rodando certas na versão para iPhone",
+        description: "Testar as funcionalidades estão rodando certas na versão para iPhone",
         commits: [],
         sprint: {
             id: 32,

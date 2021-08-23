@@ -28,12 +28,12 @@
           </thead>
           <tbody>
             <tr v-for="(commit, i) in commitsList" :key="i">
-              <td style="width: 30%">
+              <td style="max-width: 200px">
                 <div class="d-flex align-items-center">
                   <div style="heigth: 30px; width: 30px">
                     <Avatar :item="commit.collaborator.avatar_url" />
                   </div>
-                  <span class="ml-2"> Creiação do compnent de input </span>
+                  <span  style="width: 80%" class="ml-2 text-truncate"> {{commit.task.name}} </span>
                 </div>
               </td>
               <td style="width: 30%">
@@ -80,13 +80,14 @@ export default {
   },
   computed: {
     ...mapGetters("project", ["commitsList",   "projectDetail"]),
+
     totalMinutes() {
       return this.commitsList
         ? this.commitsList.map((el) => el.minutes).reduce((ac, at) => ac + at)
         : 0;
     },
     labelFilterDate(){
-        return `de ${moment(this.filter_init).format('DD')} a ${moment(this.filter_end).format('DD/MMMM')}`
+        return `${moment(this.filter_init).format('DD')} a ${moment(this.filter_end).format('DD [de] MMMM')}`
     }
   },
   filters: {

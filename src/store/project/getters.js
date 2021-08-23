@@ -1,5 +1,6 @@
 import Epcs from '../../data/epc'
 import Commits from  '../../data/commit'
+import Tasks from '../../data/task'
 export default{
 
     projectList(state){
@@ -24,5 +25,9 @@ export default{
     commitsList(state){
         return state.project_detail ?  Commits.commits.filter(el => el.project_id == state.project_detail.id) : []
 
+    },
+
+    tasksList(state){
+        return state.project_detail ?  Tasks.tasks.filter(el => el.project.id == state.project_detail.id) : []
     }
 }

@@ -22,9 +22,9 @@
     text-decoration: inherit; /* no underline */
   }
 }
-.f-14{  font-size: 14;}
-.f-14{  font-size: 14;}
-.f-14{  font-size: 14;}
+.f-12{  font-size: 12px;}
+.f-14{  font-size: 14px;}
+.f-16{  font-size: 16px;}
 
 .title22{font-size: 22px;}
 .title18{font-size: 18px;}
