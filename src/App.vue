@@ -26,6 +26,10 @@
 .f-14{  font-size: 14px;}
 .f-16{  font-size: 16px;}
 
+.f-light{font-weight: 200;}
+.f-medium{font-weight: 500;}
+.f-bold{font-weight: 600;}
+
 .title22{font-size: 22px;}
 .title18{font-size: 18px;}
 
@@ -34,6 +38,17 @@
 .divider_left{border-left: 1px solid #EAEAEA;}
 .divider_right{border-right: 1px solid #EAEAEA;}
 .divider_top{border-top: 1px solid #EAEAEA;}
+
+.truncate {
+    display: -webkit-box;
+    max-width: 100%;
+    
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clap-2{-webkit-line-clamp: 2;}
+.line-clap-4{-webkit-line-clamp: 4;}
 
 
 .btn-dark {

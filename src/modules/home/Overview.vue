@@ -35,6 +35,9 @@
           </div>
           <div class="col-5 pl-5">
             <h3>Últimos commits:</h3>
+            <div class="mt-3">
+              <LastCommitItem />
+            </div>
           </div>
         </div>
       </div>
@@ -48,10 +51,10 @@ import ProjectList from "../../components/home/ProjectsList.vue";
 import NewProject from "../../components/statistcst/NewProject";
 
 import UserOverview from '../../components/home/UserOverview.vue'
-
+import LastCommitItem from '../../components/home/LastCommitsItem.vue'
 export default {
   name: "WorArea",
-  components: { AreaWorking, ProjectList, NewProject, UserOverview },
+  components: { AreaWorking, ProjectList, NewProject, UserOverview, LastCommitItem },
   data() {
     return {
       newProject: false,

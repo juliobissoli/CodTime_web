@@ -5,7 +5,7 @@
           <BarTop placeholder="Buscar Epc" btn_label="+ Epcs" />
           </div>
       </section>
-          <div v-for="(epc, i) in epcsList" :key="i" class="col-12 py-3 px-0 page-wrapper">
+          <div v-for="(epc, i) in epcsList" :key="i" class="col-12 py-3 px-0  page-wrapper">
           <!-- <h1>Lista de Epcs</h1> -->
           <EpcItem :epc="epc"/>
       </div>

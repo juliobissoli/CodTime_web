@@ -18,7 +18,7 @@
         </div> -->
       </header>
       <section class="row my-3">
-        <div class="col-3" v-for="(task, i) in tasksList" :key="i">
+        <div class="col-3 mb-3" v-for="(task, i) in tasksListBackLog" :key="i">
           <CardTask :task="task" />
         </div>
       </section>
@@ -34,7 +34,7 @@
       </header>
 
       <section class="row mt-3">
-        <div class="col-3" v-for="(task, i) in tasksList" :key="i">
+        <div class="col-3 mb-3" v-for="(task, i) in tasksList" :key="i">
           <CardTask :task="task" />
         </div>
       </section>
@@ -52,7 +52,7 @@ export default {
   components: { BarTop, CardTask, AvatarList },
 
   computed: {
-    ...mapGetters("project", ["tasksList"]),
+    ...mapGetters("project", ["tasksList", 'tasksListBackLog']),
   },
 };
 </script>

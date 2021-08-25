@@ -28,6 +28,10 @@ export default{
     },
 
     tasksList(state){
-        return state.project_detail ?  Tasks.tasks.filter(el => el.project.id == state.project_detail.id) : []
+        return state.project_detail ?  Tasks.tasks.filter(el => (el.project.id == state.project_detail.id && el.status != -1)) : []
+    },
+
+    tasksListBackLog(state){
+        return state.project_detail ?  Tasks.tasks.filter(el => (el.project.id == state.project_detail.id && el.status == -1)) : []
     }
 }

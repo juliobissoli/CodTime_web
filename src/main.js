@@ -26,6 +26,9 @@ Vue.filter('horusFormatGlobal', function (minutes) {
         ? `${minutes}min`
         : `${Math.trunc(minutes / 60)}:${minutes % 60}h`;
 })
+Vue.filter('fromNowFormatGlobal', function (date) {
+  return date ? moment(date).locale(moment.locale()).fromNow() : '--'
+})
 
 new Vue({
   router,

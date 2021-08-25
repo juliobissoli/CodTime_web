@@ -49,11 +49,11 @@ export default new Vuex.Store({
 
     mapGlobalTaskStatusStyle(state) {
       return new Map([
-        [-1,  { color: "#666666", background: "RGBA(153, 153, 153, 0.5)", class: "danger",  label: "solicitado",  status: "solicited" }],
-        [ 0,  { color: "#DB717E", background: "RGBA(219, 113, 126, 0.5)", class: "danger",  label: "pendente",    status: "pending"   }],
-        [ 1,  { color: "#0070F3", background: "RGBA(0, 112, 243, 0.5)", class: "primary", label: "andamento",   status: "progress"  }],
-        [ 2,  { color: "#BF78CA", background: "RGBA(191, 120, 202, 0.5)", class: "warning", label: "revisão",     status: "review"    }], 
-        [ 3,  { color: "#3FA890", background: "RGBA(167, 241, 224, 0.8)", class: "success", label: "concluídas",  status: "finish"    }]
+        [-1,  { color: "#666666", background: "RGBA(153, 153, 153, 0.5)",  class: "secondary", action_label: "criado" , label: "solicitado",  status: "solicited" }],
+        [ 0,  { color: "#DB717E", background: "RGBA(219, 113, 126, 0.5)",  class: "danger", action_label: "atribuído" , label: "pendente",    status: "pending"   }],
+        [ 1,  { color: "#0070F3", background: "RGBA(0, 112, 243, 0.5)",    class: "primary", action_label: "iniciado" ,label: "andamento",   status: "progress"  }],
+        [ 2,  { color: "#BF78CA", background: "RGBA(191, 120, 202, 0.5)",  class: "warning", action_label: "terminado" ,label: "revisão",     status: "review"    }], 
+        [ 3,  { color: "#3FA890", background: "RGBA(167, 241, 224, 0.8)",  class: "success", action_label: "revisado" ,label: "concluídas",  status: "finish"    }]
       ]
       );
     },
