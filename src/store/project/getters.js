@@ -4,8 +4,13 @@ import Tasks from '../../data/task'
 export default{
 
     projectList(state){
-        return state.projects   
+        return state.projects 
     },
+
+    mapCollaborators(state){
+        return state.map_collaborators_project
+    },
+
 
     projectDetail(state){
         return state.project_detail 

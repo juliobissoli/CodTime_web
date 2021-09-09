@@ -1,7 +1,7 @@
 <template>
     <ul class="avatar-list p-0 m-0">
         <li class="avatar-item" v-for="(item, i) in list" :key="i">
-            <Avatar :item="item.url"/>
+            <Avatar :item="item.avatar_url"/>
         </li>
     </ul>
 </template>

@@ -12,13 +12,17 @@
         </button>
         <button class="btn_menu_item f-light"  :class="selected === 'ProjectEpc' ? 'selected' : ''">
           <router-link :to="{ name: 'ProjectEpc' }" >
-            <span class="p-3">Epcs</span></router-link >
+            <span class="p-3">Epics</span></router-link >
         </button>
         <button  class="btn_menu_item f-light"   :class="selected === 'ProjectTask' ? 'selected' : ''">
-          <router-link :to="{ name: 'ProjectTask' }"  ><span class="p-3">Tarefas</span></router-link>
+          <router-link :to="{ name: 'ProjectTask' }"  >
+            <span class="p-3">Issues</span>
+          </router-link>
         </button>
         <button  class="btn_menu_item f-light"   :class="selected === 'ProjectHours' ? 'selected' : ''">
-          <router-link :to="{ name: 'ProjectHours' }"  ><span class="p-3">Horas</span></router-link>
+          <router-link :to="{ name: 'ProjectHours' }"  >
+            <span class="p-3">Horas</span>
+          </router-link>
         </button>
       </nav>
     </div>

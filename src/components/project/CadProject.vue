@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow-sm rounded d-flex flex-column">
     <section class=" divider_bottom">
-      <BoxImage :image="project.thumbnail" />
+      <BoxImage :image="project.avatar_url" />
     </section>
     <section class="body p-4">
       <header class="d-flex justify-content-between">
@@ -14,7 +14,7 @@
       </div>
       <span class="w-100">Tarefas:</span>
       <div class="task-area">
-        <div
+        <!-- <div
           v-for="(task, i) in project.tasks.length > 3
             ? project.tasks.slice(0, 3)
             : project.tasks"
@@ -25,15 +25,14 @@
             <span class="text-secondary mr-1">#{{ task.id }}</span>
             <span class="task-item">{{ task.name }}</span>
           </TaskLabel>
-        </div>
+        </div> -->
       </div>
     </section>
     <footer class="d-flex flex-row-reverse px-4 py-3">
       <AvatarList
-        v-if="project.collaborators.length > 1"
-        :list="project.collaborators"
+        :list="mapCollaborators.get(project.id)"
       />
-      <span v-else class="text-muted">Somente você</span>
+      <!-- <span v-else class="text-muted">Somente você</span> -->
     </footer>
   </div>
 </template>
@@ -42,6 +41,7 @@
 import TaskLabel from "../utils/LabelColorIndicator.vue";
 import AvatarList from "../utils/AvatarList.vue";
 import BoxImage from "../utils/BoxImage.vue";
+import { mapGetters } from 'vuex';
 
 export default {
   name: "CardProject",
@@ -51,6 +51,7 @@ export default {
     statusStyles() {
       return this.$store.getters.mapGlobalTaskStatusStyle;
     },
+    ...mapGetters("project", ['mapCollaborators'])
   },
 };
 </script>

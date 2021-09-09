@@ -5,9 +5,6 @@
         <img
           :src="item"
           :class="small ? 'small' : ''"
-          :style="
-            `width: ${size ? size : 60}px;  height: ${size ? size : 60}px;`
-          "
         />
       </div>
     </div>
