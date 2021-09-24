@@ -3,7 +3,7 @@
     <div class="col-12  page-wrapper ">
       <div class="row">
         <aside class="col-4 mt-5 p-5">
-          <Avatar />
+          <Avatar :item="userInfo" />
           <footer class="d-flex justify-content-center">
             <button class="mt-1 btn btn-outline-dark">
               Alterar avatar
@@ -12,13 +12,13 @@
         </aside>
         <aside class="col-8 mt-5 pr-5">
           <div class="row box-input divider_bottom" style="  margin-top: 6em;">
-            <label class="col-12" for=""
-              >Username
+            <label class="col-12" for="">
+              Username
               <button class="btn p-0">
                 <i class="icon icon-edite"></i>
               </button>
             </label>
-            <h1 class="col-12">Dev Master</h1>
+            <h1 class="col-12">{{userInfo.username}}</h1>
           </div>
           <div class="row box-input divider_bottom" style="  margin-top: 6em;">
             <label class="col-12" for="">
@@ -27,7 +27,7 @@
                 <i class="icon icon-edite"></i>
               </button>
             </label>
-            <h1 class="col-12">dev@master.com</h1>
+            <h1 class="col-12">{{userInfo.email}}</h1>
           </div>
 
           <div class="row box-input divider_bottom" style="  margin-top: 6em;">
@@ -52,11 +52,23 @@
   </section>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import Avatar from "../../components/utils/Avatar";
 export default {
   name: "UserSettings",
-
+  created(){
+    if(this.userInfo.id === -1){
+      this.setUser()
+    }
+  },
   components: { Avatar },
+  computed: {
+    ...mapGetters('user_info', ['userInfo'])
+  },
+  methods: {
+    ...mapActions("user_info", ["setUser"]),
+
+  }
 };
 </script>
 <style lang="scss" scoped>

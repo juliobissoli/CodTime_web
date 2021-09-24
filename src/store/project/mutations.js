@@ -13,10 +13,13 @@ export default {
     
     async [types.SET_PROJECT_COLLABORATES] (state, project_id){
       console.log("Pid==> ",project_id)
-      await gitlab_api.get(`projects/${project_id}/members`).then(
+      await gitlab_api.get(`projects/${project_id}/users`).then(
         res => {
           state.map_collaborators_project.set(project_id, res.data)
-        }
+        },
+      error => {
+        console.error('Erro para buscar os colaboradores => ', error)
+      } 
       )
     }
   

@@ -42,7 +42,7 @@
           >
             <template v-slot:header>
               <div class="p-0" style="height: 40px; width: 40px">
-                <Avatar size="40" />
+                <Avatar :item="userInfo" size="40" />
               </div>
             </template>
           </DropdownMenu>
@@ -57,6 +57,7 @@ import Avatar from "./utils/Avatar.vue";
 import DropdownMenu from "./DropdownMenu.vue";
 
 import auth from '../utils/auth'
+import { mapGetters } from 'vuex';
 export default {
   name: "BarTop",
   components: { Avatar, DropdownMenu },
@@ -76,6 +77,9 @@ export default {
       },
       // position_dropdown: 'right: 0.6rem;  top: 2rem; width: 250px;'
     };
+  },
+  computed: {
+    ...mapGetters('user_info', ['userInfo'])
   },
   created() {
     this.selected = this.$router.history.current.name;

@@ -129,12 +129,8 @@ export default new Vuex.Store({
     async setValues({ commit }) {
       const uid = jwt_decode(auth.token()).uid;
       const body = {
-        fristDate: moment()
-          .add(-3, "days")
-          .format("YYYY-MM-DD HH:mm"),
-        lestDate: moment()
-          .add(1, "days")
-          .format("YYYY-MM-DD HH:mm"),
+        fristDate: moment().add(-3, "days").format("YYYY-MM-DD HH:mm"),
+        lestDate: moment().add(1, "days").format("YYYY-MM-DD HH:mm"),
       };
       try {
         console.log(body);

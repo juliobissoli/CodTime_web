@@ -17,7 +17,10 @@
               </button>
             </div>
             <div class="pl-3">
-              <button @click="newProject = !newProject" class=" btn btn-dark px-5">
+              <button
+                @click="newProject = !newProject"
+                class=" btn btn-dark px-5"
+              >
                 Iniciar
               </button>
             </div>
@@ -30,13 +33,12 @@
       <div class=" page-wrapper col-12">
         <div class="row">
           <div class="col-7 ">
-            <ProjectList :list="projects" />
-
+            <ProjectList :list="projectList" />
           </div>
           <div class="col-5 pl-5">
             <h3>Últimos commits:</h3>
             <div class="mt-3">
-              <LastCommitItem />
+              <LastCommitItem :list="commitsList" />
             </div>
           </div>
         </div>
@@ -50,17 +52,31 @@ import AreaWorking from "../../components/AreaWorking";
 import ProjectList from "../../components/home/ProjectsList.vue";
 import NewProject from "../../components/statistcst/NewProject";
 
-import UserOverview from '../../components/home/UserOverview.vue'
-import LastCommitItem from '../../components/home/LastCommitsItem.vue'
+import UserOverview from "../../components/home/UserOverview.vue";
+import LastCommitItem from "../../components/home/LastCommitsItem.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "WorArea",
-  components: { AreaWorking, ProjectList, NewProject, UserOverview, LastCommitItem },
+  components: {
+    AreaWorking,
+    ProjectList,
+    NewProject,
+    UserOverview,
+    LastCommitItem,
+  },
   data() {
     return {
       newProject: false,
     };
   },
+  created() {
+    this.setUser();
+    this.setProjects();
+    this.setCommits();
+  },
   computed: {
+    ...mapGetters("hours", ["commitsList"]),
+    ...mapGetters("project", ["projectList"]),
     user() {
       return this.$store.state.user;
     },
@@ -68,11 +84,17 @@ export default {
       return this.$store.state.projects;
     },
   },
+
+  methods: {
+    ...mapActions("user_info", ["setUser"]),
+    ...mapActions("hours", ["setCommits"]),
+    ...mapActions("project", ["setProjects"]),
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.describe-area{
-  margin-top: -40px
+.describe-area {
+  margin-top: -40px;
 }
 </style>
