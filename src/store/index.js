@@ -5,8 +5,8 @@ import api from "../serve/api";
 import auth from "../utils/auth";
 import jwt_decode from "jwt-decode";
 import modules from "./modules";
-
-
+import gitlab_api from '../serve/gitlab_api'
+import * as types from './mutationTypes'
 import moment from "moment";
 Vue.use(Vuex);
 
@@ -16,6 +16,7 @@ export default new Vuex.Store({
     uid: null,
     isLogged: false,
     projects: [],
+    projectsGit: [],
     projectSelected: null,
     projectDetail: null,
     timeRuning: null,
@@ -24,6 +25,12 @@ export default new Vuex.Store({
     commits: null,
   },
   getters: {
+
+    testeId: (state) => (id) => {
+      return id
+      // return state.todos.find(todo => todo.id === id)
+    },
+
     projects(state) {
       return state.projects.map((el) => {
         el.total = el.tescks.lenght;
@@ -45,6 +52,10 @@ export default new Vuex.Store({
         [2, { label: "Baixa",badge: "badge-secondary" ,class: "secondary"}]
       ]
       );
+    },
+
+    projectList(state){
+      return state.projectsGit
     },
 
     mapGlobalTaskStatusStyle(state) {
@@ -79,7 +90,7 @@ export default new Vuex.Store({
     },
 
     setProjects(state, data) {
-      state.projects = data;
+      state.projectsGit = data;
     },
 
     //Ruuning
@@ -153,6 +164,20 @@ export default new Vuex.Store({
       setImmediate(() => {
         commit("changeLogged", true);
       }, 1000);
+    },
+
+    getProjects({commit, state}){
+      gitlab_api.get("projects?membership=true&statistics=true").then(
+        (res) => {
+          commit('setProjects', res.data)
+          // Promise.all(  res.data.map(project => commit(types.SET_PROJECT_COLLABORATES, project.id)))
+  
+          // resolve(res.data)
+        },
+        error => {
+          console.error("deu errado ==> ", error)
+        }
+      )
     },
 
     //Running

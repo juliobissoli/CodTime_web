@@ -69,14 +69,29 @@ export default {
       newProject: false,
     };
   },
-  created() {
-    this.setUser();
-    this.setProjects();
-    this.setCommits();
+  async created() {
+    // await this.setUser();
+    // await this.setProjects().then(
+    //   res => {
+    //     console.log('Ta aqui --> ', res)
+    //     res.forEach(el => {
+    //       this.setCommits(el.id)
+    //     })  
+    //     // this.setCommits();
+    //   }
+    // );
   },
   computed: {
     ...mapGetters("hours", ["commitsList"]),
-    ...mapGetters("project", ["projectList"]),
+    // ...mapGetters("/", ["projectList"]),
+    projectList(){
+      const p = this.$store.getters.projectList
+      console.log('Ta no computed ==> ', p)
+      return p
+    },
+    teste(){
+      return this.$store.getters.testeId(2)
+    },
     user() {
       return this.$store.state.user;
     },

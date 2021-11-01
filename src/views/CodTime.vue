@@ -11,15 +11,21 @@
 
 <script>
 import MainMenu from "../components/MainMenu.vue";
-
+import {mapActions} from 'vuex'
 export default {
   name: "CodTime",
   components: { MainMenu },
-  created() {
+  async created() {
     if (!this.user || !this.projects) {
+      await this.setUser();
       this.$store.dispatch("setValues");
+      this.$store.dispatch('getProjects')
     }
   },
+
+  methods: {
+      ...mapActions("user_info", ["setUser"]),
+  }
 };
 </script>
 

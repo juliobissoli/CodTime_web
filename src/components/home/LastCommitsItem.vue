@@ -2,7 +2,7 @@
   <aside>
     <div v-for="(commit, i) in list" :key="i" class="d-flex flex-column">
       <div class="d-flex justify-content-between w-100">
-        <span class="f-12">{{commit.created_at | titleDate}} - 23 Jan às 11:34</span>
+        <span class="f-12">{{commit.created_at | titleDate}}</span>
         <span class="badge badge-secondary">3:23h</span>
       </div>
       <p class="truncate line-clap-2 mt-1 ">

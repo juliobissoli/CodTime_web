@@ -8,19 +8,21 @@ export const setProjects = async ({ commit, state }) => {
 
   // commit(types.SET_PROJECT, list)
 
-  // return new Promise((resolve, reject) =>  {
-    await gitlab_api.get("projects").then(
-      async (res) => {
+  return new Promise((resolve, reject) =>  {
+     gitlab_api.get("projects?membership=true&statistics=true").then(
+      (res) => {
         commit(types.SET_PROJECT, res.data)
-        await Promise.all(
+        Promise.all(
           res.data.map(project => commit(types.SET_PROJECT_COLLABORATES, project.id))
         )
+
+        resolve(res.data)
       },
       error => {
         console.log("deu errado ==> ", error)
       }
     )
-  // })
+  })
 }
 
 const setCollaborators = async ({commit}, list) => {

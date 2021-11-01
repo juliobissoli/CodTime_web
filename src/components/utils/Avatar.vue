@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="item" class="avatar">
-      <div class="item">
+      <div class="item" >
         <img :src="item.avatar_url" :class="small ? 'small' : ''" />
         <div class="discribe">
           <span class="label">{{ item.name }}</span>
