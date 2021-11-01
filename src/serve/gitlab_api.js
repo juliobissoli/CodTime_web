@@ -2,7 +2,7 @@ import axios from "axios";
 
 // const token = localStorage.getItem("token");
 // const headers = { "PRIVATE-TOKEN": "sVac-PRXRF_FYUEtUykH"};
-const headers = { "PRIVATE-TOKEN": "pYZwPARgx1Rnm_WsN337"};
+const headers = { "PRIVATE-TOKEN": process.env.VUE_APP_GITLAB_TOKEN};
 
 
 const api = axios.create({
