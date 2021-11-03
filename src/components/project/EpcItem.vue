@@ -4,8 +4,7 @@
       <div class="col-4 divider_right d-flex flex-column">
         <div class="d-flex w-100 px-2 pt-2 justify-content-between">
           <span class="text-secondary">#{{ epc.id }}</span>
-          <small class="text-secondary"
-            >prioridade
+          <small class="text-secondary">prioridade
             <BadgePriority :priority="epc.priority" />
           </small>
         </div>

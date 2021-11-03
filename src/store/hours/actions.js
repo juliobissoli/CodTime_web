@@ -6,7 +6,6 @@ export const setCommits = async ({ commit }, project_id) => {
     gitlab_api.get(`projects/${project_id}/repository/commits`).then(
         (res) => {
         resolve(res.data);
-        console.log('ta aqui',res.data)
         commit(types.SET_COMMIT, res.data);
     },
     error => {

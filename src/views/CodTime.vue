@@ -17,14 +17,23 @@ export default {
   components: { MainMenu },
   async created() {
     if (!this.user || !this.projects) {
+      console.log('Creasted')
       await this.setUser();
-      this.$store.dispatch("setValues");
-      this.$store.dispatch('getProjects')
+      // this.$store.dispatch("setValues");
+      await this.getProjects().then(res => {
+          this.setCollaborators(res)
+          res.forEach(el => {
+            this.setCommits(el.id)
+          });
+      })
     }
   },
 
   methods: {
       ...mapActions("user_info", ["setUser"]),
+      ...mapActions('project', ['setCollaborators']),
+      ...mapActions('hours', ['setCommits']),
+      ...mapActions(['getProjects'])
   }
 };
 </script>

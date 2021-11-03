@@ -85,9 +85,7 @@ export default {
     ...mapGetters("hours", ["commitsList"]),
     // ...mapGetters("/", ["projectList"]),
     projectList(){
-      const p = this.$store.getters.projectList
-      console.log('Ta no computed ==> ', p)
-      return p
+      return this.$store.getters.projectList
     },
     teste(){
       return this.$store.getters.testeId(2)

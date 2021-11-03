@@ -8,7 +8,10 @@
         <h3 class="title">{{ project ? project.name : "--" }}</h3>
         <button class="btn btn-sm btn-outline-dark">Iniciar</button>
       </div>
-      <div v-if="project.commit ? project.commits.length > 0 : false" class="col-12">
+      <div
+        v-if="project.commit ? project.commits.length > 0 : false"
+        class="col-12"
+      >
         <LabelColor
           v-for="(commit, i) in project ? project.commits : []"
           :key="i"
@@ -31,7 +34,7 @@
         </div>
       </div> -->
       <footer class="col-12 p-3 divider_top   d-flex flex-row-reverse">
-        <AvatarList :list="mapCollaborators.get(project.id)"/>
+        <AvatarList :list="collaborators.get(project.id)" />
       </footer>
     </div>
   </div>
@@ -39,8 +42,8 @@
 
 <script>
 import LabelColor from "../utils/LabelColorIndicator.vue";
-import AvatarList from '../utils/AvatarList.vue'
-import { mapGetters } from 'vuex';
+import AvatarList from "../utils/AvatarList.vue";
+import { mapGetters } from "vuex";
 export default {
   name: "CardProject",
   props: {
@@ -48,17 +51,17 @@ export default {
   },
   components: { LabelColor, AvatarList },
   computed: {
-    ...mapGetters("project", ['mapCollaborators']),
-    collaborator(){
-      return [
-        {name: 'ZéMalandro', url: ''},
-        {name: 'ZéMalandro', url: ''},
-        {name: 'ZéMalandro', url: ''}
-      ]
-    },
+    ...mapGetters("project", ["collaboratorsList"]),
 
+    collaborators() {
+      const map = new Map();
+      this.collaboratorsList.forEach((el) => {
+        map.set(el.project_id, el.list);
+      });
+      return map;
+    },
   },
-   methods: {
+  methods: {
     clock(minutis) {
       return minutis < 60
         ? `${parseInt(minutis, 10)} min`

@@ -1,11 +1,11 @@
 <template>
     <div class="d-flex justify-content-between">
         <div class="avatar">
-            <Avatar :item="collaborator.avatar_url" />
+            <Avatar :item="collaborator" />
         </div>
         <div class="ml-2 d-flex flex-column">
             <span class="title text-truncate">{{collaborator.name}}</span>
-            <span class="subtitle text-secondary">{{collaborator.role}}</span>
+            <span class="subtitle text-secondary">{{collaborator.state}}</span>
         </div>
         <button class="btn px-1">
             <i class="icon icon-arrow_down "></i>

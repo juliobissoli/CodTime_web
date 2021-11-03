@@ -30,7 +30,7 @@
     </section>
     <footer class="d-flex flex-row-reverse px-4 py-3">
       <AvatarList
-        :list="mapCollaborators.get(project.id)"
+        :list="collaborators.get(project.id)"
       />
       <!-- <span v-else class="text-muted">Somente você</span> -->
     </footer>
@@ -51,7 +51,15 @@ export default {
     statusStyles() {
       return this.$store.getters.mapGlobalTaskStatusStyle;
     },
-    ...mapGetters("project", ['mapCollaborators'])
+    ...mapGetters("project", ['collaboratorsList']),
+
+    collaborators(){
+      const map = new Map()
+      this.collaboratorsList.forEach(el => {
+        map.set(el.project_id, el.list)
+      });
+      return map
+    }
   },
 };
 </script>

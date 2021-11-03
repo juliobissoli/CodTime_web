@@ -11,6 +11,9 @@ export default{
         return state.map_collaborators_project
     },
 
+    collaboratorsList(state){
+        return state.collaborators
+    },
 
     projectDetail(state){
         return state.project_detail 

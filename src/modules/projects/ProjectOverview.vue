@@ -2,7 +2,7 @@
   <section class="page-wrapper">
     <div class="row py-4 ">
       <div class="col-5 d-flex flex-column">
-        <BoxImage :image="null" />
+        <BoxImage :image="projectDetail.avatar_url" />
         <button class="mt-2 btn btn-sm btn-outline-dark">Alterar imagem</button>
       </div>
       <div class="col-7">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="d-flex flex-column col-4 align-items-center">
                   <span class="text-secondary">COMMITS</span>
-                  <span>12</span>
+                  <span>{{projectDetail.statistics.commit_count}}</span>
                 </div>
               </div>
             </div>
@@ -44,7 +44,7 @@
           <div class="col-4 p-1">
             <legend>Colaboradores</legend>
             <div
-              v-for="(collaborator, c) in projectDetail.collaborators"
+              v-for="(collaborator, c) in collaborators"
               :key="c"
             >
               <CollaboratorItem class="mt-3" :collaborator="collaborator" />
@@ -74,7 +74,13 @@ export default {
   name: "ProjectOverview",
   components: { BoxImage, CollaboratorItem },
   computed: {
-    ...mapGetters("project", ["projectDetail"]),
+    ...mapGetters("project", ["projectDetail", "collaboratorsList", "mapCollaborators"]),
+
+    collaborators(){
+      const project = this.collaboratorsList.filter(el => el.project_id == this.projectDetail.id)
+      // return project.length > 0 ? project.list : []
+      return this.mapCollaborators.get(this.projectDetail.id)
+    }
   },
 };
 </script>

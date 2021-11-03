@@ -166,18 +166,19 @@ export default new Vuex.Store({
       }, 1000);
     },
 
-    getProjects({commit, state}){
-      gitlab_api.get("projects?membership=true&statistics=true").then(
-        (res) => {
-          commit('setProjects', res.data)
-          // Promise.all(  res.data.map(project => commit(types.SET_PROJECT_COLLABORATES, project.id)))
-  
-          // resolve(res.data)
-        },
-        error => {
-          console.error("deu errado ==> ", error)
-        }
-      )
+    async getProjects ({commit, state}){
+      return new Promise((resolve, reject) => {
+        gitlab_api.get("projects?membership=true&statistics=true").then(
+          (res) => {
+            commit('setProjects', res.data)
+            // Promise.all(  res.data.map(project => commit(types.SET_PROJECT_COLLABORATES, project.id)))
+            resolve(res.data)
+          },
+          error => {
+            console.error("deu errado ==> ", error)
+          }
+          )
+        })
     },
 
     //Running

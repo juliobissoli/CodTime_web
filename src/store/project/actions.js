@@ -25,7 +25,7 @@ export const setProjects = async ({ commit, state }) => {
   })
 }
 
-const setCollaborators = async ({commit}, list) => {
+export const setCollaborators = async ({commit}, list) => {
   await Promise.all(
     list.map(project => commit(types.SET_PROJECT_COLLABORATES, project.id))
   )
@@ -34,5 +34,5 @@ const setCollaborators = async ({commit}, list) => {
 
 export const getProjectDetail = async ({ commit }, id) => {
   const body = Projects.projects.filter(el => el.id == id)
-  commit(types.SET_PROJECT_DETAIL, body.length > 0 ? body[0] : null)
+  commit(types.SET_PROJECT_DETAIL, id)
 }
