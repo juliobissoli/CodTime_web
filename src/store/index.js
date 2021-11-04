@@ -68,6 +68,12 @@ export default new Vuex.Store({
       ]
       );
     },
+
+    mapProjects(state){
+      const map = new Map(state.projectsGit.map(el => [el.id, el]))
+      return map
+
+    }
   },
   mutations: {
     //Tamp
