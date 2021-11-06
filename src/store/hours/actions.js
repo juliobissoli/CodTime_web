@@ -15,3 +15,20 @@ export const setCommits = async ({ commit }, project_id) => {
     );
   });
 };
+
+
+export const setNote = async ({commit}, issue) => {
+  return new Promise((resolve, reject) => {
+    gitlab_api.get(`projects/${issue.project_id}/issues/${issue.iid}/notes`).then(
+        (res) => {
+
+        resolve(res.data);
+        // commit(types.SET_COMMIT, res.data);
+    },
+    error => {
+        console.error('Erro no setCommits => ', error)
+        reject(error)
+    }
+    );
+  });
+}

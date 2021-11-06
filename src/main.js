@@ -23,8 +23,8 @@ Vue.filter('horusFormatGlobal', function (minutes) {
   if(minutes === 0) return `--`
   else if (!minutes && !isNaN(minutes)) return ''
   return minutes < 60
-        ? `${minutes}min`
-        : `${Math.trunc(minutes / 60)}:${minutes % 60}h`;
+        ? `${minutes < 10 ? '0' : ''}${minutes.toFixed(0)}min`
+        : `${Math.trunc(minutes / 60)}:${String(minutes % 60).padStart(2, '0')}h`;
 })
 Vue.filter('fromNowFormatGlobal', function (date) {
   return date ? moment(date).locale(moment.locale()).fromNow() : '--'
