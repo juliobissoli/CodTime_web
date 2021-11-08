@@ -9,7 +9,7 @@
       <!-- <h1>Lista de Epcs</h1> -->
       <header class="d-flex divider_bottom justify-content-between">
         <div class="d-flex align-items-center">
-          <h4 class="">Backlog</h4>
+          <h4 class="">Backlog  ===> {{id}}</h4>
           <!-- <span class="ml-2 f14-light">({{}})</span> -->
         </div>
         <!-- <div class="d-flex">
@@ -34,7 +34,7 @@
       </header>
 
       <section class="row mt-3">
-        <div class="col-3 mb-3" v-for="(task, i) in tasksList" :key="i">
+        <div class="col-3 mb-3" v-for="(task, i) in issues" :key="i">
           <CardTask :task="task" />
         </div>
       </section>
@@ -43,16 +43,27 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import BarTop from "../../components/project/BarTop.vue";
 import CardTask from "../../components/project/CardTasksFull.vue";
 import AvatarList from "../../components/utils/AvatarList.vue";
 export default {
   name: "ProjectTask",
   components: { BarTop, CardTask, AvatarList },
-
-  computed: {
-    ...mapGetters("project", ["tasksList", 'tasksListBackLog']),
+  props: ['id'],
+  created(){
+    if(this.issues.length === 0){
+      this.setTasks(this.id)
+    }
   },
+  computed: {
+    ...mapGetters("project", ["tasksList", 'tasksListBackLog', 'projectDetail']),
+    ...mapGetters('task', {tasks: 'taskProject'}),
+    issues(){  return this.tasks(this.projectDetail.id)}
+  },
+  methods: {
+    ...mapActions('task', ['setTasks'])
+  }
+
 };
 </script>

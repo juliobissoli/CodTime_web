@@ -4,7 +4,7 @@
       class="divider_bottom px-3 py-2 title truncate line-clap-2"
       :style="styleStatus.get(task.status)"
     >
-      <span class="f-16">#{{ task.id }} {{ task.name }}</span>
+      <span class="f-16">#{{ task.iid }} {{ task.title }}</span>
     </header>
 
     <section class=" px-3 py-2 truncate describe line-clap-4">
@@ -14,8 +14,8 @@
     </section>
     <section class="px-3 py-1 d-flex flex-column">
       <span class="f-12 text-secondary">
-        Epc:
-        <span v-show="task.epc" :class="`text-${styleStatus.get(task.status).class}`">#{{ task.epc ? task.epc.id : '--'}}</span>
+        Milestone:
+        <span v-if="task.milestone" :class="`text-${styleStatus.get(task.status).class}`">#{{ task.milestone ? task.milestone.iid : '--'}}</span>
       </span>
       <span class="f-12 text-secondary">
         Status:
@@ -23,14 +23,14 @@
           {{  styleStatus.get(task.status).label | firstChartUpper}}
         </span>
       </span>
-      <DifficultyInfo :difficulty="task.difficulty" />
+      <DifficultyInfo :difficulty="task.time_stats.time_estimate" />
     </section>
     <footer
       class="f-12 d-flex justify-content-between align-items-center divider_top px-3 py-2"
     >
       <span class="text-secondary">{{styleStatus.get(task.status).action_label}} {{task.updated_at | fromNowFormatGlobal}}</span>
       <div style="width: 30px; height: 30px">
-        <Avatar :item="null" :small="null" />
+        <Avatar :item="task.assignee" :small="null" />
       </div>
     </footer>
   </div>
@@ -75,7 +75,7 @@ export default {
     
   }
   .describe{
-    height: 98px;
+    height: 94px;
   }
   .avatar {
     height: 34px;

@@ -36,7 +36,7 @@
                 </div>
                 <div class="d-flex flex-column col-4 align-items-center">
                   <span class="text-secondary">COMMITS</span>
-                  <span>{{projectDetail.statistics.commit_count}}</span>
+                  <span>{{projectDetail.statistics ? projectDetail.statistics.commit_count : ''}}</span>
                 </div>
               </div>
             </div>
@@ -66,21 +66,23 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import BoxImage from "../../components/utils/BoxImage.vue";
 import CollaboratorItem from "../../components/project/CollaboratorItemAction.vue";
 
 export default {
   name: "ProjectOverview",
   components: { BoxImage, CollaboratorItem },
+  props: ['id'],
+
   computed: {
     ...mapGetters("project", ["projectDetail", "collaboratorsList", "mapCollaborators"]),
 
     collaborators(){
-      const project = this.collaboratorsList.filter(el => el.project_id == this.projectDetail.id)
+      // const project = this.collaboratorsList.filter(el => el.project_id == this.projectDetail.id)
       // return project.length > 0 ? project.list : []
       return this.mapCollaborators.get(this.projectDetail.id)
-    }
+    },
   },
 };
 </script>

@@ -19,5 +19,10 @@ export default{
         // state.tasks.map(el => {
 
         // });
-    }
+    },
+
+
+    taskProject: (state) => (project_id) => {
+        return state.tasks.filter(el => el.project_id === project_id)
+      },
 }

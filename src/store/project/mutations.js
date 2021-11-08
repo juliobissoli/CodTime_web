@@ -7,9 +7,9 @@ export default {
       state.projects = value;
     },
     
-    [types.SET_PROJECT_DETAIL](state, id){
-      const list = state.projects.filter(el => el.id == id)
-      state.project_detail = list.length == 0 ? null : list[0] 
+    [types.SET_PROJECT_DETAIL](state, data){
+      // const list = state.projects.filter(el => el.id == id)
+      state.project_detail = data 
     },
     
     async [types.SET_PROJECT_COLLABORATES] (state, project_id){

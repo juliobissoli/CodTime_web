@@ -33,6 +33,17 @@ export const setCollaborators = async ({commit}, list) => {
 
 
 export const getProjectDetail = async ({ commit }, id) => {
-  const body = Projects.projects.filter(el => el.id == id)
-  commit(types.SET_PROJECT_DETAIL, id)
+
+  return new Promise((resolve, reject) =>  {
+    gitlab_api.get(`projects/${id}?statistics=true`).then(
+     (res) => {
+       commit(types.SET_PROJECT_DETAIL, res.data)
+       resolve(res.data)
+     },
+     error => {
+       console.log("error getProjectDetail ", error)
+     }
+   )
+ })
+
 }

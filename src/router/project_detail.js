@@ -15,24 +15,28 @@ const project_detailRouter = {
     {
       path: "overview",
       name: "ProjectOverview",
+      props: true,
       component: ProjectOverview,
       meta: { requiresAuth: true },
     },
     {
       path: "hours",
       name: "ProjectHours",
+      props: true,
       component: ProjectHours,
       meta: { requiresAuth: true },
     },
     {
       path: "epc",
       name: "ProjectEpc",
+      props: true,
       component: ProjectEpc,
       meta: { requiresAuth: true },
     },
     {
       path: "task",
       name: "ProjectTask",
+      props: true,
       component: ProjectTask,
       meta: { requiresAuth: true },
     },
