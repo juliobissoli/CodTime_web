@@ -8,4 +8,6 @@ export const SET_PROJECT_COLLABORATES = "PROJECT/SET_COLLABORATE"
 
 export const SET_COMMIT = 'COMMITS/SET'
 
+export const SET_MILESTONE = 'MILESTONE/SET'
+
 export const SET_USER = 'USER/SET'

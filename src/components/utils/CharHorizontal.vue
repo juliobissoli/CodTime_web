@@ -1,18 +1,33 @@
 <template>
-  <div class="chart px-1">
+  <div class="chart px-0">
     <div class=" line chart-content" :class="small ? 'small' : 'big'">
       <div class="col-md-12 p-0 ">
-        <div class="bar-item">
+        <div v-if="list_valit.length > 0" class="bar-item">
           <div
             v-for="(item, i) in list_valit"
             :key="i"
             :style="getStyles(item).style"
             class="sub-bar-item p-1 d-flex align-items-center"
-            :class='[statusStyles.get(item.status).class, {"unit" : list_valit.length === 1 }]'
+            :class="[
+              statusStyles.get(item.status).class,
+              { unit: list_valit.length === 1 },
+            ]"
           >
-          <span  v-show="getStyles(item).percent != 0 && !small" class="p-1 text-truncate">
-            {{getStyles(item).percent}}% {{statusStyles.get(item.status).label}}
-          </span>
+            <span
+              v-show="getStyles(item).percent != 0 && !small"
+              class="p-1 text-truncate"
+            >
+              {{ getStyles(item).percent }}%
+              {{ statusStyles.get(item.status).label }}
+            </span>
+          </div>
+        </div>
+
+        <div v-else class="bar-item">
+          <div  class="sub-bar-item p-1 d-flex align-items-center">
+            <span v-show="!small"  class="p-1 text-truncate text-secondary">
+              {{label_null}}
+            </span>
           </div>
         </div>
       </div>
@@ -26,25 +41,26 @@ export default {
   props: {
     total: Number,
     data_list: Array,
-    small: Boolean
+    small: Boolean,
+    label_null: String
   },
   computed: {
-    statusStyles(){
-     return this.$store.getters.mapGlobalTaskStatusStyle
+    statusStyles() {
+      return this.$store.getters.mapGlobalTaskStatusStyle;
     },
-    list_valit(){
-      return this.data_list.filter(el => el.value > 0)
-    }
+    list_valit() {
+      return this.data_list.filter((el) => el.value > 0);
+    },
   },
   methods: {
     getStyles(element) {
-      let percent =  ( (element.value / this.total ) * 100).toFixed(0)
-      let style = {  width: `${percent}%`,}
+      let percent = ((element.value / this.total) * 100).toFixed(0);
+      let style = { width: `${percent}%` };
       return {
-        percent, 
+        percent,
         style,
-        label: this.statusStyles.get(element.status).label
-      }
+        label: this.statusStyles.get(element.status).label,
+      };
     },
   },
 };
@@ -81,46 +97,54 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
-      border-radius:5px;
-      .sub-bar-item{
+      border-radius: 5px;
+      .sub-bar-item {
         height: 100%;
-          // border-radius: 5px;
-       
+        // border-radius: 5px;
       }
-      .sub-bar-item:first-child{border-radius: 5px 0 0 5px;}
-      .sub-bar-item:last-child{border-radius: 0 5px   5px 0;}
-      
-      .unit{border-radius:5px !important}
+      .sub-bar-item:first-child {
+        border-radius: 5px 0 0 5px;
+      }
+      .sub-bar-item:last-child {
+        border-radius: 0 5px 5px 0;
+      }
+
+      .unit {
+        border-radius: 5px !important;
+      }
 
       .success {
         height: 100%;
-        color: #5DBCA7;
-        background-color: rgba($color: #50E3C2, $alpha: 0.5)
+        color: #5dbca7;
+        background-color: rgba($color: #50e3c2, $alpha: 0.5);
       }
       .warning {
         height: 100%;
-        color: #BF78CA;
-        background-color: rgba($color: #BF78CA, $alpha: 0.5)
+        color: #bf78ca;
+        background-color: rgba($color: #bf78ca, $alpha: 0.5);
       }
       .primary {
         height: 100%;
-        color: #0070F3;
-        background-color: rgba($color: #0070F3, $alpha: 0.5)
+        color: #0070f3;
+        background-color: rgba($color: #0070f3, $alpha: 0.5);
       }
       .secondary {
         height: 100%;
         color: #999999;
-        background-color: rgba($color: #999999, $alpha: 0.5)
+        background-color: rgba($color: #999999, $alpha: 0.5);
       }
       .danger {
         height: 100%;
-        color: #DB717E;
-        background-color: rgba($color: #DB717E, $alpha: 0.5);
+        color: #db717e;
+        background-color: rgba($color: #db717e, $alpha: 0.5);
       }
     }
-  .small{  height: 5px;}
-  .big{  height: 40px; }
-
+    .small {
+      height: 5px;
+    }
+    .big {
+      height: 40px;
+    }
   }
 }
 </style>

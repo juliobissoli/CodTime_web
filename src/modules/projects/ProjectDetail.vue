@@ -12,7 +12,7 @@
         </button>
         <button class="btn_menu_item f-light"  :class="selected === 'ProjectEpc' ? 'selected' : ''">
           <router-link :to="{ name: 'ProjectEpc' }" >
-            <span class="p-3">Epics</span></router-link >
+            <span class="p-3">Milestones</span></router-link >
         </button>
         <button  class="btn_menu_item f-light"   :class="selected === 'ProjectTask' ? 'selected' : ''">
           <router-link :to="{ name: 'ProjectTask' }"  >
