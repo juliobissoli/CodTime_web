@@ -9,7 +9,6 @@
       <!-- <h1>Lista de Epcs</h1> -->
       <header class="d-flex divider_bottom justify-content-between">
         <div class="d-flex align-items-center">
-          <h4 class="">Backlog  ===> {{id}}</h4>
           <!-- <span class="ml-2 f14-light">({{}})</span> -->
         </div>
         <!-- <div class="d-flex">

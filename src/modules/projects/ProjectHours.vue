@@ -41,7 +41,7 @@
                 </div>
               </td>
               <td style="width: 30%">
-                {{ note.body }}
+                {{ note.body_split }}
               </td>
               <td class="text-center text-uppercase">
                 {{ note.created_at | formateDate }}

@@ -12,8 +12,10 @@ export default{
 
       [types.SET_NOTES](state, value){
         if(value){
-          const list = value.notes.map(el => ({
+          const list = value.notes
+          .map(el => ({
             ...el,
+            body_split: el.body.split(' '),
             issue: {
               id: value.issue.id,
               iid: value.issue.iid,
@@ -23,6 +25,7 @@ export default{
               title: value.issue.title
             }
           }))
+          .filter(el => el.body.includes('added') || el.body_split.includes('changed'))
           state.notes =  [...state.notes, ...list]
         }
         else {
