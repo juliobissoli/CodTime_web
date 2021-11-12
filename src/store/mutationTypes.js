@@ -10,4 +10,6 @@ export const SET_COMMIT = 'COMMITS/SET'
 
 export const SET_MILESTONE = 'MILESTONE/SET'
 
+export const SET_NOTES = 'COMMITS/SET_NOTES'
+
 export const SET_USER = 'USER/SET'

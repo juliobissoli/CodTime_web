@@ -101,6 +101,9 @@
     background-color: rgba($color: #f1f1f1f1, $alpha: 1);
   }
 
+.btn:focus{
+  box-shadow: none;
+}
 @media (min-width: 1024px) {
   .page-wrapper.document-page {
     // grid-template-columns: minmax(25%, 75%) minmax(75%, 25%);

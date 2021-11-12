@@ -1,4 +1,4 @@
 export default{
-
+    notes: [],
     commits: []
 }

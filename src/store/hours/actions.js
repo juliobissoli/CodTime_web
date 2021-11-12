@@ -15,15 +15,16 @@ export const setCommits = async ({ commit }, project_id) => {
     );
   });
 };
+export const cleanNotes = async ({commit}) => {
+  commit(types.SET_NOTES, null)
+}
 
-
-export const setNote = async ({commit}, issue) => {
+export const setNotes = async ({commit}, issue) => {
   return new Promise((resolve, reject) => {
     gitlab_api.get(`projects/${issue.project_id}/issues/${issue.iid}/notes`).then(
         (res) => {
-
         resolve(res.data);
-        // commit(types.SET_COMMIT, res.data);
+        commit(types.SET_NOTES, {issue, notes:res.data});
     },
     error => {
         console.error('Erro no setCommits => ', error)
