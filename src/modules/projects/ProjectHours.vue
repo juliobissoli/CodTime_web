@@ -41,7 +41,7 @@
                 </div>
               </td>
               <td style="width: 30%">
-                {{ note.body_split }}
+                {{ note.body }}
               </td>
               <td class="text-center text-uppercase">
                 {{ note.created_at | formateDate }}
@@ -52,7 +52,7 @@
               <td>
                 <div class="d-flex justify-content-center">
                   <span class="badge badge-secondary">{{
-                    (note.minutes || 0) | horusFormatGlobal
+                    ((note.time.second_spend || 0) / 60) | horusFormatGlobal
                   }}</span>
                 </div>
               </td>
@@ -89,13 +89,14 @@ export default {
   },
   created() {
     this.cleanNotes();
-    if (this.taskList.length > 0) {
-      this.taskList.forEach((el) => {
-        this.setNotes(el);
-      });
-    } else {
-      this.setTasks(this.id);
-    }
+    // if (this.taskList.length > 0) {
+    //   this.taskList.forEach((el) => {
+    //     this.setNotes(el);
+    //   });
+    // } else {
+    console.log(this.id)
+    this.setTasks(this.id);
+    // }
   },
   watch: {
     taskList() {
@@ -120,10 +121,15 @@ export default {
     ...mapGetters("hours", ["noteList"]),
 
     totalMinutes() {
-      return 0;
-      // return this.commitsList
-      //   ? this.commitsList.map((el) => el.minutes).reduce((ac, at) => ac + at)
-      //   : 0;
+      // return 0;
+      if(this.noteList){
+        // console.length('pasok')
+        return this.noteList.length > 0
+        ? this.noteList
+            .map((el) => el.time.second_spend)
+            .reduce((ac, at) => ac + at) / 60
+        : 0;
+      }else return 0
     },
     labelFilterDate() {
       return `${moment(this.filter_init).format("DD")} a ${moment(
