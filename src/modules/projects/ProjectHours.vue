@@ -24,8 +24,8 @@
           <thead>
             <th>TAREFAS</th>
             <th>DESCRIÇÃO</th>
-            <th>INICIO</th>
-            <th>FIM</th>
+            <th>DATA</th>
+            <th>REGISTRADO</th>
             <th>HORAS</th>
           </thead>
           <tbody>
@@ -36,7 +36,7 @@
                     <Avatar :item="note.issue.assignee" />
                   </div>
                   <span style="width: 80%" class="ml-2 text-truncate">
-                    {{ note.issue.title }}
+                  #{{note.issue.iid}}  {{ note.issue.title }}
                   </span>
                 </div>
               </td>
@@ -44,16 +44,16 @@
                 {{ note.body }}
               </td>
               <td class="text-center text-uppercase">
-                {{ note.created_at | formateDate }}
+                {{ note.date | fromDateGlobal }}
               </td>
               <td class="text-center text-uppercase">
                 {{ note.created_at | formateDate }}
               </td>
               <td>
                 <div class="d-flex justify-content-center">
-                  <span class="badge badge-secondary">{{
-                    ((note.time.second_spend || 0) / 60) | horusFormatGlobal
-                  }}</span>
+                  <span class="badge " :class="note && note.time.subtracted ? 'badge-danger' :'badge-secondary'">
+                    {{note.time.subtracted ? '-' : ''}}
+                    {{  ((note.time.second_spend || 0) / 60) | horusFormatGlobal}}</span>
                 </div>
               </td>
             </tr>
@@ -126,7 +126,7 @@ export default {
         // console.length('pasok')
         return this.noteList.length > 0
         ? this.noteList
-            .map((el) => el.time.second_spend)
+            .map((el) => (el.time.subtracted ? -1 : 1 ) * el.time.second_spend)
             .reduce((ac, at) => ac + at) / 60
         : 0;
       }else return 0
