@@ -34,6 +34,11 @@ Vue.filter('fromDateGlobal', function (date) {
   return date ? moment(date).locale(moment.locale()).format('DD/MM/YYYY') : '--'
 })
 
+Vue.filter('rangeDateGlobal', function (dates) {
+  return dates ? `${moment(dates.date_init).format('DD')} a ${moment(dates.date_end).format('DD MMM YYYY')}` : '--'
+})
+
+
 new Vue({
   router,
   store,

@@ -1,7 +1,7 @@
 <template>
   <div class="card shadow-sm">
     <header class=" px-3 pt-2 pb-0">
-      <h5 class="m-0">{{ projectMap.get(task.project_id).name }}</h5>
+      <h5 class="m-0">{{ projectMap.get(task.project_id) ? projectMap.get(task.project_id).name : '' }}</h5>
     </header>
     <section class=" p-3">
       <span class="text-muted">#{{ task.iid }}</span>

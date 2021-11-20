@@ -13,7 +13,7 @@
           <span class="ml-2 f14-light">({{ labelFilterDate }})</span>
         </div>
         <div class="d-flex">
-          <AvatarList :list="projectDetail.collaborators" />
+          <AvatarList :list="mapCollaborators.get(id)" />
           <h4 class="ml-5 text-secondary">
             Total: {{ totalMinutes | horusFormatGlobal }}
           </h4>
@@ -36,7 +36,7 @@
                     <Avatar :item="note.issue.assignee" />
                   </div>
                   <span style="width: 80%" class="ml-2 text-truncate">
-                  #{{note.issue.iid}}  {{ note.issue.title }}
+                    #{{ note.issue.iid }} {{ note.issue.title }}
                   </span>
                 </div>
               </td>
@@ -51,9 +51,19 @@
               </td>
               <td>
                 <div class="d-flex justify-content-center">
-                  <span class="badge " :class="note && note.time.subtracted ? 'badge-danger' :'badge-secondary'">
-                    {{note.time.subtracted ? '-' : ''}}
-                    {{  ((note.time.second_spend || 0) / 60) | horusFormatGlobal}}</span>
+                  <span
+                    class="badge "
+                    :class="
+                      note && note.time.subtracted
+                        ? 'badge-danger'
+                        : 'badge-secondary'
+                    "
+                  >
+                    {{ note.time.subtracted ? "-" : "" }}
+                    {{
+                      ((note.time.second_spend || 0) / 60) | horusFormatGlobal
+                    }}</span
+                  >
                 </div>
               </td>
             </tr>
@@ -89,13 +99,17 @@ export default {
   },
   created() {
     this.cleanNotes();
+      this.setTasks({project_id: this.id}).then(res =>
+         this.taskList.forEach((el) => {
+          this.setNotes(el);
+        })
+      );
     // if (this.taskList.length > 0) {
     //   this.taskList.forEach((el) => {
     //     this.setNotes(el);
     //   });
     // } else {
-    console.log(this.id)
-    this.setTasks(this.id);
+    // console.log(this.id)
     // }
   },
   watch: {
@@ -116,7 +130,7 @@ export default {
     ...mapActions("task", ["setTasks"]),
   },
   computed: {
-    ...mapGetters("project", ["commitsList", "projectDetail"]),
+    ...mapGetters("project", ["commitsList", "projectDetail", 'mapCollaborators']),
     ...mapGetters("task", ["taskList"]),
     ...mapGetters("hours", ["noteList"]),
 

@@ -3,7 +3,10 @@
     <div class="col-12 p-4 px-4 bg-white divider_bottom">
       <div class="row ">
         <div class="col-4 ">
-          <span class="title22">Essa semana  <small class="f14-light">(04 a 10 Jun 2021)</small></span>
+          <span class="title22">
+            Tarefas de:
+            <small class="f14-light">({{ filter | rangeDateGlobal }})</small>
+          </span>
         </div>
         <div class="col-4">
           <input type="text" class="form-control" />
@@ -18,16 +21,32 @@
     <div class="col-12">
       <div class="row p-3">
         <div class="col-3 px-2 ">
-          <TaskListItem title="Pendente" badge_class="badge-danger" :list="mapTasks2State.get(0)" />
+          <TaskListItem
+            title="Pendente"
+            badge_class="badge-danger"
+            :list="mapTasks2State.get(0)"
+          />
         </div>
         <div class="col-3 px-2 ">
-           <TaskListItem title="Em andamento" badge_class="badge-primary" :list="mapTasks2State.get(1)" />
+          <TaskListItem
+            title="Em andamento"
+            badge_class="badge-primary"
+            :list="mapTasks2State.get(1)"
+          />
         </div>
         <div class="col-3 px-2 ">
-           <TaskListItem title="Em revisão" badge_class="badge-warning" :list="mapTasks2State.get(2)" />
+          <TaskListItem
+            title="Em revisão"
+            badge_class="badge-warning"
+            :list="mapTasks2State.get(2)"
+          />
         </div>
         <div class="col-3 px-2 ">
-          <TaskListItem title="Concluído" badge_class="badge-success" :list="mapTasks2State.get(3)" />
+          <TaskListItem
+            title="Concluído"
+            badge_class="badge-success"
+            :list="mapTasks2State.get(3)"
+          />
         </div>
       </div>
     </div>
@@ -35,21 +54,37 @@
 </template>
 
 <script>
-import TaskListItem from '../../components/task/ListTaskItem.vue'
-import {mapActions, mapGetters} from 'vuex'
+import TaskListItem from "../../components/task/ListTaskItem.vue";
+import { mapActions, mapGetters } from "vuex";
+import moment from "moment";
 export default {
   name: "TaskList",
-  components: {TaskListItem},
-  created(){
-    this.setTasks()
+  components: { TaskListItem },
+  data() {
+    return {
+      filter: {
+        date_init: moment()
+          .startOf("month")
+          .format("YYYY-MM-DD"), //fim
+        date_end: moment()
+          .endOf("month")
+          .format("YYYY-MM-DD"), //inicio
+      },
+    };
+  },
+  created() {
+    this.setTasks(this.filter);
   },
   computed: {
-    ...mapGetters('task',['mapTasks2State'])
+    ...mapGetters("task", ["mapTasks2State"]),
+    // rangeDateFilter(){
+    //   return `${moment(this.filter.date_init).format('DD')} a ${moment(this.filter.date_end).format('DD MMM YYYY')}`
+    // }
   },
   methods: {
-    ...mapActions('task',['setTasks'])
-  }
-}
+    ...mapActions("task", ["setTasks"]),
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>

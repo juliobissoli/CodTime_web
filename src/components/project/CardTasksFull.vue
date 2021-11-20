@@ -8,8 +8,8 @@
     </header>
 
     <section class=" px-3 py-2 truncate describe line-clap-4">
-      <span class="f-12 ">
-        {{ task.description }}
+      <span v-for="(line, i) in task.description_lines " :key="i" class="f-12 ">
+        {{line}} <br>
       </span>
     </section>
     <section class="px-3 py-1 d-flex flex-column">
