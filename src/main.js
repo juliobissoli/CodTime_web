@@ -3,6 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import moment from "moment";
+import vClickOutside from 'v-click-outside'
+ 
+Vue.use(vClickOutside)
 
 import "./assets/Icons/icons.scss";
 
@@ -35,7 +38,7 @@ Vue.filter('fromDateGlobal', function (date) {
 })
 
 Vue.filter('rangeDateGlobal', function (dates) {
-  return dates ? `${moment(dates.date_init).format('DD')} a ${moment(dates.date_end).format('DD MMM YYYY')}` : '--'
+  return dates ? `${moment(dates.date_init).format('DD MMM')} a ${moment(dates.date_end).format('DD MMM YYYY')}` : '--'
 })
 
 

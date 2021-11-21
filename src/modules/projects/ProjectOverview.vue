@@ -2,7 +2,7 @@
   <section class="page-wrapper">
     <div class="row py-4 ">
       <div class="col-5 d-flex flex-column">
-        <BoxImage :image="projectDetail.avatar_url" />
+        <BoxImage :image="projectDetail.avatar_url"  :rounded="true" />
         <button class="mt-2 btn btn-sm btn-outline-dark">Alterar imagem</button>
       </div>
       <div class="col-7">

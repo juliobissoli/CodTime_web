@@ -7,7 +7,7 @@
           <div class="col-10">
             <input type="text" class="form-control" />
           </div>
-          <button class="col-2 btn btn-dark">Filter</button>
+          <button class="col-2 btn btn-dark">+Projeto</button>
         </div>
       </div>
     </div>

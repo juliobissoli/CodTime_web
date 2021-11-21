@@ -1,70 +1,72 @@
 <template>
-  <transition name="slide-fade shadow">
-    <div class="box-form">
+    <div class="dropdown shadow-sm" >
       <div class="row header">
         <div
-          class="col-12  p-0 d-flex justify-content-between align-items-center"
+          class="col-12 "
         >
-          <slot name="header"></slot>
+        <div class="divider_bottom px-3 py-2">
+          <slot name="header" class=""></slot>
+        </div>
         </div>
 
         <div class="col-12">
-          <form class="">
+          <div class="p-3">
+
             <slot></slot>
-          </form>
+          </div>
         </div>
         <div
           v-show="error"
-          class=" col-12 alert alert-danger mt-3"
-          role="alert"
+          class=" col-12 px-4"
         >
+        <small class="alert d-flex w-100 alert-danger ">
           {{ error }}
+        </small>
         </div>
         <div class="col-12 p-0">
           <slot name="footer"></slot>
         </div>
       </div>
     </div>
-  </transition>
 </template>
 
 <script>
 export default {
   name: "BoxForm",
-  props: ["mensageError"],
+  props: {messageError: String},
   data() {
     return {
       error: "",
     };
   },
   created() {
-    this.error = this.mensageError;
+    this.error = this.messageError;
   },
   watch: {
-    mensageError() {
-      this.error = this.mensageError;
+    messageError() {
+      this.error = this.messageError;
       setTimeout(() => {
         this.error = "";
         this.$emit("clean-error");
       }, 4000);
     },
   },
+  methods: {
+    clickOut(event){
+      console.log('Ta aqui ', event)
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.box-form {
+.dropdown {
   position: absolute;
-  //   border: 1px solid #ecedf1;
   border: 1px solid #ccc;
   background: #fff;
   border-radius: 0.8rem;
-  // padding: 33px;
   z-index: 66;
-  input,
-  select {
-    border: 1px solid #666;
-  }
+
   .header {
     // font-size: 18px;
     // color: #444;

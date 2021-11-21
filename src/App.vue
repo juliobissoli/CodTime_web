@@ -25,6 +25,7 @@
 .f-12{  font-size: 12px;}
 .f-14{  font-size: 14px;}
 .f-16{  font-size: 16px;}
+.f-18{  font-size: 18px;}
 
 .f-light{font-weight: 200;}
 .f-medium{font-weight: 500;}

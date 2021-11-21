@@ -9,7 +9,8 @@
       />
     </div>
     <div class="col-2 px-0">
-      <button class="btn btn-block btn-outline-dark">Filter</button>
+      <!-- <button class="btn btn-block btn-outline-dark">Filtrar</button> -->
+      <slot></slot>
     </div>
     <div class="col-2">
       <button class="btn btn-dark btn-block">{{btn_label}}</button>

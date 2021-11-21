@@ -12,7 +12,7 @@
       </div>
     </div>
     <div v-else class="avatar"  :style="styleSize">
-      <img  src="../../assets/img/thumb_default.png" class="" />
+      <img  src="../../assets/img/thumb_default.png" :class="rounded ? 'rounded' : ''" />
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@
 <script>
 export default {
   name: "BoxImage",
-  props: {image: String, size: Number, small: Boolean},
+  props: {image: String, size: Number, small: Boolean, rounded: Boolean},
   computed: {
     styleSize(){
       return this.size ? {height: `${this.size}px`} : {height: `226px`}
@@ -46,10 +46,11 @@ export default {
 .avatar {
   // overflow: hidden;
   // height: 230px;
-//   border-radius: 50%;
+//   border-radius: 50%;    
 
   .item {
     display: flex;
+    height: 226px
   }
   @media (max-width: 756px) {
     .small {
