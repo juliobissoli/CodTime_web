@@ -69,6 +69,17 @@ export default new Vuex.Store({
       );
     },
 
+    mapGlobalAccessLevel(state) {
+      return new Map([
+        [10, {label: 'Guest', pt_label: 'Convidado' }],
+        [20, {label: 'Reporter', pt_label: 'Relator' }],
+        [30, {label: 'Developer', pt_label: 'Desenvolvedor' }],
+        [40, {label: 'Maintainer', pt_label: 'Gerente' }],
+        [50, {label: 'Owner', pt_label: 'Dono' }],
+      ]
+      );
+    },
+
     mapProjects(state){
       const map = new Map(state.projectsGit.map(el => [el.id, el]))
       return map

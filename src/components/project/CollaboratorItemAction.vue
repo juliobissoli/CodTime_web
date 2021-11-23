@@ -5,7 +5,7 @@
         </div>
         <div class="ml-2 d-flex flex-column">
             <span class="title text-truncate">{{collaborator.name}}</span>
-            <span class="subtitle text-secondary">{{collaborator.state}}</span>
+            <span class="subtitle text-secondary">{{mapAccessLevel.get(collaborator.access_level) ? mapAccessLevel.get(collaborator.access_level).label : ''}}</span>
         </div>
         <button class="btn px-1">
             <i class="icon icon-arrow_down "></i>
@@ -19,7 +19,12 @@ import Avatar from '../utils/Avatar.vue'
 export default {
     name: "CollaboratorItemAction",
     components: {Avatar},
-    props: {collaborator: Object}
+    props: {collaborator: Object},
+    computed: {
+        mapAccessLevel(){
+            return this.$store.getters.mapGlobalAccessLevel
+        }
+    }
 }
 </script>
 

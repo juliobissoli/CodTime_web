@@ -6,7 +6,11 @@
     <section class="body p-4">
       <header class="d-flex justify-content-between">
         <legend>{{ project.name }}</legend>
-        <div><span class="badge badge-primary">Gerente</span></div>
+        <div>
+          <span class="badge badge-primary">
+            {{accessLevel.label }}
+          </span>
+        </div>
       </header>
       <div class="mb-2">
         <span class="text-primary pr-1 divider_right">Sprint atual: 21</span>
@@ -29,9 +33,7 @@
       </div>
     </section>
     <footer class="d-flex flex-row-reverse px-4 py-3">
-      <AvatarList
-        :list="collaborators.get(project.id)"
-      />
+      <AvatarList :list="collaborators.get(project.id)" />
       <!-- <span v-else class="text-muted">Somente você</span> -->
     </footer>
   </div>
@@ -41,7 +43,7 @@
 import TaskLabel from "../utils/LabelColorIndicator.vue";
 import AvatarList from "../utils/AvatarList.vue";
 import BoxImage from "../utils/BoxImage.vue";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   name: "CardProject",
@@ -51,15 +53,21 @@ export default {
     statusStyles() {
       return this.$store.getters.mapGlobalTaskStatusStyle;
     },
-    ...mapGetters("project", ['collaboratorsList']),
+    ...mapGetters("project", ["collaboratorsList"]),
 
-    collaborators(){
-      const map = new Map()
-      this.collaboratorsList.forEach(el => {
-        map.set(el.project_id, el.list)
+    accessLevel(){
+      if(this.project){
+        return this.$store.getters.mapGlobalAccessLevel.get( this.project.permissions.group_access.access_level)
+      }
+      else return {label: '',  pt_label: ''}
+    },
+    collaborators() {
+      const map = new Map();
+      this.collaboratorsList.forEach((el) => {
+        map.set(el.project_id, el.list);
       });
-      return map
-    }
+      return map;
+    },
   },
 };
 </script>
@@ -75,9 +83,9 @@ export default {
     font-size: 14px;
   }
 
-    footer{
-        height: 62px;
-    }
+  footer {
+    height: 62px;
+  }
   .task-area {
     height: 90px;
 

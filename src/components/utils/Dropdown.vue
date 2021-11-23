@@ -4,7 +4,7 @@
         <div
           class="col-12 "
         >
-        <div class="divider_bottom px-3 py-2">
+        <div v-show="!only_body" class="divider_bottom px-3 py-2">
           <slot name="header" class=""></slot>
         </div>
         </div>
@@ -33,7 +33,7 @@
 <script>
 export default {
   name: "BoxForm",
-  props: {messageError: String},
+  props: {messageError: String, only_body: {type: Boolean, default: false}},
   data() {
     return {
       error: "",

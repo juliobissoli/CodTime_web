@@ -13,7 +13,8 @@ export default {
     },
     
     async [types.SET_PROJECT_COLLABORATES] (state, project_id){
-      await gitlab_api.get(`projects/${project_id}/users`).then(
+      console.log('Ta aqui ==> ',project_id)
+      await gitlab_api.get(`projects/${project_id}/members/all`).then(
         res => {
           state.map_collaborators_project.set(project_id, res.data)
           state.collaborators.push({project_id, list: res.data})

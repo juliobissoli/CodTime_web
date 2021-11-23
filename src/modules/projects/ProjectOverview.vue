@@ -79,10 +79,22 @@ export default {
     ...mapGetters("project", ["projectDetail", "collaboratorsList", "mapCollaborators"]),
 
     collaborators(){
-      // const project = this.collaboratorsList.filter(el => el.project_id == this.projectDetail.id)
+      const list = this.collaboratorsList.filter(el => el.project_id == this.id)
+      return list.length > 0 ? list[0].list : []
       // return project.length > 0 ? project.list : []
-      return this.mapCollaborators.get(this.projectDetail.id)
+      // return this.mapCollaborators.get(this.id)
     },
+
+
+    // ...mapGetters("project", ["collaboratorsList"]),
+
+    // collaborators() {
+    //   const map = new Map();
+    //   this.collaboratorsList.forEach((el) => {
+    //     map.set(el.project_id, el.list);
+    //   });
+    //   return map;
+    // },
   },
 };
 </script>

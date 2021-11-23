@@ -1,42 +1,50 @@
 <template>
-  <div class="row statis">
-    <div class="col-12 d-flex pr-0 justify-content-between align-items-start">
+  <div class="row statis" >
+    <div v-click-outside="clickOut" class="col-12 d-flex pr-0 justify-content-between align-items-start">
       <button
-        @click.prevent="filterIsVisible = !filterIsVisible"
+        @click.prevent="menuIsVisible = !menuIsVisible"
         class="btn p-0 m-0"
       >
         <slot name="header"></slot>
       </button>
-      <dropdown v-show="filterIsVisible" class="dropdown shadow-sm" v-bind:style="css_styles">
+      <Dropdown
+        
+        v-show="menuIsVisible"
+        :only_body="true"
+        class="dropdown shadow-sm"
+        v-bind:style="css_styles"
+      >
         <template>
           <!-- <div class="row p-0">
             <div class="col-12 p-0">
               <slot></slot>
             </div>
           </div> -->
-          <div class="row">
-            <div class="col-12">
-              <ul>
-                <li class="" v-for="(item, i) in list_inputs" :key="i">
-                  <button
-                   @click.prevent="$emit('item-clicked', i), filterIsVisible = !filterIsVisible"
-                   class="btn-item py-3 px-4"
-                   :class="item.danger ? 'text-danger' : ''"
-                   >
-                    {{ item.label }}
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <!-- <div class=""> -->
+          <!-- <div > -->
+          <ul class="">
+            <li class="row p-0" v-for="(item, i) in list_inputs" :key="i">
+              <button
+                @click.prevent="
+                  $emit('item-clicked', i), (menuIsVisible = !menuIsVisible)
+                "
+                class="col-12 btn-item py-3 px-4"
+                :class="item.danger ? 'text-danger' : ''"
+              >
+                {{ item.label }}
+              </button>
+            </li>
+          </ul>
+          <!-- </div> -->
+          <!-- </div> -->
         </template>
-      </dropdown>
+      </Dropdown>
     </div>
   </div>
 </template>
 
 <script>
-import dropdown from "./utils/Dropdown.vue";
+import Dropdown from "./utils/Dropdown.vue";
 
 export default {
   name: "FilterStatistcs",
@@ -44,10 +52,10 @@ export default {
     css_styles: Object,
     list_inputs: Array,
   },
-  components: { dropdown },
+  components: { Dropdown },
   data() {
     return {
-      filterIsVisible: false,
+      menuIsVisible: false,
 
       messageError: "",
     };
@@ -60,7 +68,13 @@ export default {
     },
   },
   created() {},
-  methods: {},
+  methods: {
+    clickOut(event) {
+      
+      this.menuIsVisible = this.menuIsVisible ? false : this.menuIsVisible;
+    },
+
+  },
 };
 </script>
 
@@ -88,15 +102,15 @@ li {
   top: 2rem;
   width: 250px;
 
-  .btn-item{
+  .btn-item {
     border: none;
     background-color: transparent;
     width: 100%;
     font-size: 16px;
     text-align: start;
   }
- li:not(:last-child){
-    border-bottom: 1px solid #EAEAEA;
+  li:not(:last-child) {
+    border-bottom: 1px solid #eaeaea;
   }
 
   @media (max-width: 720px) {
