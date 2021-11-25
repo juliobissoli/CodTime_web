@@ -6,6 +6,7 @@
           <FilterDefault
             :date_init="filter.date_init"
             :date_end="filter.date_end"
+            :avatar_list="mapCollaborators.get(id)"
             @change-filter="handleChangeFilter"
           />
         </BarTop>
@@ -124,8 +125,7 @@ export default {
     handleChangeFilter(event) {
       this.filter.date_init = event.date_init;
       this.filter.date_end = event.date_end;
-      console.log("Filtro vai dar get");
-      this.setTasks(this.filter);
+      this.setTasks({...event, project_id: this.id});
     },
 
     handleGetNotes(){

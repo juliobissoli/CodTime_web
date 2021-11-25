@@ -6,6 +6,7 @@
           <FilterDefault 
             :date_init="filter.date_init" 
             :date_end="filter.date_end"
+            :avatar_list="mapCollaborators.get(id)"
             @change-filter="handleChangeFilter"
              />
         </BarTop>
@@ -15,11 +16,13 @@
       <header class="d-flex divider_bottom justify-content-between">
         <div class="d-flex align-items-center">
           <span class="title22">
-            Issues
+            Issues({{taskList.length}})
             <small class="f14-light">({{ filter | rangeDateGlobal }})</small>
           </span>
+          <span v-for="(item, i) in status_view" :key="i" class="ml-1 badge" :class="'badge-'+taskStyles.get(item.status).class">
+            {{mapTasks2State.get(item.status).length}}
+          </span>
         </div>
-
         <div class="d-flex align-items-center">
           <AvatarList :list="mapCollaborators.get(id)" />
         </div>
@@ -61,8 +64,8 @@ export default {
       status_view: [
         { status: 1, is_visible: true },
         { status: 2, is_visible: true },
-        { status: 3, is_visible: true },
         { status: 0, is_visible: true },
+        { status: 3, is_visible: true },
       ],
       filter: {
         project_id: this.id,
@@ -84,12 +87,10 @@ export default {
   },
   computed: {
     ...mapGetters("project", [
-      "tasksList",
-      "tasksListBackLog",
       "projectDetail",
       "mapCollaborators",
     ]),
-    ...mapGetters("task", ["mapTasks2State"]),
+    ...mapGetters("task", ["mapTasks2State", 'taskList']),
     taskStyles() {
       return this.$store.getters.mapGlobalTaskStatusStyle;
     },
@@ -100,8 +101,9 @@ export default {
       this.filter.date_init = event.date_init
       this.filter.date_end = event.date_end
       console.log('Filtro vai dar get')
-      this.setTasks(this.filter);
-    }
+      this.setTasks({...event, project_id: this.id});
+    },
+
   },
 };
 </script>
