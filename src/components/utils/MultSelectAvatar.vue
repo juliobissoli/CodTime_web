@@ -29,7 +29,7 @@ import multiselect from "vue-multiselect";
 import Avatar from "./Avatar.vue";
 export default {
   name: "MultselectAvatar",
-  props: ["options_select"],
+  props: {options_select: Array, all_members: Boolean},
   components: { multiselect, Avatar },
   data() {
     return {
@@ -43,6 +43,9 @@ export default {
       // this.$store.commit("selectProject", this.value);
       // console.log(this.$store.state.projectSelected);
     },
+    all_members(){
+      this.value = this.all_members ? null : this.value
+    }
   },
 };
 </script>

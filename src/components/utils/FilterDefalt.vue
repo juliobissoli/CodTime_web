@@ -73,13 +73,19 @@
                 <MultselectAvatar
                   @select_result="selectMember"
                   :options_select="avatar_list"
+                  :all_members="all_members"
                 />
               </div>
               <div
                 class="col-4 pl-1 d-flex justify-content-end align-items-center"
               >
                 <small class="text-muted mr-1">ver todos</small>
-                <input class="" :value="all_members" @change="setAllMember" type="checkbox" />
+                <input
+                  class=""
+                  v-model="all_members"
+                  @change="setAllMember"
+                  type="checkbox"
+                />
               </div>
             </div>
           </div>
@@ -126,7 +132,6 @@ export default {
         });
     },
     setAllMember(value) {
-      console.log('Value =>', value)
       if (this.all_members) {
         this.$emit("change-filter", {
           date_init: this.dateInit,
@@ -135,11 +140,17 @@ export default {
       }
     },
     selectMember(member) {
-      this.$emit("change-filter", {
+      // this.all_members = true;
+
+      const filter = {
         date_init: this.dateInit,
         date_end: this.dateEnd,
-        assignee_id: member.id,
-      });
+      };
+      if (member) {
+        this.all_members = false;
+        filter.assignee_id = member.id;
+      }
+      this.$emit("change-filter", filter);
     },
   },
 };

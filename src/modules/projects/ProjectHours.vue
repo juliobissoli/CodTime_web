@@ -6,7 +6,7 @@
           <FilterDefault
             :date_init="filter.date_init"
             :date_end="filter.date_end"
-            :avatar_list="mapCollaborators.get(id)"
+            :avatar_list="members"
             @change-filter="handleChangeFilter"
           />
         </BarTop>
@@ -20,7 +20,7 @@
           <span class="ml-2 f14-light">({{ filter | rangeDateGlobal }})</span>
         </div>
         <div class="d-flex">
-          <AvatarList :list="mapCollaborators.get(id)" />
+          <AvatarList :list="members" />
           <h4 class="ml-5 text-secondary">
             Total: {{ totalMinutes | horusFormatGlobal }}
           </h4>
@@ -142,9 +142,15 @@ export default {
       "commitsList",
       "projectDetail",
       "mapCollaborators",
+      'collaboratorsList'
     ]),
     ...mapGetters("task", ["taskList"]),
     ...mapGetters("hours", ["noteList"]),
+
+    members(){
+     const  list = this.collaboratorsList.filter(el => el.project_id == this.id)
+     return list.length > 0 ? list[0].list : []
+    },
 
     totalMinutes() {
       // return 0;

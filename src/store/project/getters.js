@@ -8,7 +8,12 @@ export default{
     },
 
     mapCollaborators(state){
-        return state.map_collaborators_project
+        const map = new Map()
+        state.collaborators.forEach(el => {
+            map.set(el.project_id, el.list)
+        });
+        return map
+        // return state.map_collaborators_project
     },
 
     collaboratorsList(state){

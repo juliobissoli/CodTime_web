@@ -6,7 +6,7 @@
           <FilterDefault 
             :date_init="filter.date_init" 
             :date_end="filter.date_end"
-            :avatar_list="mapCollaborators.get(id)"
+            :avatar_list="members"
             @change-filter="handleChangeFilter"
              />
         </BarTop>
@@ -24,8 +24,9 @@
           </span>
         </div>
         <div class="d-flex align-items-center">
-          <AvatarList :list="mapCollaborators.get(id)" />
+          <AvatarList :list="members" />
         </div>
+        {{map_collaborators_project.length}}
       </header>
       <section v-for="item in status_view" :key="item.status" class="row mt-3">
         <div class="col-12 mb-2 px-3 text-secondary">
@@ -50,7 +51,7 @@
 
 <script>
 import moment from "moment";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import BarTop from "../../components/project/BarTop.vue";
 import CardTask from "../../components/project/CardTasksFull.vue";
 import AvatarList from "../../components/utils/AvatarList.vue";
@@ -89,11 +90,19 @@ export default {
     ...mapGetters("project", [
       "projectDetail",
       "mapCollaborators",
+      'collaboratorsList'
     ]),
     ...mapGetters("task", ["mapTasks2State", 'taskList']),
     taskStyles() {
       return this.$store.getters.mapGlobalTaskStatusStyle;
     },
+
+    members(){
+     const  list = this.collaboratorsList.filter(el => el.project_id == this.id)
+     return list.length > 0 ? list[0].list : []
+    },
+
+    ...mapState('project', ['map_collaborators_project'])
   },
   methods: {
     ...mapActions("task", ["setTasks"]),
