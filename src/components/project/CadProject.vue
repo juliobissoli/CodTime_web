@@ -56,10 +56,11 @@ export default {
     ...mapGetters("project", ["collaboratorsList"]),
 
     accessLevel(){
-      if(this.project){
-        return this.$store.getters.mapGlobalAccessLevel.get( this.project.permissions.group_access.access_level)
-      }
-      else return {label: '',  pt_label: ''}
+      // if(this.project && this.project.permissions.group_access.access_level){
+      //   return this.$store.getters.mapGlobalAccessLevel.get( this.project.permissions.group_access.access_level)
+      // }
+      // else 
+      return {label: '',  pt_label: ''}
     },
     collaborators() {
       const map = new Map();
