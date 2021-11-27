@@ -4,6 +4,7 @@ import ProjectTask from "../modules/projects/ProjectTask";
 import ProjectEpc from "../modules/projects/ProjectEpc";
 import ProjectHours from "../modules/projects/ProjectHours";
 import ProjectOverview from "../modules/projects/ProjectOverview";
+import ProjectPerform from "../modules/projects/ProjectPerform";
 
 const project_detailRouter = {
   path: "project/:id(\\d+)",
@@ -38,6 +39,13 @@ const project_detailRouter = {
       name: "ProjectTask",
       props: true,
       component: ProjectTask,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "perform",
+      name: "ProjectPerform",
+      props: true,
+      component: ProjectPerform,
       meta: { requiresAuth: true },
     },
   ],

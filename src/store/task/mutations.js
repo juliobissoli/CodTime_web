@@ -2,7 +2,16 @@ import * as types from '../mutationTypes'
 import moment from 'moment'
 export default {
     [types.SET_TASKS](state, value) {
-      state.tasks = value;
+      state.tasks = value
+      
+      // .map((el) => {
+      //   state.statistics.time_estimate += el.time_stats.time_estimate;
+      //   state.statistics.total_time_spent += el.time_stats.total_time_spent;
+      //   state.statistics.isseus_started += el.status != 0 ? 1 : 0;
+      //   state.statistics.issues_estimation_count += el.time_stats.time_estimate != 0 ? 1 : 0;
+      //   state.statistics.issues_timer_count += el.time_stats.total_time_spent != 0 ? 1 : 0;
+      //   return el;
+      // });
     },
 
     [types.SET_FILTER_TASK](state, data){

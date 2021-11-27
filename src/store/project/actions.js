@@ -9,7 +9,7 @@ export const setProjects = async ({ commit, state }) => {
   // commit(types.SET_PROJECT, list)
 
   return new Promise((resolve, reject) => {
-    gitlab_api.get("projects?membership=true&statistics=true").then(
+    gitlab_api.get("projects?membership=true&statistics=true&collaborators=true&order_by=last_activity_at").then(
       (res) => {
         commit(types.SET_PROJECT, res.data);
         Promise.all(

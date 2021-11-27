@@ -24,6 +24,11 @@
             <span class="p-3">Horas</span>
           </router-link>
         </button>
+            <button  class="btn_menu_item f-light"   :class="selected === 'ProjectPerform' ? 'selected' : ''">
+          <router-link :to="{ name: 'ProjectPerform' }"  >
+            <span class="p-3">Desempenho</span>
+          </router-link>
+        </button>
       </nav>
     </div>
     <div class="col-12">

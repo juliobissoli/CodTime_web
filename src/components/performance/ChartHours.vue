@@ -1,0 +1,101 @@
+<template>
+  <div class="bg-white rounded shadow-sm p-4 d-flex flex-column">
+    <span class="d-flex justify-content-between">
+      <span class="title18">Horas x Dia</span>
+      <div style="width: 150px" class="d-flex">
+        <BtbDropdown label="Dia"/>
+      </div>
+    </span>
+    <Chart
+      :key="key_render"
+      :chartdata="chartData"
+      :options="options"
+      v-if="chartData.datasets"
+    />
+  </div>
+</template>
+
+<script>
+import moment from 'moment';
+import { mapGetters } from "vuex";
+import Chart from "../utils/ChartBar.vue";
+import BtbDropdown from '../utils/BtnDropdown.vue'
+// import topStatistics from "../utils/TopStatistics";
+export default {
+  name: "ChartHours",
+  components: { Chart, BtbDropdown },
+  props: { map_hors: Map, date_init: String, date_end: String },
+  data() {
+    return {
+      key_render: 0,
+      display: false,
+    };
+  },
+  watch:{
+    map_hors(){
+      this.key_render++
+    }
+  },
+  computed: {
+    ...mapGetters("hours", {dateRange: "daysInterval"}),
+
+    chartData() {
+      return {
+        labels: this.rangeDate.map(el => el.label),
+        datasets: [
+          {
+            data: this.rangeDate.map(el => this.map_hors.get(el.date).second_spend / 60 / 60 ),
+            backgroundColor: this.rangeDate.map(el => el.color),
+          },
+        ],
+      };
+    },
+    rangeDate(){
+      return  this.dateRange({  date_init: this.date_init,  date_end: this.date_end}).map(el => ({
+        date: el,
+        label: moment(el).format('DD MMM'),
+        color: '#0070F3'
+      }))
+    },
+    options() {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        steppedLin: true,
+        legend: {
+          display: false,
+        },
+        scales: {
+          xAxes: [
+            {
+              gridLines: {
+                drawOnChartArea: false,
+              },
+            },
+          ],
+          yAxes: [
+            {
+              gridLines: {
+                drawOnChartArea: false,
+              },
+            },
+          ],
+        },
+      };
+    },
+  },
+
+};
+</script>
+<style lang="scss" scoped>
+.box-chart {
+  .result {
+    position: absolute;
+    vertical-align: middle;
+  }
+}
+.icon {
+  width: 24px;
+  height: 24px;
+}
+</style>

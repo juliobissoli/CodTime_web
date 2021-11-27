@@ -11,5 +11,5 @@ export default{
         author_id: null,
         search: '',
         state: ''
-    }
+    },
 }

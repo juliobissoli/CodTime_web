@@ -185,7 +185,7 @@ export default new Vuex.Store({
 
     async getProjects ({commit, state}){
       return new Promise((resolve, reject) => {
-        gitlab_api.get("projects?membership=true&statistics=true").then(
+        gitlab_api.get("projects?membership=true&statistics=true&collaborators=true&order_by=last_activity_at").then(
           (res) => {
             commit('setProjects', res.data)
             // Promise.all(  res.data.map(project => commit(types.SET_PROJECT_COLLABORATES, project.id)))

@@ -28,7 +28,16 @@
         </div>
         {{map_collaborators_project.length}}
       </header>
-      <section v-for="item in status_view" :key="item.status" class="row mt-3">
+      <section  class="row mt-3">
+        <div
+          class="col-3 mb-3"
+          v-for="(task, i) in  tasksFiltered"
+          :key="i"
+        >
+          <CardTask :task="task" />
+        </div>
+      </section>
+      <!-- <section v-for="item in status_view" :key="item.status" class="row mt-3">
         <div class="col-12 mb-2 px-3 text-secondary">
           <div class="divider_bottom d-flex w-100 ">
             <button @click="item.is_visible = !item.is_visible"  class="btn btn-sm text-secondary text-uppercase d-flex">
@@ -44,7 +53,7 @@
         >
           <CardTask :task="task" />
         </div>
-      </section>
+      </section> -->
     </section>
   </div>
 </template>
@@ -95,6 +104,10 @@ export default {
     ...mapGetters("task", ["mapTasks2State", 'taskList']),
     taskStyles() {
       return this.$store.getters.mapGlobalTaskStatusStyle;
+    },
+
+    tasksFiltered(){
+      return this.taskList.sort((a, b) => a.status - b.status)
     },
 
     members(){

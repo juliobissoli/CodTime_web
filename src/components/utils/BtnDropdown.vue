@@ -4,7 +4,7 @@
     class="btn d-flex align-items-center p-0 justify-content-between w-100 btn-dropdown"
   >
     <span style="padding:6px">
-      Filtrar
+      {{label}}
     </span>
     <div class="h-100 d-flex divider_left align-items-center px-2">
       <i
