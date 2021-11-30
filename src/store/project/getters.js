@@ -20,9 +20,14 @@ export default{
         return state.collaborators
     },
 
-    projectDetail(state){
+    projectDetail(state, getters){
         return state.project_detail 
-        ? state.project_detail 
+        ? {
+            ...state.project_detail,
+            members: getters.mapCollaborators.get(state.project_detail.id),
+            members_visible: state.project_detail.preferential ? getters.mapCollaborators.get(state.project_detail.id) : [],
+
+        }
         :  {
             name: "",
             description: 'Descrição',

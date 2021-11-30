@@ -78,6 +78,7 @@
 import AnimateLogin from "../components/AnimateLogin";
 import auth from "../utils/auth";
 import Loading from "../components/utils/AnimateLoad.vue";
+import { mapGetters } from 'vuex';
 export default {
   name: "Login",
   components: { AnimateLogin, Loading },

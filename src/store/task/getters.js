@@ -31,12 +31,17 @@ export default {
       let isseus_started = 0;
       let issues_estimation_count = 0;
       let issues_timer_count = 0;
+      let total_by_status = [0,1,2,3].map(i => ({status: i, time_spent: 0, time_estimate: 0, total_issues: 0}))
+      
       const list = state.tasks.map((el) => {
         time_estimate += el.time_stats.time_estimate;
         total_time_spent += el.time_stats.total_time_spent;
         isseus_started += el.status != 0 ? 1 : 0;
         issues_estimation_count += el.time_stats.time_estimate != 0 ? 1 : 0;
         issues_timer_count += el.time_stats.total_time_spent != 0 ? 1 : 0;
+        total_by_status[el.status].time_spent += el.time_stats.total_time_spent;
+        total_by_status[el.status].time_estimate += el.time_stats.time_estimate;
+        total_by_status[el.status].total_issues += 1;
         return {
           ...el.time_stats,
           created_at: el.created_at,
@@ -60,6 +65,8 @@ export default {
 
         total_time_avg_issues_relative: total_time_spent / (list.length || 1),
         total_estimate_avg_issues_relative: time_estimate / (list.length || 1),
+
+        total_by_status
       };
     } else {
       return {
@@ -76,6 +83,7 @@ export default {
         total_estimate_avg_issues: 0,
         total_time_avg_issues_relative: 0,
         total_estimate_avg_issues_relative: 0,
+        total_by_status: []
       };
     }
   },

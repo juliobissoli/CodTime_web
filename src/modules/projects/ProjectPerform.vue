@@ -4,73 +4,30 @@
       <div class="page-wrapper">
         <header class="d-flex justify-content-between">
           <div class="d-flex align-items-center">
-            <span class="title22">
-              <small class="f14-light mr-4"
-                >({{ filter | rangeDateGlobal }})</small
-              >
+            <span class="title22">{{(!projectDetail.preferential ? 'Seu d' : 'D') + "esempenho de"}}
+              <small class="f14-light mr-4">
+                ({{ filter | rangeDateGlobal }})
+              </small>
             </span>
-            <AvatarList :list="members" />
+            <AvatarList :list="members_filtered" />
           </div>
           <FilterDefault
             :date_init="filter.date_init"
             :date_end="filter.date_end"
-            :avatar_list="members"
+            :avatar_list="projectDetail.members_visible"
             @change-filter="handleChangeFilter"
           />
         </header>
+        
       </div>
     </section>
     <section class="col-12 py-3 px-0 page-wrapper">
       <div class="row">
-        <div class="col-4  p-1  ">
+        <div v-for="(field, i) in fields_totals" :key="i" class="col-4  p-1">
           <CardStatistics
-            title="TOTAL DE HORAS"
+            :title="field.title"
             :value="
-              (statisticsTotals.total_time_spent / 60) | horusFormatGlobal
-            "
-          />
-        </div>
-
-        <div class="col-4  p-1  ">
-          <CardStatistics
-            title="HORAS MEDIA POR ISSUE"
-            :value="
-              (statisticsTotals.total_time_avg_issues / 60) | horusFormatGlobal
-            "
-          />
-        </div>
-        <div class="col-4  p-1  ">
-          <CardStatistics
-            title="TEMPO MEDIA DE ISSUE RELAT."
-            :value="
-              (statisticsTotals.total_time_avg_issues_relative / 60)
-                | horusFormatGlobal
-            "
-          />
-        </div>
-        <div class="col-4  p-1  ">
-          <CardStatistics
-            title="TOTAL HORAS ESTIMADO"
-            :value="(statisticsTotals.time_estimate / 60) | horusFormatGlobal"
-          />
-        </div>
-
-        <div class="col-4  p-1  ">
-          <CardStatistics
-            title="HORAS ESTIMADA MEDIA POR ISSUE"
-            :value="
-              (statisticsTotals.total_estimate_avg_issues / 60)
-                | horusFormatGlobal
-            "
-          />
-        </div>
-
-        <div class="col-4  p-1  ">
-          <CardStatistics
-            title="ESTIMATIVA MEDIA DE ISSUE RELAT."
-            :value="
-              (statisticsTotals.total_estimate_avg_issues_relative / 60)
-                | horusFormatGlobal
+              (statisticsTotals[field.entity] / 60) | horusFormatGlobal
             "
           />
         </div>
@@ -84,6 +41,13 @@
           />
         </div>
       </div>
+      <div class="row p-0 mt-3">
+        <div class="col-8 p-0">
+          <ChartStatus 
+          :list_data="statisticsTotals.total_by_status"
+          />
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -93,43 +57,70 @@ import AvatarList from "../../components/utils/AvatarList.vue";
 import FilterDefault from "../../components/utils/FilterDefalt.vue";
 import CardStatistics from "../../components/utils/CardStatistics.vue";
 import ChartHours from "../../components/performance/ChartHours.vue";
+import ChartStatus from '../../components/performance/ChartIssuesByStatus.vue'
 
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 export default {
-  name: "ProjectPerformace",
-  components: { AvatarList, FilterDefault, CardStatistics, ChartHours },
+  name: "ProjectPerformance",
+  components: { AvatarList, FilterDefault, CardStatistics, ChartHours, ChartStatus },
   props: ["id"],
 
   data() {
     return {
       list_avatar: [{ url: null }, { url: null }, { url: null }],
+      fields_totals: [
+            {entity: 'total_time_spent', title: "TOTAL DE HORAS"},
+            {entity: 'total_time_avg_issues', title: "HORAS MEDIA POR ISSUE"},
+            {entity: 'total_time_avg_issues_relative', title: "TEMPO MEDIA DE ISSUE RELAT."},
+            {entity: 'time_estimate', title: "TOTAL HORAS ESTIMADO"},
+            {entity: 'total_estimate_avg_issues', title: "HORAS ESTIMADA MEDIA POR ISSUE"},
+            {entity: 'total_estimate_avg_issues_relative', title: "ESTIMATIVA MEDIA DE ISSUE RELAT."},
+      ],
       filter: {
-        date_init: moment()
-          .startOf("month")
-          .format("YYYY-MM-DD"),
-        date_end: moment()
-          .endOf("month")
-          .format("YYYY-MM-DD"),
+        date_init: moment().startOf("month").format("YYYY-MM-DD"),
+        date_end: moment().endOf("month").format("YYYY-MM-DD"),
+        project_id: this.id,
+        assignee_list: [],
+        assignee_id: null
       },
     };
   },
   created() {
-    this.setTasks({ project_id: this.id }).then((res) => this.handleGetNotes());
+    if(!this.projectDetail.preferential ){
+       this.filter.assignee_id = this.userID
+      }
+    this.setTasks(this.filter).then((res) => this.handleGetNotes());
   },
   watch: {
     taskList() {
       this.handleGetNotes();
     },
   },
+  computed: {
+    ...mapGetters("project", [
+      "projectDetail",
+      "mapCollaborators",
+      "collaboratorsList",
+    ]),
+    ...mapGetters("task", ["taskList", "statisticsTotals"]),
+    ...mapGetters("hours", { hoursDate: "notesToDate" }),
+    ...mapGetters("user_info", ["userID"]),
+    mapHours() {
+      return this.hoursDate(this.filter);
+    },
+    members_filtered() {
+      return this.filter.assignee_list.length > 0 ? this.filter.assignee_list : this.projectDetail.members_visible
+    },
+  },
+
   methods: {
     ...mapActions("hours", ["setNotes", "cleanNotes"]),
     ...mapActions("task", ["setTasks"]),
 
     handleChangeFilter(event) {
-      this.filter.date_init = event.date_init;
-      this.filter.date_end = event.date_end;
-      this.setTasks({ ...event, project_id: this.id });
+      Object.assign(this.filter, event)
+      this.setTasks(this.filter);
     },
 
     handleGetNotes() {
@@ -141,26 +132,7 @@ export default {
       }
     },
   },
-  computed: {
-    ...mapGetters("project", [
-      "commitsList",
-      "projectDetail",
-      "mapCollaborators",
-      "collaboratorsList",
-    ]),
-    ...mapGetters("task", ["taskList", "statisticsTotals"]),
-    ...mapGetters("hours", { hoursDate: "notesToDate" }),
-    ...mapGetters("hours", ["noteList"]),
-    mapHours() {
-      return this.hoursDate(this.filter);
-    },
-    members() {
-      const list = this.collaboratorsList.filter(
-        (el) => el.project_id == this.id
-      );
-      return list.length > 0 ? list[0].list : [];
-    },
-  },
+
 };
 </script>
 

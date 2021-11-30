@@ -19,4 +19,8 @@ export default {
       email: state.email
     };
   },
+
+  userID(state){
+    return localStorage.getItem("user_id")
+  }
 };

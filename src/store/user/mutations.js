@@ -13,6 +13,10 @@ export default {
         state.created_at = value.created_at,
         state.bio = value.bio,
         state.email = value.email
+
+        localStorage.setItem("user_id", value.id);
+        localStorage.setItem("username", value.username);
+        localStorage.setItem("user_email", value.email);
     },
 
 

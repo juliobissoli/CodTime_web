@@ -50,7 +50,7 @@ export default {
       }
       
       else {
-        const url = `${body.project_id ? `projects/${body.project_id}/issues` : "issues"}` + `${header_url ? '?' : ''}${header_url}`
+        const url = `${data.project_id ? `projects/${data.project_id}/issues` : "issues"}` + `${header_url ? '?' : ''}${header_url}`
         state.filter = body
         state.url_before = state.url
         state.url = url

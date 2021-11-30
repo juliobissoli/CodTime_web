@@ -21,7 +21,7 @@
         </div>
       </template>
       <template>
-        <div class="row d-flex flex-column divider_bottom">
+        <div class="row d-flex flex-column ">
           <header
             class="col-12 d-flex justify-content-between align-items-center"
           >
@@ -56,9 +56,9 @@
           </div>
         </div>
 
-        <div class="row d-flex flex-column mt-2 ">
+        <div v-if="avatar_list && avatar_list.length > 0" class="row d-flex flex-column divider_top">
           <header
-            class="col-12 d-flex justify-content-between align-items-center"
+            class="col-12 d-flex justify-content-between mt-3 align-items-center"
           >
             <span class="f-18">
               Colaboradores
@@ -72,7 +72,7 @@
               <div class="col-8 pr-1">
                 <MultselectAvatar
                   @select_result="selectMember"
-                  :options_select="avatar_list"
+                  :options_select="avatar_list || []"
                   :all_members="all_members"
                 />
               </div>
@@ -122,7 +122,6 @@ export default {
       this.is_visible = this.is_visible ? false : this.is_visible;
     },
     changeData(event) {
-      console.log(moment(this.dateEnd).diff(moment(this.dateInit)));
       if (moment(this.dateEnd).diff(moment(this.dateInit)) <= 0) {
         this.messageError = "Data invalida";
       } else
@@ -136,6 +135,8 @@ export default {
         this.$emit("change-filter", {
           date_init: this.dateInit,
           date_end: this.dateEnd,
+          assignee_list: [],
+          assignee_id: null
         });
       }
     },
@@ -149,6 +150,8 @@ export default {
       if (member) {
         this.all_members = false;
         filter.assignee_id = member.id;
+        filter.assignee_list = [member]
+
       }
       this.$emit("change-filter", filter);
     },

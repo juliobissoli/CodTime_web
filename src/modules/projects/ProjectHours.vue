@@ -6,7 +6,7 @@
           <FilterDefault
             :date_init="filter.date_init"
             :date_end="filter.date_end"
-            :avatar_list="members"
+            :avatar_list="projectDetail.members_visible"
             @change-filter="handleChangeFilter"
           />
         </BarTop>
@@ -20,7 +20,7 @@
           <span class="ml-2 f14-light">({{ filter | rangeDateGlobal }})</span>
         </div>
         <div class="d-flex">
-          <AvatarList :list="members" />
+          <AvatarList :list="members_filtered" />
           <h4 class="ml-5 text-secondary">
             Total: {{ totalMinutes | horusFormatGlobal }}
           </h4>
@@ -101,12 +101,17 @@ export default {
       filter: {
         date_init: moment().startOf("month").format("YYYY-MM-DD"),
         date_end: moment().endOf("month").format("YYYY-MM-DD"),
+        project_id: this.id,
+        assignee_list: [],
+        assignee_id: null
       },
     };
   },
   created() {
-
-    this.setTasks({ project_id: this.id }).then((res) =>
+    if(!this.projectDetail.preferential ){
+       this.filter.assignee_id = this.userID
+      }
+    this.setTasks({...this.filter, project_id: this.id }).then((res) =>
       this.handleGetNotes()
     );
   },
@@ -117,27 +122,7 @@ export default {
     },
 
   },
-  methods: {
-    ...mapActions("hours", ["setNotes", "cleanNotes"]),
-    ...mapActions("task", ["setTasks"]),
-
-
-    handleChangeFilter(event) {
-      this.filter.date_init = event.date_init;
-      this.filter.date_end = event.date_end;
-      this.setTasks({...event, project_id: this.id});
-    },
-
-    handleGetNotes(){
-      this.cleanNotes()
-      if (this.taskList.length > 0) {
-        this.taskList.forEach((el) => {
-          this.setNotes(el);
-        });
-      }
-    }
-  },
-  computed: {
+    computed: {
     ...mapGetters("project", [
       "commitsList",
       "projectDetail",
@@ -146,10 +131,16 @@ export default {
     ]),
     ...mapGetters("task", ["taskList"]),
     ...mapGetters("hours", ["noteList"]),
+    ...mapGetters("user_info", ["userID"]),
+
 
     members(){
      const  list = this.collaboratorsList.filter(el => el.project_id == this.id)
      return list.length > 0 ? list[0].list : []
+    },
+
+    members_filtered() {
+      return this.filter.assignee_list.length > 0 ? this.filter.assignee_list : this.projectDetail.members_visible
     },
 
     totalMinutes() {
@@ -164,6 +155,29 @@ export default {
       } else return 0;
     },
   },
+  methods: {
+    ...mapActions("hours", ["setNotes", "cleanNotes"]),
+    ...mapActions("task", ["setTasks"]),
+
+
+    handleChangeFilter(event) {
+      this.filter.date_init = event.date_init;
+      this.filter.date_end = event.date_end;
+      Object.assign(this.filter, event)
+
+      this.setTasks(this.filter);
+    },
+
+    handleGetNotes(){
+      this.cleanNotes()
+      if (this.taskList.length > 0) {
+        this.taskList.forEach((el) => {
+          this.setNotes(el);
+        });
+      }
+    }
+  },
+
   filters: {
     formateDate(date) {
       return moment(date).format("DD MMM HH:mm");
