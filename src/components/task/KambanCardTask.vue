@@ -42,14 +42,16 @@
 <script>
 import BadgePriority from "../utils/BadgePriority.vue";
 import Avatar from "../utils/Avatar.vue";
+import { mapGetters } from 'vuex';
 export default {
   name: "KambanCardTask",
   props: { task: Object },
   components: { BadgePriority, Avatar },
   computed: {
-    projectMap() {
-      return this.$store.getters.mapProjects;
-    },
+    ...mapGetters('project', ['projectMap'])
+    // projectMap() {
+    //   return this.$store.getters.mapProjects;
+    // },
   },
 };
 </script>

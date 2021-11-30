@@ -31,6 +31,11 @@ export default{
         }
     },
 
+    projectMap(state){
+        const map = new Map(state.projects.map(el => [el.id, el]))
+        return map
+      },
+
     epcList(state){
         return state.project_detail ?  Epcs.epcs.filter(el => el.project_id == state.project_detail.id) : []
     },

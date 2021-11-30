@@ -20,7 +20,7 @@ export default {
       console.log('Creasted')
       await this.setUser();
       // this.$store.dispatch("setValues");
-      await this.getProjects().then(res => {
+      await this.setProjects().then(res => {
           this.setCollaborators(res)
           res.forEach(el => {
             this.setCommits(el.id)
@@ -33,7 +33,8 @@ export default {
       ...mapActions("user_info", ["setUser"]),
       ...mapActions('project', ['setCollaborators']),
       ...mapActions('hours', ['setCommits']),
-      ...mapActions(['getProjects'])
+      ...mapActions(['getProjects']),
+      ...mapActions('project', ['setProjects'])
   }
 };
 </script>

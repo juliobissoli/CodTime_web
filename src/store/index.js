@@ -54,9 +54,9 @@ export default new Vuex.Store({
       );
     },
 
-    projectList(state){
-      return state.projectsGit
-    },
+    // projectList(state){
+    //   return state.projectsGit
+    // },
 
     mapGlobalTaskStatusStyle(state) {
       return new Map([
@@ -80,11 +80,10 @@ export default new Vuex.Store({
       );
     },
 
-    mapProjects(state){
-      const map = new Map(state.projectsGit.map(el => [el.id, el]))
-      return map
-
-    }
+    // mapProjects(state){
+    //   const map = new Map(state.projectsGit.map(el => [el.id, el]))
+    //   return map
+    // }
   },
   mutations: {
     //Tamp
@@ -183,20 +182,20 @@ export default new Vuex.Store({
       }, 1000);
     },
 
-    async getProjects ({commit, state}){
-      return new Promise((resolve, reject) => {
-        gitlab_api.get("projects?membership=true&statistics=true&collaborators=true&order_by=last_activity_at").then(
-          (res) => {
-            commit('setProjects', res.data)
-            // Promise.all(  res.data.map(project => commit(types.SET_PROJECT_COLLABORATES, project.id)))
-            resolve(res.data)
-          },
-          error => {
-            console.error("deu errado ==> ", error)
-          }
-          )
-        })
-    },
+    // async getProjects ({commit, state}){
+    //   return new Promise((resolve, reject) => {
+    //     gitlab_api.get("projects?membership=true&statistics=true&collaborators=true&order_by=last_activity_at").then(
+    //       (res) => {
+    //         commit('setProjects', res.data)
+    //         // Promise.all(  res.data.map(project => commit(types.SET_PROJECT_COLLABORATES, project.id)))
+    //         resolve(res.data)
+    //       },
+    //       error => {
+    //         console.error("deu errado ==> ", error)
+    //       }
+    //       )
+    //     })
+    // },
 
     //Running
     async startTime({ commit, state }) {

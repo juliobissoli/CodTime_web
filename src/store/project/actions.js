@@ -33,14 +33,13 @@ export const setCollaborators = async ({ commit }, list) => {
   );
 };
 
-export const getProjectDetail = async ({ commit }, id) => {
-  console.log("T => ", store.getters.mapProjects);
-  const project = store.getters.mapProjects.get(id);
+export const getProjectDetail = async ({ state, commit }, id) => {
+  const projects = state.projects.filter(el => el.id == id)
 
   return new Promise((resolve, reject) => {
-    if (project){
-       commit(types.SET_PROJECT_DETAIL, project);
-       resolve(project);
+    if (projects.length > 0){
+       commit(types.SET_PROJECT_DETAIL, projects[0]);
+       resolve(projects[0]);
 
       }
     else {

@@ -73,13 +73,23 @@ export default {
     };
   },
   created() {
-    this.setTasks(this.filter);
+    if (this.projectList.length > 0) {
+      console.log(this.projectList.map((el) => el.id));
+      this.setTasks({ ...this.filter, project_id: this.projectList.map((el) => el.id) });
+    }
   },
   computed: {
     ...mapGetters("task", ["mapTasks2State"]),
+    ...mapGetters("project", ["projectList"]),
     // rangeDateFilter(){
     //   return `${moment(this.filter.date_init).format('DD')} a ${moment(this.filter.date_end).format('DD MMM YYYY')}`
     // }
+  },
+  watch: {
+    projectList() {
+      console.log(typeof this.projectList.map((el) => el.id));
+      this.setTasks({ ...this.filter, project_id: this.projectList.map((el) => el.id)});
+    },
   },
   methods: {
     ...mapActions("task", ["setTasks"]),

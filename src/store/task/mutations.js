@@ -2,22 +2,24 @@ import * as types from '../mutationTypes'
 import moment from 'moment'
 export default {
     [types.SET_TASKS](state, value) {
-      state.tasks = value
-      
-      // .map((el) => {
-      //   state.statistics.time_estimate += el.time_stats.time_estimate;
-      //   state.statistics.total_time_spent += el.time_stats.total_time_spent;
-      //   state.statistics.isseus_started += el.status != 0 ? 1 : 0;
-      //   state.statistics.issues_estimation_count += el.time_stats.time_estimate != 0 ? 1 : 0;
-      //   state.statistics.issues_timer_count += el.time_stats.total_time_spent != 0 ? 1 : 0;
-      //   return el;
-      // });
+      state.tasks = value.map((el) => ({
+        ...el,
+        status:
+          el.state === "closed"
+            ? 3
+            : el.merge_requests_count > 0
+            ? 2
+            : !el.milestone
+            ? 0
+            : 1,
+        description_lines: el.description ? el.description.split('\n') : [],
+        collaborator: el.assignee,
+      }));
     },
 
     [types.SET_FILTER_TASK](state, data){
-      
       const body = data ? {
-        project_id: data.project_id ? data.project_id : null,
+        // project_id: data.project_id ? data.project_id : null,
         updated_after: data.date_init ? moment(data.date_init + ' 00:00').utc().format('') : '', //data fim
         updated_before: data.date_end ? moment(data.date_end + ' 24:00').utc().format() : '', //data inicio
         due_date: data.due_date ? moment(data.due_date).format('YYYY-MM-DD[T00:00:00Z]') : '', 
@@ -36,13 +38,24 @@ export default {
         search: '',
         state: ''
     }
-            
-      const header_url =  mountUrl(body)
+    const header_url =  mountUrl(body)
+      if(Array.isArray(data.project_id)){
+
+        const url = data.project_id.map(id =>  `${`projects/${id}/issues`}` + `${header_url ? '?' : ''}${header_url}` )
+        
+       
+        state.filter = body
+        state.url_before = state.url
+        state.url = url
+      }
       
-      const url = `${body.project_id ? `projects/${body.project_id}/issues` : "issues"}` + `${header_url ? '?' : ''}${header_url}`
-      state.filter = body
-      state.url_before = state.url
-      state.url = url
+      else {
+        const url = `${body.project_id ? `projects/${body.project_id}/issues` : "issues"}` + `${header_url ? '?' : ''}${header_url}`
+        state.filter = body
+        state.url_before = state.url
+        state.url = url
+      }
+      
     }
     
   };

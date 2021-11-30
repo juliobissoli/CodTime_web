@@ -8,7 +8,7 @@
             <span class="title22">
               Estatísticas desse mês
               <small class="f14-light">(01 a 30 Abr 2021)</small>
-              </span>
+            </span>
           </div>
           <div class="col-4 d-flex justify-content-end">
             <div>
@@ -54,7 +54,8 @@
             <CardStatistics
               title="TEMPO MEDIA DE ISSUE RELAT."
               :value="
-                (statistics.total_time_avg_issues_relative / 60) | horusFormatGlobal
+                (statistics.total_time_avg_issues_relative / 60)
+                  | horusFormatGlobal
               "
             />
           </div>
@@ -73,14 +74,13 @@
               value="Calc/rannking"
             />
           </div>
-          
         </div>
         <div class="row p-1 mt-4">
           <legend class="col-12">Estatísticas de Issues</legend>
           <div class="col-3  p-1  ">
             <CardStatistics
               title="TOTAL DE ISSUE"
-              :value="statistics.list.length  | parseString"
+              :value="statistics.list.length | parseString"
             />
           </div>
           <div class="col-3  p-1  ">
@@ -106,14 +106,19 @@
           <div class="col-12 p-4 shadow-sm bg-white rounded">
             <legend>Horas por Projeto</legend>
 
-            <div class="col-12"  v-for="(item, i) in horsForProject" :key="i">
+            <div class="col-12" v-for="(item, i) in horsForProject" :key="i">
               <div class="row mb-2">
-
-              <span class="col-2"> {{projectMap.get(item[0]) ? projectMap.get(item[0]).name : '-' }}</span>
-              <div class="col-10">
-                <CharHorizontal :total='statistics.total_time_spent' :data_list="getChartData(item[1])" />
-              </div>
-              
+                <span class="col-2">
+                  {{
+                    projectMap.get(item[0]) ? projectMap.get(item[0]).name : "-"
+                  }}</span
+                >
+                <div class="col-10">
+                  <CharHorizontal
+                    :total="statistics.total_time_spent"
+                    :data_list="getChartData(item[1])"
+                  />
+                </div>
               </div>
             </div>
             <!-- <ul>
@@ -146,17 +151,37 @@
 
 <script>
 import CardStatistics from "../../components/utils/CardStatistics.vue";
-import CharHorizontal from '../../components/utils/CharHorizontal'
+import CharHorizontal from "../../components/utils/CharHorizontal";
 import { mapActions, mapGetters } from "vuex";
+import moment from 'moment'
 export default {
   name: "Performance",
   components: { CardStatistics, CharHorizontal },
+  data() {
+    return {
+      filter: {
+        date_init: moment().startOf("month").format("YYYY-MM-DD"), //fim
+        date_end: moment().endOf("month").format("YYYY-MM-DD"), //inicio
+        project_id: [],
+
+      },
+    };
+  },
   created() {
-    this.setTasks();
+    if (this.projectList.length > 0) {
+      this.filter.project_id =  this.projectList.map((el) => el.id)
+      this.setTasks(this.filter);
+    }
+  },
+  watch: {
+    projectList() {
+      this.filter.project_id =  this.projectList.map((el) => el.id)
+      this.setTasks(this.filter);
+    },
   },
   computed: {
     ...mapGetters("task", ["taskList"]),
-
+    ...mapGetters('project', ['projectList']),
     statistics() {
       if (this.taskList.length > 0) {
         let total_time_spent = 0;
@@ -192,7 +217,8 @@ export default {
           total_estimate_avg_issues: time_estimate / issues_estimation_count,
 
           total_time_avg_issues_relative: total_time_spent / (list.length || 1),
-          total_estimate_avg_issues_relative: time_estimate / (list.length || 1),
+          total_estimate_avg_issues_relative:
+            time_estimate / (list.length || 1),
         };
       } else {
         return {
@@ -202,38 +228,40 @@ export default {
       }
     },
 
-    projectMap(){
-      return this.$store.getters.mapProjects
-    },
+    // projectMap(){
+    //   return this.$store.getters.mapProjects
+    // },
+    ...mapGetters("project", ["projectMap"]),
 
-    horsForProject(){
-      const map = new Map()
-      let res
-      this.taskList.forEach(el => {
-        res = map.get(el.project_id)
-        map.set(el.project_id, ((res || 0) + el.time_stats.total_time_spent))
-        
+    horsForProject() {
+      const map = new Map();
+      let res;
+      this.taskList.forEach((el) => {
+        res = map.get(el.project_id);
+        map.set(el.project_id, (res || 0) + el.time_stats.total_time_spent);
       });
 
-      return map
-    }
+      return map;
+    },
   },
   methods: {
     ...mapActions("task", ["setTasks"]),
-    getChartData(value){
-      return [{
-        status: 1,
-        value: value || 0,
-        label: ''
-      }]
-    }
+    getChartData(value) {
+      return [
+        {
+          status: 1,
+          value: value || 0,
+          label: "",
+        },
+      ];
+    },
   },
 
   filters: {
-    parseString(value){
-      return value ? value.toString() : '-'
-    }
-  }
+    parseString(value) {
+      return value ? value.toString() : "-";
+    },
+  },
 };
 </script>
 

@@ -24,7 +24,7 @@ export default {
     components: {BarTop, EpcItem},
     created(){
         this.setMilestone(this.id).then(
-            this.setTasks(this.id)
+            this.setTasks({project_id: this.id})
         )
     },
     computed:{

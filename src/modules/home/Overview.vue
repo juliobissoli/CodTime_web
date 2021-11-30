@@ -83,19 +83,18 @@ export default {
   },
   computed: {
     ...mapGetters("hours", ["commitsList"]),
+    ...mapGetters('project', ['projectList']),
     // ...mapGetters("/", ["projectList"]),
-    projectList(){
-      return this.$store.getters.projectList
-    },
-    teste(){
-      return this.$store.getters.testeId(2)
-    },
+    // projectList(){
+    //   return this.$store.getters.projectList
+    // },
+ 
     user() {
       return this.$store.state.user;
     },
-    projects() {
-      return this.$store.state.projects;
-    },
+    // projects() {  
+    //   return this.$store.state.projects;
+    // },
   },
 
   methods: {
