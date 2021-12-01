@@ -1,10 +1,10 @@
 <template>
   <div class="bg-white rounded shadow-sm p-4 d-flex flex-column">
     <span class="d-flex justify-content-between">
-      <span class="title18">Horas x Dia</span>
-      <div style="width: 150px" class="d-flex">
+      <span class="title18 mb-3">Horas x Dia</span>
+      <!-- <div style="width: 150px" class="d-flex">
         <BtbDropdown label="Dia"/>
-      </div>
+      </div> -->
     </span>
     <Chart
       :key="key_render"

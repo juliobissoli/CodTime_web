@@ -1,20 +1,24 @@
 <template>
   <div class="row p-0">
     <div class="col-12 p-4 px-4 bg-white divider_bottom">
-      <div class="row ">
-        <div class="col-4 ">
-          <span class="title22">
+      <div class="row px-3">
+        <div class="col-4 p-0 d-flex align-items-center">
+          <span class="title22 mr-4">
             Tarefas de:
             <small class="f14-light">({{ filter | rangeDateGlobal }})</small>
           </span>
+          <AvatarList  :list="collaboratorsFiltered" />
         </div>
         <div class="col-4">
           <input type="text" class="form-control" />
         </div>
         <div class="col-4 pr-1 d-flex justify-content-end">
-          <div>
-            <button class="btn btn-outline-dark">Filter</button>
-          </div>
+          <FilterDefault 
+            :date_end="filter.date_end" 
+            :date_init="filter.date_init"
+            :avatar_list="allCollaborators"
+            @change-filter="changeFilter"
+             />
         </div>
       </div>
     </div>
@@ -55,44 +59,50 @@
 
 <script>
 import TaskListItem from "../../components/task/ListTaskItem.vue";
+import FilterDefault from '../../components/utils/FilterDefalt.vue'
+import AvatarList from '../../components/utils/AvatarList.vue'
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 export default {
   name: "TaskList",
-  components: { TaskListItem },
+  components: { TaskListItem, FilterDefault, AvatarList },
   data() {
     return {
       filter: {
-        date_init: moment()
-          .startOf("month")
-          .format("YYYY-MM-DD"), //fim
-        date_end: moment()
-          .endOf("month")
-          .format("YYYY-MM-DD"), //inicio
+        date_init: moment().startOf("month").format("YYYY-MM-DD"), //fim
+        date_end: moment().endOf("month").format("YYYY-MM-DD"), //inicio
+        project_id: [],
+        assignee_list: [],
+        assignee_id: null
       },
     };
   },
   created() {
     if (this.projectList.length > 0) {
-      console.log(this.projectList.map((el) => el.id));
+      this.filter.project_id = this.projectList.map((el) => el.id)
       this.setTasks({ ...this.filter, project_id: this.projectList.map((el) => el.id) });
     }
   },
   computed: {
     ...mapGetters("task", ["mapTasks2State"]),
-    ...mapGetters("project", ["projectList"]),
-    // rangeDateFilter(){
-    //   return `${moment(this.filter.date_init).format('DD')} a ${moment(this.filter.date_end).format('DD MMM YYYY')}`
-    // }
+    ...mapGetters("project", ["projectList", 'allCollaborators']),
+
+    collaboratorsFiltered(){
+      return this.filter.assignee_list.length > 0 ? this.filter.assignee_list : this.allCollaborators
+    }
   },
   watch: {
     projectList() {
-      console.log(typeof this.projectList.map((el) => el.id));
+      this.filter.project_id = this.projectList.map((el) => el.id)
       this.setTasks({ ...this.filter, project_id: this.projectList.map((el) => el.id)});
     },
   },
   methods: {
     ...mapActions("task", ["setTasks"]),
+    changeFilter(event){
+      Object.assign(this.filter, event)
+      this.setTasks(this.filter)
+    }
   },
 };
 </script>

@@ -70,29 +70,49 @@ export default {
     };
   },
   async created() {
+    if (this.projectList) {
+      if (this.commitsList.length == 0) {
+        this.projectList.forEach((el) => {
+          this.setCommits(el.id);
+        });
+      }
+    }
+
     // await this.setUser();
     // await this.setProjects().then(
     //   res => {
     //     console.log('Ta aqui --> ', res)
     //     res.forEach(el => {
     //       this.setCommits(el.id)
-    //     })  
+    //     })
     //     // this.setCommits();
     //   }
     // );
   },
+
+  watch: {
+    projectList() {
+      if (this.projectList) {
+        if (this.commitsList.length == 0) {
+          this.projectList.forEach((el) => {
+            this.setCommits(el.id);
+          });
+        }
+      }
+    },
+  },
   computed: {
     ...mapGetters("hours", ["commitsList"]),
-    ...mapGetters('project', ['projectList']),
+    ...mapGetters("project", ["projectList", "allCollaborators"]),
     // ...mapGetters("/", ["projectList"]),
     // projectList(){
     //   return this.$store.getters.projectList
     // },
- 
+
     user() {
       return this.$store.state.user;
     },
-    // projects() {  
+    // projects() {
     //   return this.$store.state.projects;
     // },
   },

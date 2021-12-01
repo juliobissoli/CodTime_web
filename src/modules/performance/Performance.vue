@@ -7,13 +7,15 @@
           <div class="col-8">
             <span class="title22">
               Estatísticas desse mês
-              <small class="f14-light">(01 a 30 Abr 2021)</small>
+              <small class="f14-light">({{ filter | rangeDateGlobal }})</small>
             </span>
           </div>
           <div class="col-4 d-flex justify-content-end">
-            <div>
-              <button class="btn btn-outline-dark">Filter</button>
-            </div>
+            <FilterDefault
+              :date_end="filter.date_end"
+              :date_init="filter.date_init"
+              @change-filter="changeFilter"
+            />
           </div>
         </div>
       </div>
@@ -21,84 +23,49 @@
     <div class="row page-wrapper p-2">
       <div class="col-12 ">
         <div class="row">
-          <div class="col-3  p-1  ">
-            <CardStatistics
-              title="TOTAL DE HORAS"
-              :value="(statistics.total_time_spent / 60) | horusFormatGlobal"
-            />
-          </div>
-          <div class="col-3  p-1  ">
-            <CardStatistics
-              title="TOTAL HORAS ESTIMADO"
-              :value="(statistics.time_estimate / 60) | horusFormatGlobal"
-            />
-          </div>
-          <div class="col-3  p-1  ">
-            <CardStatistics
-              title="HORAS MEDIA POR ISSUE"
-              :value="
-                (statistics.total_time_avg_issues / 60) | horusFormatGlobal
-              "
-            />
-          </div>
-
-          <div class="col-3  p-1  ">
-            <CardStatistics
-              title="HORAS ESTIMADA MEDIA POR ISSUE"
-              :value="
-                (statistics.total_estimate_avg_issues / 60) | horusFormatGlobal
-              "
-            />
-          </div>
-          <div class="col-3  p-1  ">
-            <CardStatistics
-              title="TEMPO MEDIA DE ISSUE RELAT."
-              :value="
-                (statistics.total_time_avg_issues_relative / 60)
-                  | horusFormatGlobal
-              "
-            />
-          </div>
-          <div class="col-3  p-1  ">
-            <CardStatistics
-              title="ESTIMATIVA MEDIA DE ISSUE RELAT."
-              :value="
-                (statistics.total_estimate_avg_issues_relative / 60)
-                  | horusFormatGlobal
-              "
-            />
-          </div>
-          <div class="col-3  p-1  ">
-            <CardStatistics
-              title="TEMPO MÉDIO POR COLABORADOR"
-              value="Calc/rannking"
-            />
-          </div>
+          <div v-for="(field, i) in fields_totals" :key="i" class="col-4  p-1">
+          <CardStatistics
+            :title="field.title"
+            :value="
+              (statisticsTotals[field.entity] / 60) | horusFormatGlobal
+            "
+          />
         </div>
+        </div>
+        <div class="row p-0 mt-3">
+          <div class="col-12 p-1">
+            <ChartHours
+              :map_hors="mapHours"
+              :date_init="filter.date_init"
+              :date_end="filter.date_end"
+            />
+            {{mapHours}}
+          </div>
+      </div>
         <div class="row p-1 mt-4">
           <legend class="col-12">Estatísticas de Issues</legend>
           <div class="col-3  p-1  ">
             <CardStatistics
               title="TOTAL DE ISSUE"
-              :value="statistics.list.length | parseString"
+              :value="statisticsTotals.list.length | parseString"
             />
           </div>
           <div class="col-3  p-1  ">
             <CardStatistics
               title="ISSUE COM TEMPO ESTIMADO"
-              :value="statistics.issues_estimation_count | parseString"
+              :value="statisticsTotals.issues_estimation_count | parseString"
             />
           </div>
           <div class="col-3  p-1  ">
             <CardStatistics
               title="ISSUE COM TEMPO CONTADO"
-              :value="statistics.issues_timer_count | parseString"
+              :value="statisticsTotals.issues_timer_count | parseString"
             />
           </div>
           <div class="col-3  p-1  ">
             <CardStatistics
               title="ISSUE STARTADAS"
-              :value="statistics.isseus_started | parseString"
+              :value="statisticsTotals.isseus_started | parseString"
             />
           </div>
         </div>
@@ -115,7 +82,7 @@
                 >
                 <div class="col-10">
                   <CharHorizontal
-                    :total="statistics.total_time_spent"
+                    :total="statisticsTotals.total_time_spent"
                     :data_list="getChartData(item[1])"
                   />
                 </div>
@@ -132,18 +99,7 @@
             </ul> -->
           </div>
         </div>
-        <div class="row   p-1  mt-2">
-          <div class="col-12 p-4 shadow-sm bg-white rounded">
-            <legend>Horas por dia</legend>
-            <span>Gráficos de desempenho</span><br /><br />
-          </div>
-        </div>
-        <div class="row   p-1  mt-2">
-          <div class="col-12 p-4 shadow-sm bg-white rounded">
-            <legend>Horas por dia</legend>
-            <span>Gráficos de desempenho</span><br /><br />
-          </div>
-        </div>
+   
       </div>
     </div>
   </section>
@@ -152,23 +108,35 @@
 <script>
 import CardStatistics from "../../components/utils/CardStatistics.vue";
 import CharHorizontal from "../../components/utils/CharHorizontal";
+import FilterDefault from '../../components/utils/FilterDefalt.vue'
+import ChartHours from '../../components/performance/ChartHours.vue'
 import { mapActions, mapGetters } from "vuex";
 import moment from 'moment'
 export default {
   name: "Performance",
-  components: { CardStatistics, CharHorizontal },
+  components: { CardStatistics, CharHorizontal, FilterDefault, ChartHours },
   data() {
     return {
+          fields_totals: [
+            {entity: 'total_time_spent', title: "TOTAL DE HORAS"},
+            {entity: 'total_time_avg_issues', title: "HORAS MEDIA POR ISSUE"},
+            {entity: 'total_time_avg_issues_relative', title: "TEMPO MEDIA DE ISSUE RELAT."},
+            {entity: 'time_estimate', title: "TOTAL HORAS ESTIMADO"},
+            {entity: 'total_estimate_avg_issues', title: "HORAS ESTIMADA MEDIA POR ISSUE"},
+            {entity: 'total_estimate_avg_issues_relative', title: "ESTIMATIVA MEDIA DE ISSUE RELAT."},
+      ],
       filter: {
         date_init: moment().startOf("month").format("YYYY-MM-DD"), //fim
         date_end: moment().endOf("month").format("YYYY-MM-DD"), //inicio
         project_id: [],
+        assignee_id: null
 
       },
     };
   },
   created() {
     if (this.projectList.length > 0) {
+      this.filter.assignee_id = this.userID
       this.filter.project_id =  this.projectList.map((el) => el.id)
       this.setTasks(this.filter);
     }
@@ -179,58 +147,19 @@ export default {
       this.setTasks(this.filter);
     },
   },
-  computed: {
-    ...mapGetters("task", ["taskList"]),
-    ...mapGetters('project', ['projectList']),
-    statistics() {
-      if (this.taskList.length > 0) {
-        let total_time_spent = 0;
-        let time_estimate = 0;
-        let isseus_started = 0;
-        let issues_estimation_count = 0;
-        let issues_timer_count = 0;
-        const list = this.taskList.map((el) => {
-          time_estimate += el.time_stats.time_estimate;
-          total_time_spent += el.time_stats.total_time_spent;
-          isseus_started += el.status != 0 ? 1 : 0;
-          issues_estimation_count += el.time_stats.time_estimate != 0 ? 1 : 0;
-          issues_timer_count += el.time_stats.total_time_spent != 0 ? 1 : 0;
-          return {
-            ...el.time_stats,
-            created_at: el.created_at,
-            updated_at: el.updated_at,
-            issues_id: el.id,
-            iid: el.iid,
-            project_id: el.project_id,
-            status: el.status,
-          };
-        });
-        return {
-          list,
-          time_estimate,
-          total_time_spent,
-          isseus_started,
-          issues_timer_count,
-          issues_estimation_count,
-
-          total_time_avg_issues: total_time_spent / issues_timer_count,
-          total_estimate_avg_issues: time_estimate / issues_estimation_count,
-
-          total_time_avg_issues_relative: total_time_spent / (list.length || 1),
-          total_estimate_avg_issues_relative:
-            time_estimate / (list.length || 1),
-        };
-      } else {
-        return {
-          list: [],
-          total: 0,
-        };
-      }
+    watch: {
+    taskList() {
+      this.handleGetNotes();
     },
-
-    // projectMap(){
-    //   return this.$store.getters.mapProjects
-    // },
+  },
+  computed: {
+    ...mapGetters("task", ["taskList", 'statisticsTotals']),
+    ...mapGetters('project', ['projectList']),
+    ...mapGetters("user_info", ["userID"]),
+    ...mapGetters("hours", { hoursDate: "notesToDate" }),
+    mapHours() {
+      return this.hoursDate(this.filter);
+    },
     ...mapGetters("project", ["projectMap"]),
 
     horsForProject() {
@@ -246,6 +175,14 @@ export default {
   },
   methods: {
     ...mapActions("task", ["setTasks"]),
+    ...mapActions("hours", ["setNotes", "cleanNotes"]),
+
+    changeFilter(event){
+      Object.assign(this.filter, event)
+      this.setTasks(this.filter);
+
+    },
+
     getChartData(value) {
       return [
         {
@@ -254,6 +191,15 @@ export default {
           label: "",
         },
       ];
+    },
+
+    handleGetNotes() {
+      this.cleanNotes();
+      if (this.taskList.length > 0) {
+        this.taskList.forEach((el) => {
+          this.setNotes(el);
+        });
+      }
     },
   },
 

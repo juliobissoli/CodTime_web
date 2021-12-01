@@ -20,11 +20,12 @@ export default {
       console.log('Creasted')
       await this.setUser();
       // this.$store.dispatch("setValues");
-      await this.setProjects().then(res => {
+      await this.setProjects()
+      .then(res => {
           this.setCollaborators(res)
-          res.forEach(el => {
-            this.setCommits(el.id)
-          });
+          // res.forEach(el => {
+          //   this.setCommits(el.id)
+          // });
       })
     }
   },

@@ -104,8 +104,8 @@ export default {
       "collaboratorsList",
     ]),
     ...mapGetters("task", ["taskList", "statisticsTotals"]),
-    ...mapGetters("hours", { hoursDate: "notesToDate" }),
     ...mapGetters("user_info", ["userID"]),
+    ...mapGetters("hours", { hoursDate: "notesToDate" }),
     mapHours() {
       return this.hoursDate(this.filter);
     },

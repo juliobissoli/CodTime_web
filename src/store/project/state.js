@@ -2,5 +2,6 @@ export default{
     projects: [],
     project_detail: null,
     map_collaborators_project: new Map(),
-    collaborators: []
+    collaborators: [],
+    all_collaborators: []
 }

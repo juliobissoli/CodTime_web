@@ -36,6 +36,10 @@ export default{
         }
     },
 
+    allCollaborators(state){
+        return state.all_collaborators
+    },
+
     projectMap(state){
         const map = new Map(state.projects.map(el => [el.id, el]))
         return map
