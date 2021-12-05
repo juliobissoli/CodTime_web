@@ -4,8 +4,7 @@
       <div class="page-wrapper">
         <BarTop placeholder="Buscar Epc" btn_label="+ Epcs">
           <FilterDefault
-            :date_init="filter.date_init"
-            :date_end="filter.date_end"
+            :filds_status="filds_status"
             @change-filter="handleChangeFilter"
           />
         </BarTop>
@@ -23,7 +22,7 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from "moment";
 import { mapActions, mapGetters } from "vuex";
 import BarTop from "../../components/project/BarTop.vue";
 import EpcItem from "../../components/project/EpcItem.vue";
@@ -36,16 +35,20 @@ export default {
   data() {
     return {
       filter: {
+        state: "active",
         project_id: this.id,
-        status: 'active'
       },
+      filds_status: [
+        { value: "active", text: "Ativo" },
+        { value: "closed", text: "Inativo" },
+        { value: "all", text: "Todos" },
+      ],
     };
   },
   created() {
-    this.setMilestone(this.filter).then(
-        res => {
-            console.log(res)
-            this.setTasks({milestone: res.map(el => el.title)})});
+    this.setMilestone(this.filter).then((res) => {
+      this.setTasks({ milestone: res.map((el) => el.title) });
+    });
   },
   computed: {
     ...mapGetters("milestone", ["milestoneList"]),
@@ -71,14 +74,20 @@ export default {
     // }
   },
 
+  watch: {
+    milestoneList() {
+      this.setTasks({ milestone: this.milestoneList.map((el) => el.title) });
+    },
+  },
+
   methods: {
     ...mapActions("milestone", ["setMilestone"]),
     ...mapActions("task", ["setTasks"]),
 
     handleChangeFilter(event) {
       Object.assign(this.filter, event);
-
-    //   this.setTasks(this.filter);
+      this.setMilestone(this.filter);
+      //   this.setTasks(this.filter);
     },
   },
 };

@@ -21,23 +21,20 @@
         </div>
       </template>
       <template>
-        <div v-if="date_init && date_end" class="row d-flex flex-column ">
+        <div v-if="date_init && date_end" class="row d-flex flex-column">
           <header
             class="col-12 d-flex justify-content-between align-items-center"
-            :class="!visibilities.period ? 'mb-3': ''"
+            :class="!visibilities.period ? 'mb-3' : ''"
           >
-            <span class="f-18">
-              Período
-            </span>
-            <BtnArrow  v-bind:visible.sync="visibilities.period" />
-
+            <span class="f-18"> Período </span>
+            <BtnArrow v-bind:visible.sync="visibilities.period" />
           </header>
           <div v-show="visibilities.period" class="col-12 pb-3 px-4">
             <div class="row bg-light py-2 rounded">
               <div class="col-6 pr-1">
                 <small class="text-muted">inicio</small>
                 <input
-                  class="form-control form-control-sm "
+                  class="form-control form-control-sm"
                   v-model="dateInit"
                   v-debounce:500ms="changeData"
                   type="date"
@@ -56,17 +53,21 @@
           </div>
         </div>
 
-        <div v-if="avatar_list && avatar_list.length > 0" class="row d-flex flex-column divider_top">
+        <div
+          v-if="avatar_list && avatar_list.length > 0"
+          class="row d-flex flex-column divider_top"
+        >
           <header
-            class="col-12 d-flex justify-content-between mt-3 align-items-center"
+            class="
+              col-12
+              d-flex
+              justify-content-between
+              mt-3
+              align-items-center
+            "
           >
-            <span class="f-18">
-              Colaboradores
-            </span>
-            <BtnArrow  v-bind:visible.sync="visibilities.avatar" />
-            <!-- <button @click="visibilities.avatar = !visibilities.avatar" class="btn btn-sm">
-              <i class="icon icon-arrow_down"></i>
-            </button> -->
+            <span class="f-18"> Colaboradores </span>
+            <BtnArrow v-bind:visible.sync="visibilities.avatar" />
           </header>
           <div v-show="visibilities.avatar" class="col-12 pb-3 px-4">
             <div class="row bg-light py-2 rounded">
@@ -92,18 +93,28 @@
           </div>
         </div>
 
-          <div  class="row d-flex flex-column divider_top">
+        <div
+          v-if="filds_status && filds_status.length > 0"
+          class="row d-flex flex-column "
+        >
           <header
-            class="col-12 d-flex justify-content-between mt-3 align-items-center"
+            class="
+              col-12
+              d-flex
+              justify-content-between
+              align-items-center
+            "
           >
-            <span class="f-18">
-              Status
-            </span>
-            <BtnArrow  v-bind:visible.sync="visibilities.avatar" />
+            <span class="f-18"> Status </span>
+            <BtnArrow v-bind:visible.sync="visibilities.state" />
           </header>
-          <div  class="col-12 pb-3 px-4">
+          <div v-show="visibilities.state" class="col-12 pb-3 px-4">
             <div class="row bg-light p-2 rounded d-flex">
-              <BtnSwutch class="col-12" @change-select="setFildsStatus"  :labels='filds_status' />
+              <BtnSwutch
+                class="col-12"
+                @change-select="setFildsStatus"
+                :labels="filds_status || []"
+              />
             </div>
           </div>
         </div>
@@ -117,23 +128,24 @@ import Dropdown from "./Dropdown.vue";
 import BtnDropdown from "./BtnDropdown.vue";
 import moment from "moment";
 import MultselectAvatar from "./MultSelectAvatar.vue";
-import BtnArrow from  './BtnArrowIcon.vue'
-import BtnSwutch from   './BtnSwitch.vue'
+import BtnArrow from "./BtnArrowIcon.vue";
+import BtnSwutch from "./BtnSwitch.vue";
 export default {
   name: "FilterDefault",
-  props: { date_init: String, date_end: String, avatar_list: Array },
+  props: {
+    date_init: String,
+    date_end: String,
+    avatar_list: Array,
+    filds_status: Array,
+  },
   components: { Dropdown, BtnDropdown, MultselectAvatar, BtnArrow, BtnSwutch },
   data() {
     return {
-      filds_status: [
-        {value: 'active', text: 'Ativo'},
-        {value: 'closed', text: 'Inativo'},
-        {value: 'all', text: 'Todos'},
-        ],
       is_visible: false,
       visibilities: {
         period: true,
         avatar: true,
+        state: true,
       },
       messageError: "",
       dateInit: "",
@@ -149,8 +161,12 @@ export default {
     clickOut(event) {
       this.is_visible = this.is_visible ? false : this.is_visible;
     },
-    setFildsStatus(event){
-      console.log(event)
+    setFildsStatus(event) {
+      console.log(event);
+      const state = event === 'all' ? null : event
+
+      this.$emit("change-filter", {state});
+
     },
 
     changeData(event) {
@@ -168,7 +184,7 @@ export default {
           date_init: this.dateInit,
           date_end: this.dateEnd,
           assignee_list: [],
-          assignee_id: null
+          assignee_id: null,
         });
       }
     },
@@ -182,8 +198,7 @@ export default {
       if (member) {
         this.all_members = false;
         filter.assignee_id = member.id;
-        filter.assignee_list = [member]
-
+        filter.assignee_list = [member];
       }
       this.$emit("change-filter", filter);
     },

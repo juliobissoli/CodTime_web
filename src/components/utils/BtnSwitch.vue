@@ -33,17 +33,17 @@ export default {
   props: ["labels", "first"],
   data() {
     return {
-      select: null,
+      select: this.first || this.labels[0].value
     };
   },
   created() {
-    this.first
-      ? (this.select = this.first)
-      : (this.select = this.labels[0].value);
+    // this.first
+    //   ? (this.select = this.first)
+    //   : (this.select = this.labels[0].value);
   },
   watch: {
     first() {
-      this.select = this.first;
+      // this.select = this.first;
     },
     select() {
       this.$emit("change-select", this.select);
