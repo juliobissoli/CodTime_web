@@ -4,8 +4,13 @@ import router from "./router";
 import store from "./store";
 import moment from "moment";
 import vClickOutside from 'v-click-outside'
+import vueDebounce from "vue-debounce";
+
  
 Vue.use(vClickOutside)
+
+Vue.use(vueDebounce);
+
 
 import "./assets/Icons/icons.scss";
 

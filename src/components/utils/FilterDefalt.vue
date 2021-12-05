@@ -21,25 +21,25 @@
         </div>
       </template>
       <template>
-        <div class="row d-flex flex-column ">
+        <div v-if="date_init && date_end" class="row d-flex flex-column ">
           <header
             class="col-12 d-flex justify-content-between align-items-center"
+            :class="!visibilities.period ? 'mb-3': ''"
           >
             <span class="f-18">
               Período
             </span>
-            <button class="btn btn-sm">
-              <i class="icon icon-arrow_down"></i>
-            </button>
+            <BtnArrow  v-bind:visible.sync="visibilities.period" />
+
           </header>
-          <div class="col-12 pb-3 px-4">
+          <div v-show="visibilities.period" class="col-12 pb-3 px-4">
             <div class="row bg-light py-2 rounded">
               <div class="col-6 pr-1">
                 <small class="text-muted">inicio</small>
                 <input
                   class="form-control form-control-sm "
                   v-model="dateInit"
-                  @change="changeData"
+                  v-debounce:500ms="changeData"
                   type="date"
                 />
               </div>
@@ -48,7 +48,7 @@
                 <input
                   class="form-control form-control-sm pl-1"
                   v-model="dateEnd"
-                  @change="changeData"
+                  v-debounce:500ms="changeData"
                   type="date"
                 />
               </div>
@@ -63,11 +63,12 @@
             <span class="f-18">
               Colaboradores
             </span>
-            <button class="btn btn-sm">
+            <BtnArrow  v-bind:visible.sync="visibilities.avatar" />
+            <!-- <button @click="visibilities.avatar = !visibilities.avatar" class="btn btn-sm">
               <i class="icon icon-arrow_down"></i>
-            </button>
+            </button> -->
           </header>
-          <div class="col-12 pb-3 px-4">
+          <div v-show="visibilities.avatar" class="col-12 pb-3 px-4">
             <div class="row bg-light py-2 rounded">
               <div class="col-8 pr-1">
                 <MultselectAvatar
@@ -90,6 +91,22 @@
             </div>
           </div>
         </div>
+
+          <div  class="row d-flex flex-column divider_top">
+          <header
+            class="col-12 d-flex justify-content-between mt-3 align-items-center"
+          >
+            <span class="f-18">
+              Status
+            </span>
+            <BtnArrow  v-bind:visible.sync="visibilities.avatar" />
+          </header>
+          <div  class="col-12 pb-3 px-4">
+            <div class="row bg-light p-2 rounded d-flex">
+              <BtnSwutch class="col-12" @change-select="setFildsStatus"  :labels='filds_status' />
+            </div>
+          </div>
+        </div>
       </template>
     </Dropdown>
   </div>
@@ -100,13 +117,24 @@ import Dropdown from "./Dropdown.vue";
 import BtnDropdown from "./BtnDropdown.vue";
 import moment from "moment";
 import MultselectAvatar from "./MultSelectAvatar.vue";
+import BtnArrow from  './BtnArrowIcon.vue'
+import BtnSwutch from   './BtnSwitch.vue'
 export default {
   name: "FilterDefault",
   props: { date_init: String, date_end: String, avatar_list: Array },
-  components: { Dropdown, BtnDropdown, MultselectAvatar },
+  components: { Dropdown, BtnDropdown, MultselectAvatar, BtnArrow, BtnSwutch },
   data() {
     return {
+      filds_status: [
+        {value: 'active', text: 'Ativo'},
+        {value: 'closed', text: 'Inativo'},
+        {value: 'all', text: 'Todos'},
+        ],
       is_visible: false,
+      visibilities: {
+        period: true,
+        avatar: true,
+      },
       messageError: "",
       dateInit: "",
       dateEnd: "",
@@ -121,6 +149,10 @@ export default {
     clickOut(event) {
       this.is_visible = this.is_visible ? false : this.is_visible;
     },
+    setFildsStatus(event){
+      console.log(event)
+    },
+
     changeData(event) {
       if (moment(this.dateEnd).diff(moment(this.dateInit)) <= 0) {
         this.messageError = "Data invalida";

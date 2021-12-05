@@ -4,6 +4,7 @@ export default{
     url_before: '',
     filter: {
         project_id: null,
+        many_url: false,
         projects_list: [],
         updated_after: '',  //data fim
         updated_before: '', //data inicio

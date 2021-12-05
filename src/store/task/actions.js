@@ -8,16 +8,15 @@ export const setTasks = async ({ commit, state }, data) => {
   if (state.url === state.url_before) return;
   //Limpa as issues remanecentes
   commit(types.SET_TASKS, []);
-
+  
   return new Promise((resolve, reject) => {
-    if (!Array.isArray(data.project_id)) url = [url];
+    if (!Array.isArray(state.url)) url = [url];
     Promise.all(url.map((el) => handleGetTask(el))).then(
       (res) => {
         let list = [];
         res.forEach((el) => {
           list = [...el, ...list];
         });
-
         commit(types.SET_TASKS, list);
       },
 

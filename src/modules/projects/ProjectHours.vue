@@ -97,7 +97,6 @@ export default {
 
   data() {
     return {
-      list_avatar: [{ url: null }, { url: null }, { url: null }],
       filter: {
         date_init: moment().startOf("month").format("YYYY-MM-DD"),
         date_end: moment().endOf("month").format("YYYY-MM-DD"),
@@ -111,9 +110,11 @@ export default {
     if(!this.projectDetail.preferential ){
        this.filter.assignee_id = this.userID
       }
-    this.setTasks({...this.filter, project_id: this.id }).then((res) =>
-      this.handleGetNotes()
-    );
+      console.log('Create ')
+    this.setTasks({...this.filter, project_id: this.id })
+    // .then((res) =>
+      // this.handleGetNotes()
+    // );
   },
   watch: {
     taskList() {
@@ -161,8 +162,8 @@ export default {
 
 
     handleChangeFilter(event) {
-      this.filter.date_init = event.date_init;
-      this.filter.date_end = event.date_end;
+      // this.filter.date_init = event.date_init;
+      // this.filter.date_end = event.date_end;
       Object.assign(this.filter, event)
 
       this.setTasks(this.filter);

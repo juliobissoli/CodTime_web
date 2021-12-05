@@ -27,6 +27,7 @@ export default {
         author_id: data.author_id ? data.author_id : null,
         search: data.search ? data.search : null ,
         state: data.state ? data.state : null,
+        milestone: data.milestone ? data.milestone : null 
       } 
      : {
         project_id: null,
@@ -39,22 +40,21 @@ export default {
         state: ''
     }
     const header_url =  mountUrl(body)
+    let url
       if(Array.isArray(data.project_id)){
+        url = data.project_id.map(id =>  `${`projects/${id}/issues`}` + `${header_url ? '?' : ''}${header_url}` )
+      }
 
-        const url = data.project_id.map(id =>  `${`projects/${id}/issues`}` + `${header_url ? '?' : ''}${header_url}` )
-        
-       
-        state.filter = body
-        state.url_before = state.url
-        state.url = url
+      else if(Array.isArray(data.milestone)){
+        url = data.milestone.map(el =>  `issues?milestone=${el}`)
       }
       
       else {
-        const url = `${data.project_id ? `projects/${data.project_id}/issues` : "issues"}` + `${header_url ? '?' : ''}${header_url}`
+        url = `${data.project_id ? `projects/${data.project_id}/issues` : "issues"}` + `${header_url ? '?' : ''}${header_url}`
+      }
         state.filter = body
         state.url_before = state.url
         state.url = url
-      }
       
     }
     
