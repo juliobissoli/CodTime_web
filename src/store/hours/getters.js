@@ -26,9 +26,8 @@ export default {
         if (moment(el.created_at).format("YYYY-MM-DD") !== date) {
           map.set(date, {
             list,
-            second_spend: list
-              .map((el) => (el.subtracted ? -1 : 1) * el.second_spend)
-              .reduce((x, xs) => x + xs),
+            // second_spend: getters.countTime(list),
+            second_spend: list.map((el) => (el.subtracted ? -1 : 1) * el.second_spend).reduce((x, xs) => x + xs),
           });
           date = moment(el.created_at).format("YYYY-MM-DD");
           list = [data];
@@ -37,9 +36,8 @@ export default {
         }
         map.set(date, {
           list,
-          second_spend: list
-            .map((el) => (el.subtracted ? -1 : 1) * el.second_spend)
-            .reduce((x, xs) => x + xs),
+          // second_spend: getters.countTime(list),
+          second_spend: list.map((el) => (el.subtracted ? -1 : 1) * el.second_spend).reduce((x, xs) => x + xs),
         });
       });
     }
@@ -53,6 +51,17 @@ export default {
     });
 
     return map;
+  },
+
+   countTime: (state) => (list) => {
+    
+     let second_spend = 0
+    list.forEach(el => {
+      console.log('el => ',el)
+      second_spend += (el.subtracted ? -1 : 1) * el.second_spend
+    });
+    return second_spend
+    // ((el) => (el.subtracted ? -1 : 1) * el.second_spend).reduce((x, xs) => x + xs)
   },
 
   daysInterval: (state) => (filters) => {

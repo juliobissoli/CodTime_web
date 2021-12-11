@@ -112,7 +112,7 @@
             <div class="row bg-light p-2 rounded d-flex">
               <BtnSwutch
                 class="col-12"
-                @change-select="setFildsStatus"
+                @change-select="setFieldsStatus"
                 :labels="filds_status || []"
               />
             </div>
@@ -161,10 +161,8 @@ export default {
     clickOut(event) {
       this.is_visible = this.is_visible ? false : this.is_visible;
     },
-    setFildsStatus(event) {
-      console.log(event);
+    setFieldsStatus(event) {
       const state = event === 'all' ? null : event
-
       this.$emit("change-filter", {state});
 
     },

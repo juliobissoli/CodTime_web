@@ -26,7 +26,7 @@
             class="col-6 p-1 d-flex flex-column"
           >
           <LabelColor :class_color="stylesIssues.get(item.status).class">
-             <span class="f-14">{{ stylesIssues.get(item.status).label }}</span>
+             <span class="f-12">{{ stylesIssues.get(item.status).label }}</span>
           </LabelColor>
             <small class="py-2 px-3 bg-light rounded" :class="'text-' +stylesIssues.get(item.status).class"> 
                 {{ item.total_issues }} de {{totalIssues}}

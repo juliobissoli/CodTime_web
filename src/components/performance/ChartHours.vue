@@ -38,15 +38,28 @@ export default {
   },
   computed: {
     ...mapGetters("hours", {dateRange: "daysInterval"}),
+    ...mapGetters("task", ["statisticsTotals"]),
+
 
     chartData() {
       return {
         labels: this.rangeDate.map(el => el.label),
         datasets: [
           {
+            label: 'Hora trabalhada',
             data: this.rangeDate.map(el => this.map_hors.get(el.date).second_spend / 60 / 60 ),
             backgroundColor: this.rangeDate.map(el => el.color),
+             order: 1
           },
+          {
+            label: 'Estimativa media',
+            data: this.rangeDate.map(el => this.statisticsTotals.total_estimate_avg_issues_relative  / 60 / 60),
+            backgroundColor: 'transparent',
+            borderColor: '#cccccc',
+            type: 'line',
+            order: 0
+
+          }
         ],
       };
     },

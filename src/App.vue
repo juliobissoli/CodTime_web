@@ -21,6 +21,12 @@
     color: inherit; /* blue colors for links too */
     text-decoration: inherit; /* no underline */
   }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
 }
 .f-12{  font-size: 12px;}
 .f-14{  font-size: 14px;}
@@ -59,7 +65,7 @@
 
 .page-wrapper {
   margin: 0 auto;
-  max-width: 1000px;
+  max-width: 1100px;
   width: 100%;
 
   display: grid;

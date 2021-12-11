@@ -4,7 +4,10 @@
       <div class="page-wrapper">
         <header class="d-flex justify-content-between">
           <div class="d-flex align-items-center">
-            <span class="title22">{{(!projectDetail.preferential ? 'Seu d' : 'D') + "esempenho de"}}
+            <span class="title22"
+              >{{
+                (!projectDetail.preferential ? "Seu d" : "D") + "esempenho de"
+              }}
               <small class="f14-light mr-4">
                 ({{ filter | rangeDateGlobal }})
               </small>
@@ -18,34 +21,46 @@
             @change-filter="handleChangeFilter"
           />
         </header>
-        
       </div>
     </section>
-    <section class="col-12 py-3 px-0 page-wrapper">
+    <section class="col-12 p-3  page-wrapper">
       <div class="row">
         <div v-for="(field, i) in fields_totals" :key="i" class="col-4  p-1">
           <CardStatistics
             :title="field.title"
-            :value="
-              (statisticsTotals[field.entity] / 60) | horusFormatGlobal
-            "
+            :value="(statisticsTotals[field.entity] / 60) | horusFormatGlobal"
           />
         </div>
       </div>
       <div class="row p-0 mt-3">
-        <div class="col-12 p-1">
+        <div class="col-7 p-1">
           <ChartHours
             :map_hors="mapHours"
             :date_init="filter.date_init"
             :date_end="filter.date_end"
           />
         </div>
+        <div class="col-5 p-1">
+          <ChartStatus :list_data="statisticsTotals.total_by_status" />
+          <IssuesStats class="mt-2" :issues="taskList" />
+        </div>
       </div>
       <div class="row p-0 mt-3">
-        <div class="col-8 p-0">
-          <ChartStatus 
-          :list_data="statisticsTotals.total_by_status"
-          />
+        <div class="col-5 bg-white rounded p-4">
+          <div class="row">
+
+          <div class="col-6">
+            <small class="text-muted ">Total de Hora</small>
+            <h1>{{(statisticsTotals.total_time_spent / 60) | horusFormatGlobal}}</h1>
+          </div>
+          <div class="col-6 divider_left text-right">
+            <small class="text-muted ">Total estimado</small>
+            <h1>{{(statisticsTotals.time_estimate / 60) | horusFormatGlobal}}</h1>
+          </div>
+          <span class="col-12">
+            12% > que a estimativa
+          </span>
+          </div>
         </div>
       </div>
     </section>
@@ -57,39 +72,60 @@ import AvatarList from "../../components/utils/AvatarList.vue";
 import FilterDefault from "../../components/utils/FilterDefalt.vue";
 import CardStatistics from "../../components/utils/CardStatistics.vue";
 import ChartHours from "../../components/performance/ChartHours.vue";
-import ChartStatus from '../../components/performance/ChartIssuesByStatus.vue'
+import ChartStatus from "../../components/performance/ChartIssuesByStatus.vue";
+import IssuesStats from "../../components/performance/ListIssues.vue";
 
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 export default {
   name: "ProjectPerformance",
-  components: { AvatarList, FilterDefault, CardStatistics, ChartHours, ChartStatus },
+  components: {
+    AvatarList,
+    FilterDefault,
+    CardStatistics,
+    ChartHours,
+    ChartStatus,
+    IssuesStats,
+  },
   props: ["id"],
 
   data() {
     return {
       list_avatar: [{ url: null }, { url: null }, { url: null }],
       fields_totals: [
-            {entity: 'total_time_spent', title: "TOTAL DE HORAS"},
-            {entity: 'total_time_avg_issues', title: "HORAS MEDIA POR ISSUE"},
-            {entity: 'total_time_avg_issues_relative', title: "TEMPO MEDIA DE ISSUE RELAT."},
-            {entity: 'time_estimate', title: "TOTAL HORAS ESTIMADO"},
-            {entity: 'total_estimate_avg_issues', title: "HORAS ESTIMADA MEDIA POR ISSUE"},
-            {entity: 'total_estimate_avg_issues_relative', title: "ESTIMATIVA MEDIA DE ISSUE RELAT."},
+        { entity: "total_time_spent", title: "TOTAL DE HORAS" },
+        { entity: "total_time_avg_issues", title: "HORAS MEDIA POR ISSUE" },
+        {
+          entity: "total_time_avg_issues_relative",
+          title: "TEMPO MEDIA DE ISSUE RELAT.",
+        },
+        { entity: "time_estimate", title: "TOTAL HORAS ESTIMADO" },
+        {
+          entity: "total_estimate_avg_issues",
+          title: "HORAS ESTIMADA MEDIA POR ISSUE",
+        },
+        {
+          entity: "total_estimate_avg_issues_relative",
+          title: "ESTIMATIVA MEDIA DE ISSUE RELAT.",
+        },
       ],
       filter: {
-        date_init: moment().startOf("month").format("YYYY-MM-DD"),
-        date_end: moment().endOf("month").format("YYYY-MM-DD"),
+        date_init: moment()
+          .startOf("month")
+          .format("YYYY-MM-DD"),
+        date_end: moment()
+          .endOf("month")
+          .format("YYYY-MM-DD"),
         project_id: this.id,
         assignee_list: [],
-        assignee_id: null
+        assignee_id: null,
       },
     };
   },
   created() {
-    if(!this.projectDetail.preferential ){
-       this.filter.assignee_id = this.userID
-      }
+    if (!this.projectDetail.preferential) {
+      this.filter.assignee_id = this.userID;
+    }
     this.setTasks(this.filter).then((res) => this.handleGetNotes());
   },
   watch: {
@@ -110,7 +146,9 @@ export default {
       return this.hoursDate(this.filter);
     },
     members_filtered() {
-      return this.filter.assignee_list.length > 0 ? this.filter.assignee_list : this.projectDetail.members_visible
+      return this.filter.assignee_list.length > 0
+        ? this.filter.assignee_list
+        : this.projectDetail.members_visible;
     },
   },
 
@@ -119,7 +157,7 @@ export default {
     ...mapActions("task", ["setTasks"]),
 
     handleChangeFilter(event) {
-      Object.assign(this.filter, event)
+      Object.assign(this.filter, event);
       this.setTasks(this.filter);
     },
 
@@ -132,7 +170,6 @@ export default {
       }
     },
   },
-
 };
 </script>
 
@@ -141,5 +178,10 @@ export default {
   height: 20px;
   width: 20px;
   background-color: #999999;
+  padding: 10px 0;
+}
+
+.page-wrapper {
+  max-width: 1440px;
 }
 </style>

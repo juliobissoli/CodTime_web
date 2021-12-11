@@ -26,7 +26,7 @@
         </button>
             <button  class="btn_menu_item f-light"   :class="selected === 'ProjectPerform' ? 'selected' : ''">
           <router-link :to="{ name: 'ProjectPerform' }"  >
-            <span class="p-3">Desempenho</span>
+            <span class="p-3">Estatísticas</span>
           </router-link>
         </button>
       </nav>

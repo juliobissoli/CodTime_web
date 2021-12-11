@@ -23,7 +23,7 @@ export default {
   props: {image: String, size: Number, small: Boolean, rounded: Boolean},
   computed: {
     styleSize(){
-      return this.size ? {height: `${this.size}px`} : {height: `226px`}
+      return this.size ? {height: `${this.size}px`} : {height: `286px`}
     }
     // src() {
     //   const images = require.context("../../assets/images/", false, /\.jpg$/);
@@ -50,7 +50,7 @@ export default {
 
   .item {
     display: flex;
-    height: 226px
+    height: 286px
   }
   @media (max-width: 756px) {
     .small {

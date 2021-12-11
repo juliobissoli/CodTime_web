@@ -122,7 +122,6 @@ export default {
     handleChangeFilter(event){
       this.filter.date_init = event.date_init
       this.filter.date_end = event.date_end
-      console.log('Filtro vai dar get')
       this.setTasks({...event, project_id: this.id});
     },
 
