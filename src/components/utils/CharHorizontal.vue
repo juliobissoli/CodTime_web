@@ -2,31 +2,38 @@
   <div class="chart px-0">
     <div class=" line chart-content" :class="small ? 'small' : 'big'">
       <div class="col-md-12 p-0 ">
-        <div v-if="list_valit.length > 0" class="bar-item">
+        <div v-if="list_data.length > 0" class="bar-item">
           <div
-            v-for="(item, i) in list_valit"
+            v-for="(item, i) in list_data"
             :key="i"
             :style="getStyles(item).style"
             class="sub-bar-item p-1 d-flex align-items-center"
             :class="[
               statusStyles.get(item.status).class,
-              { unit: list_valit.length === 1 },
+              { unit: list_data.length === 1 },
             ]"
           >
             <span
               v-show="getStyles(item).percent != 0 && !small"
               class="p-1 text-truncate"
+              :class="label_class"
             >
               {{ getStyles(item).percent }}%
-              {{ statusStyles.get(item.status).label }}
+              {{
+                item.label ? item.label : statusStyles.get(item.status).label
+              }}
             </span>
           </div>
         </div>
 
         <div v-else class="bar-item">
-          <div  class="sub-bar-item p-1 d-flex align-items-center">
-            <span v-show="!small"  class="p-1 text-truncate text-secondary">
-              {{label_null}}
+          <div class="sub-bar-item p-1 d-flex align-items-center">
+            <span
+              v-show="!small"
+              class="p-1 text-truncate text-secondary"
+              :class="label_class"
+            >
+              {{ label_null }}
             </span>
           </div>
         </div>
@@ -42,13 +49,14 @@ export default {
     total: Number,
     data_list: Array,
     small: Boolean,
-    label_null: String
+    label_null: String,
+    label_class: String,
   },
   computed: {
     statusStyles() {
       return this.$store.getters.mapGlobalTaskStatusStyle;
     },
-    list_valit() {
+    list_data() {
       return this.data_list.filter((el) => el.value > 0);
     },
   },

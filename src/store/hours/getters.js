@@ -15,11 +15,11 @@ export default {
     let list = [];
     let date = "";
     let map = new Map();
-    let lotList = getters.noteList;
+    let noteList = getters.noteList;
 
-    if (lotList.length > 0) {
-      date = moment(lotList[0].created_at).format("YYYY-MM-DD");
-      lotList.forEach((el) => {
+    if (noteList.length > 0) {
+      date = moment(noteList[0].created_at).format("YYYY-MM-DD");
+      noteList.forEach((el) => {
         let data = {
           ...el.time,
         };
@@ -27,7 +27,9 @@ export default {
           map.set(date, {
             list,
             // second_spend: getters.countTime(list),
-            second_spend: list.map((el) => (el.subtracted ? -1 : 1) * el.second_spend).reduce((x, xs) => x + xs),
+            second_spend: list
+              .map((el) => (el.subtracted ? -1 : 1) * el.second_spend)
+              .reduce((x, xs) => x + xs),
           });
           date = moment(el.created_at).format("YYYY-MM-DD");
           list = [data];
@@ -37,7 +39,9 @@ export default {
         map.set(date, {
           list,
           // second_spend: getters.countTime(list),
-          second_spend: list.map((el) => (el.subtracted ? -1 : 1) * el.second_spend).reduce((x, xs) => x + xs),
+          second_spend: list
+            .map((el) => (el.subtracted ? -1 : 1) * el.second_spend)
+            .reduce((x, xs) => x + xs),
         });
       });
     }
@@ -53,15 +57,69 @@ export default {
     return map;
   },
 
-   countTime: (state) => (list) => {
-    
-     let second_spend = 0
-    list.forEach(el => {
-      console.log('el => ',el)
-      second_spend += (el.subtracted ? -1 : 1) * el.second_spend
+  countTime: (state) => (list) => {
+    let second_spend = 0;
+    list.forEach((el) => {
+      second_spend += (el.subtracted ? -1 : 1) * el.second_spend;
     });
-    return second_spend
+    return second_spend;
     // ((el) => (el.subtracted ? -1 : 1) * el.second_spend).reduce((x, xs) => x + xs)
+  },
+
+  housToAssignee(state) {
+    return state.notes
+      .map((el) => ({
+        ...el,
+        assignee_id: el.issue.assignee ? el.issue.assignee.id : 0,
+      }))
+      .sort((a, b) => a.assignee_id - b.assignee_id);
+  },
+
+  notesToAssignee: (state, getters) => (assignee_list) => {
+    let list = [];
+    let user = -1;
+    let map = new Map();
+    let noteList = getters.housToAssignee;
+    if (noteList.length > 0) {
+      // date = moment(noteList[0].created_at).format("YYYY-MM-DD");
+      user = noteList[0].assignee_id
+      noteList.forEach((el) => {
+        let data = {
+          ...el.time,
+        };
+        if (el.assignee_id !== user) {
+          map.set(user, {
+            list,
+            // second_spend: getters.countTime(list),
+            second_spend: list
+              .map((el) => (el.subtracted ? -1 : 1) * el.second_spend)
+              .reduce((x, xs) => x + xs),
+          });
+          // date = moment(el.created_at).format("YYYY-MM-DD");
+          user = el.assignee_id
+          list = [data];
+        } else {
+          list.push(data);
+        }
+        map.set(user, {
+          list,
+          // second_spend: getters.countTime(list),
+          second_spend: list
+            .map((el) => (el.subtracted ? -1 : 1) * el.second_spend)
+            .reduce((x, xs) => x + xs),
+        });
+      });
+    }
+
+    // let  daysInterval = this.daysInterval(filters)
+
+    assignee_list.forEach((assignee) => {
+      if (!map.get(assignee)) {
+        map.set(assignee, { list: [], second_spend: 0 });
+      }
+    });
+
+    return map;
   },
 
   daysInterval: (state) => (filters) => {
