@@ -25,12 +25,29 @@
     </section>
     <section class="col-12 p-4  page-wrapper">
       <div class="row">
-        <div v-for="(field, i) in fields_totals" :key="i" class="col-4  p-1">
+        <div class="col-7 p-1">
+          <CardComparative
+            :comparing="statisticsTotals.total_time_spent"
+            comparing_label="Total de horas"
+            :base="statisticsTotals.time_estimate"
+            base_label="Total estimado"
+          />
+        </div>
+        <div class="col-5 p-1">
+          <CardComparative
+            :comparing="statisticsTotals.total_time_avg_issues_relative"
+            comparing_label="Media por issues"
+            :base="statisticsTotals.total_estimate_avg_issues_relative"
+            base_label="Media estimado"
+            :has_compare="false"
+          />
+        </div>
+        <!-- <div v-for="(field, i) in fields_totals" :key="i" class="col-4  p-1">
           <CardStatistics
             :title="field.title"
             :value="(statisticsTotals[field.entity] / 60) | horusFormatGlobal"
           />
-        </div>
+        </div> -->
       </div>
       <div class="row p-0 mt-3">
         <div class="col-7 p-1">
@@ -46,53 +63,28 @@
         </div>
       </div>
       <div class="row p-0 mt-3">
-        <div class="col-5">
-          <CardComparative
-            :comparing="statisticsTotals.total_time_spent"
-            comparing_label="Total de horas"
-            :base="statisticsTotals.time_estimate"
-            base_label="Total estimado"
+        <div class="col-6 p-1">
+          <ChartByMember
+            :members="members_filtered"
+            :total_time_spent="statisticsTotals.total_time_spent"
           />
         </div>
-        <div class="col-5 rounded bg-white shadow-sm p-4">
-          <legend class="mb-2">Horas por colaborador</legend>
-
-          <div
-            class="col-12"
-            v-for="(assignee, i) in members_filtered"
-            :key="i"
-          >
-            <div class="row mb-2">
-              <div class="col p-0 d-flex justify-content-center justify-content-center">
-                <Avatar style="height: 30px; width: 30px" :item="assignee" />
-              </div>
-              <div class="col-9 px-1">
-                <CharHorizontal
-                  :total="statisticsTotals.total_time_spent"
-                  label_class="f-12"
-                  :data_list="getChartData(mapAssignee.get(assignee.id).second_spend)"
-                  label_null="Nenhum trabalho"
-                />
-              </div>
-              <div class="col d-flex align-items-center justify-content-center">
-                <span class="badge badge-secondary ">
-                  {{
-                    (mapAssignee.get(assignee.id).second_spend / 60)
-                      | horusFormatGlobal
-                  }}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- <div
-            v-for="(assignee, i) in members_filtered"
-            :key="i"
-            class="d-flex align-items-center"
-          >
-            {{ mapAssignee.get(assignee.id).second_spend }}
-          </div> -->
+        <div class="col-3 p-1">
+          <CardStatistics
+            title="Issue mais duradoura"
+            :value="'#' + statisticsTotals.more_lasting_issues.iid"
+          />
         </div>
+        <div class="col-3 p-1">
+          <CardStatistics
+            title="Issue menos duradoura"
+            :value="'#' + statisticsTotals.less_lasting_issues.iid"
+          />
+        </div>
+        <!-- <div class="col-2 p-4 bg-white rounded shadow-sm">
+          <span>Issue mais duradoura</span>
+          <CardIssue :task="taskList.length > 0 ? taskList[0] : null" />
+        </div> -->
       </div>
     </section>
   </div>
@@ -107,7 +99,9 @@ import ChartHours from "../../components/performance/ChartHours.vue";
 import ChartStatus from "../../components/performance/ChartIssuesByStatus.vue";
 import CardComparative from "../../components/performance/CardComparative.vue";
 import IssuesStats from "../../components/performance/ListIssues.vue";
-import CharHorizontal from "../../components/utils/CharHorizontal.vue";
+// import CharHorizontal from "../../components/utils/CharHorizontal.vue";
+import ChartByMember from "../../components/performance/ChartByMember.vue";
+import CardIssue from "../../components/project/CardTasksFull.vue";
 
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
@@ -122,7 +116,8 @@ export default {
     ChartStatus,
     IssuesStats,
     CardComparative,
-    CharHorizontal,
+    ChartByMember,
+    CardIssue,
   },
   props: ["id"],
 

@@ -32,8 +32,9 @@ export default {
       let issues_estimation_count = 0;
       let issues_timer_count = 0;
       let total_by_status = [0,1,2,3].map(i => ({status: i, time_spent: 0, time_estimate: 0, total_issues: 0}))
-      
-      const list = state.tasks.map((el) => {
+      let more_lasting_issues = null
+      let less_lasting_issues = null
+      const list = state.tasks.map((el, i) => {
         time_estimate += el.time_stats.time_estimate;
         total_time_spent += el.time_stats.total_time_spent;
         isseus_started += el.status != 0 ? 1 : 0;
@@ -42,6 +43,8 @@ export default {
         total_by_status[el.status].time_spent += el.time_stats.total_time_spent;
         total_by_status[el.status].time_estimate += el.time_stats.time_estimate;
         total_by_status[el.status].total_issues += 1;
+        more_lasting_issues = i === 0 || el.time_stats.total_time_spent >= more_lasting_issues.total_time_spent ? {...el.time_stats, id: el.id, iid: el.iid, title: el.tittle} : more_lasting_issues
+        less_lasting_issues = i === 0 || el.time_stats.total_time_spent <= less_lasting_issues.total_time_spent ? {...el.time_stats, id: el.id, iid: el.iid, title: el.tittle} : less_lasting_issues
         return {
           ...el.time_stats,
           created_at: el.created_at,
@@ -66,6 +69,9 @@ export default {
         total_time_avg_issues_relative: total_time_spent / (list.length || 1),
         total_estimate_avg_issues_relative: time_estimate / (list.length || 1),
 
+        more_lasting_issues,
+        less_lasting_issues,
+
         total_by_status
       };
     } else {
@@ -83,6 +89,9 @@ export default {
         total_estimate_avg_issues: 0,
         total_time_avg_issues_relative: 0,
         total_estimate_avg_issues_relative: 0,
+
+        more_lasting_issues: { total_time_spent: 0, iid: 0, id:0, title: ''},
+        less_lasting_issues: { total_time_spent: 0, iid: 0, id:0, title: ''},
         total_by_status: []
       };
     }

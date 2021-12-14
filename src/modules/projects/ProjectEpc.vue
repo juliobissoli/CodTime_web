@@ -2,7 +2,7 @@
   <div class="row p-0">
     <section class="col-12 bg-white p-3">
       <div class="page-wrapper">
-        <BarTop placeholder="Buscar Epc" btn_label="+ Epcs">
+        <BarTop placeholder="Buscar milestone" btn_label="+ Milestone">
           <FilterDefault
             :filds_status="filds_status"
             @change-filter="handleChangeFilter"
@@ -10,14 +10,22 @@
         </BarTop>
       </div>
     </section>
-    <div
-      v-for="(epc, i) in milestoneList"
-      :key="i"
-      class="col-12 py-3 px-0 page-wrapper"
-    >
-      <!-- <h1>Lista de Epcs</h1> -->
-      <EpcItem :epc="epc" :issues_map="issuesMap" />
-    </div>
+    <section class="col-12 py-2 page-wrapper">
+      <header class="d-flex divider_bottom justify-content-between">
+        <div class="d-flex align-items-center">
+          <h4 class="m-0">Milestone</h4>
+        </div>
+        <div v-show="filter.state">
+          Status: 
+          <span class="badge " :class="filter.state === 'active' ? 'badge-primary' : 'badge-secondary'">{{filter.state}}</span>
+        </div>
+      </header>
+
+      <div v-for="(epc, i) in milestoneList" :key="i" class="col-12 py-3 px-0 ">
+        <!-- <h1>Lista de Epcs</h1> -->
+        <EpcItem :epc="epc" :issues_map="issuesMap" />
+      </div>
+    </section>
   </div>
 </template>
 

@@ -1,33 +1,68 @@
 <template>
   <div class="bg-white shadow-sm rounded p-4">
-    <div class="row">
-      <div class="col-6">
-        <small class="text-muted text-uppercase">{{comparing_label}}</small>
+    <div v-if="has_compare" class="row">
+      <div class="col-4">
+        <small class="text-muted text-uppercase">
+          {{ hasNegative ? "a cima " : "dentro " }} do {{ base_label }} em
+        </small>
         <h1 class="d-flex align-items-end">
-          {{ (comparing / 60) | horusFormatGlobal }}
+          {{ (diff / 60) | horusFormatGlobal }}
           <small
             class="f-12 d-flex m-2"
             :class="!hasNegative ? 'text-success' : 'text-danger'"
           >
             <i
               class="icon "
-              :class="!hasNegative ? 'icon-arrow_down' : 'icon-arrow_up'">
+              :class="!hasNegative ? 'icon-arrow_down' : 'icon-arrow_up'"
+            >
             </i>
             {{ percent }}%
           </small>
         </h1>
       </div>
-      <div class="col-6 divider_left text-right">
-        <small class="text-muted text-uppercase">{{base_label}}</small>
+      <div class="col-4 divider_left text-center">
+        <small class="text-muted text-uppercase">{{ comparing_label }}</small>
+        <h1>
+          {{ (comparing / 60) | horusFormatGlobal }}
+        </h1>
+      </div>
+      <div class="col-4 divider_left  text-right">
+        <small class="text-muted text-uppercase">{{ base_label }}</small>
         <h1>
           {{ (base / 60) | horusFormatGlobal }}
         </h1>
       </div>
-      <small class="col-12 text-center mt-1 text-lowercase text-secondary">
-        <!-- 12% > que a estimativa -->
+      <!-- <small class="col-12 text-center mt-1 text-lowercase text-secondary">
         {{ (diff / 60) | horusFormatGlobal }}
-        {{ hasNegative ? "a cima " : "dentro " }} do {{base_label}}
-      </small>
+        {{ hasNegative ? "a cima " : "dentro " }} do {{ base_label }}
+      </small> -->
+    </div>
+    <div v-else class="row">
+      <div class="col-6">
+        <small class="text-muted text-uppercase">
+          {{ comparing_label }}
+        </small>
+        <h1 class="d-flex align-items-end">
+          {{ (comparing / 60) | horusFormatGlobal }}
+         <small
+            class="f-12 d-flex m-2"
+            :class="!hasNegative ? 'text-success' : 'text-danger'"
+          >
+            <i
+              class="icon "
+              :class="!hasNegative ? 'icon-arrow_down' : 'icon-arrow_up'"
+            >
+            </i>
+            {{ percent }}%
+          </small>
+        </h1>
+      </div>
+      <div class="col-6 divider_left  text-right">
+        <small class="text-muted text-uppercase">{{ base_label }}</small>
+        <h1>
+          {{ (base / 60) | horusFormatGlobal }}
+        </h1>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +75,7 @@ export default {
     comparing: { type: Number, default: 0 },
     comparing_label: { type: String, default: "" },
     base_label: { type: String, default: "" },
+    has_compare: { type: Boolean, default: true },
   },
   computed: {
     percent() {
@@ -64,8 +100,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.icon{
-    width: 18px;
-    height: 18px;
+.icon {
+  width: 18px;
+  height: 18px;
 }
 </style>
