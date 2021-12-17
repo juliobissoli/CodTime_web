@@ -5,6 +5,8 @@
       <!-- <div style="width: 150px" class="d-flex">
         <BtbDropdown label="Dia"/>
       </div> -->
+      Media de trabalho diário estimado =
+      {{ (avgEstimateWor * 60) | horusFormatGlobal }}
     </span>
     <Chart
       :key="key_render"
@@ -16,10 +18,10 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from "moment";
 import { mapGetters } from "vuex";
 import Chart from "../utils/ChartBar.vue";
-import BtbDropdown from '../utils/BtnDropdown.vue'
+import BtbDropdown from "../utils/BtnDropdown.vue";
 // import topStatistics from "../utils/TopStatistics";
 export default {
   name: "ChartHours",
@@ -31,44 +33,87 @@ export default {
       display: false,
     };
   },
-  watch:{
-    map_hors(){
-      this.key_render++
-    }
+  watch: {
+    map_hors() {
+      this.key_render++;
+    },
   },
   computed: {
-    ...mapGetters("hours", {dateRange: "daysInterval"}),
+    ...mapGetters("hours", { dateRange: "daysInterval" }),
     ...mapGetters("task", ["statisticsTotals"]),
-
 
     chartData() {
       return {
-        labels: this.rangeDate.map(el => el.label),
+        labels: this.rangeDate.map((el) => el.label),
         datasets: [
           {
-            label: 'Hora trabalhada',
-            data: this.rangeDate.map(el => this.map_hors.get(el.date).second_spend / 60 / 60 ),
-            backgroundColor: this.rangeDate.map(el => el.color),
-             order: 1
+            label: "Hora trabalhada",
+            data: this.rangeDate.map(
+              (el) => this.map_hors.get(el.date).second_spend / 60 / 60
+            ),
+            backgroundColor: this.rangeDate.map((el) => el.color),
+            order: 1,
           },
           {
-            label: 'Estimativa media',
-            data: this.rangeDate.map(el => this.statisticsTotals.total_estimate_avg_issues_relative  / 60 / 60),
-            backgroundColor: 'transparent',
-            borderColor: '#cccccc',
-            type: 'line',
-            order: 0
-
-          }
+            label: "Prospecção de esforço ideal",
+            data: this.rangeDate.map(
+              (el, i) =>
+                this.statisticsTotals.time_estimate / 60 / 60 -
+                i * this.avgEstimateWor
+            ),
+            backgroundColor: "transparent",
+            borderColor: "#cccccc",
+            type: "line",
+            order: 0,
+          },
+          {
+            label: "Esforço real necessário",
+            data: this.getRemainingEffort(),
+            backgroundColor: "transparent",
+            borderColor: "#4273c5",
+            type: "line",
+            order: 0,
+          },
+          {
+            label: "Prospecção de esforço real",
+            data: this.rangeDate.map(
+              (el, i) =>
+                this.statisticsTotals.time_estimate / 60 / 60 -
+                i * (this.avgWor)
+            ),
+            backgroundColor: "transparent",
+            borderColor: 'red',
+            type: "line",
+            order: 0,
+          },
         ],
       };
     },
-    rangeDate(){
-      return  this.dateRange({  date_init: this.date_init,  date_end: this.date_end}).map(el => ({
+    avgEstimateWor() {
+      return (
+        this.statisticsTotals.time_estimate /
+        60 /
+        60 /
+        (this.rangeDate.length - 1)
+      );
+    },
+    avgWor() {
+      return (
+        this.statisticsTotals.total_time_spent /
+        60 /
+        60 /
+        (this.rangeDate.length - 1)
+      );
+    },
+    rangeDate() {
+      return this.dateRange({
+        date_init: this.date_init,
+        date_end: this.date_end,
+      }).map((el) => ({
         date: el,
-        label: moment(el).format('DD MMM'),
-        color: '#0070F3'
-      }))
+        label: moment(el).format("DD MMM"),
+        color: "#0070F3",
+      }));
     },
     options() {
       return {
@@ -97,7 +142,16 @@ export default {
       };
     },
   },
-
+  methods: {
+    getRemainingEffort() {
+      let acc = 0;
+      return this.rangeDate.map((el, i) => {
+        let hours_work = this.map_hors.get(el.date).second_spend / 60 / 60;
+        acc += hours_work;
+        return this.statisticsTotals.time_estimate / 60 / 60 - acc;
+      });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

@@ -39,7 +39,6 @@
               :date_init="filter.date_init"
               :date_end="filter.date_end"
             />
-            {{mapHours}}
           </div>
       </div>
         <div class="row p-1 mt-4">
