@@ -6,7 +6,7 @@
           <div class="d-flex align-items-center">
             <span class="title22">
               {{
-                (!projectDetail.preferential ? "Seu d" : "D") + "esempenho de"
+                (!projectDetail.preferential ? "Suas estatísticas de" : "Estatísticas de")
               }}
               <small class="f14-light mr-4">
                 ({{ filter | rangeDateGlobal }})
@@ -18,6 +18,7 @@
             :date_init="filter.date_init"
             :date_end="filter.date_end"
             :avatar_list="projectDetail.members_visible"
+            :milestones="milestoneList"
             @change-filter="handleChangeFilter"
           />
         </header>
@@ -70,16 +71,22 @@
           />
         </div>
         <div class="col-3 p-1">
-          <CardStatistics
-            title="Issue mais duradoura"
-            :value="'#' + statisticsTotals.more_lasting_issues.iid"
-          />
+          <CardStatistics title="Issue mais longa">
+            #{{ statisticsTotals.more_lasting_issues.iid }}
+            <small class="text-muted f-16">
+            {{  (statisticsTotals.more_lasting_issues.total_time_spent / 60)    | horusFormatGlobal}}
+            </small>
+          </CardStatistics>
         </div>
         <div class="col-3 p-1">
           <CardStatistics
-            title="Issue menos duradoura"
-            :value="'#' + statisticsTotals.less_lasting_issues.iid"
-          />
+            title="Issue mains curta"
+          >
+              #{{ statisticsTotals.less_lasting_issues.iid }}
+            <small class="text-muted f-16">
+            {{  (statisticsTotals.less_lasting_issues.total_time_spent / 60)    | horusFormatGlobal}}
+            </small>
+          </CardStatistics>
         </div>
         <!-- <div class="col-2 p-4 bg-white rounded shadow-sm">
           <span>Issue mais duradoura</span>
@@ -142,12 +149,8 @@ export default {
         },
       ],
       filter: {
-        date_init: moment()
-          .startOf("month")
-          .format("YYYY-MM-DD"),
-        date_end: moment()
-          .endOf("month")
-          .format("YYYY-MM-DD"),
+        date_init: moment().startOf("month").format("YYYY-MM-DD"),
+        date_end: moment().endOf("month").format("YYYY-MM-DD"),
         project_id: this.id,
         assignee_list: [],
         assignee_id: null,
@@ -159,6 +162,7 @@ export default {
       this.filter.assignee_id = this.userID;
     }
     this.setTasks(this.filter).then((res) => this.handleGetNotes());
+    this.setMilestone({project_id: this.id})
   },
   watch: {
     taskList() {
@@ -168,6 +172,7 @@ export default {
   computed: {
     ...mapGetters("project", ["projectDetail"]),
     ...mapGetters("task", ["taskList", "statisticsTotals"]),
+    ...mapGetters("milestone", ["milestoneList"]),
     ...mapGetters("user_info", ["userID"]),
     ...mapGetters("hours", { hoursDate: "notesToDate" }),
     ...mapGetters("hours", { hoursAssignee: "notesToAssignee" }),
@@ -197,6 +202,7 @@ export default {
   methods: {
     ...mapActions("hours", ["setNotes", "cleanNotes"]),
     ...mapActions("task", ["setTasks"]),
+    ...mapActions('milestone', ['setMilestone']),
 
     handleChangeFilter(event) {
       Object.assign(this.filter, event);

@@ -5,6 +5,7 @@
     <small class="text-center text-uppercase"> {{ title }} </small>
     <h3 class="mt-2">
       {{ value }}
+      <slot></slot>
     </h3>
   </div>
 </template>

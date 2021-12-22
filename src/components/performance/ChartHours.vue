@@ -65,6 +65,8 @@ export default {
             borderColor: "#cccccc",
             type: "line",
             order: 0,
+            pointRadius: 0,
+
           },
           {
             label: "Esforço real necessário",
@@ -73,6 +75,8 @@ export default {
             borderColor: "#4273c5",
             type: "line",
             order: 0,
+            pointRadius: 0,
+
           },
           {
             label: "Prospecção de esforço real",
@@ -84,6 +88,7 @@ export default {
             backgroundColor: "transparent",
             borderColor: 'red',
             type: "line",
+            pointRadius: 0,
             order: 0,
           },
         ],
@@ -123,6 +128,8 @@ export default {
         legend: {
           display: false,
         },
+        pointBorderColor: '#000000',
+        pointBackgroundColor	: '#000000',
         scales: {
           xAxes: [
             {

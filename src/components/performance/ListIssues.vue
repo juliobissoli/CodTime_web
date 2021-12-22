@@ -4,14 +4,14 @@
     <ul v-for="(issue, i) in issues" :key="i">
       <li class="row py-1">
         <ListItem :issues_status="issue.status" class="col-9">
-         <span class="text-truncate">  {{ issue.title }} </span>
+         <span class="text-truncate">  <small class="text-muted"> #{{ issue.iid }}</small> {{ issue.title }} </span>
         </ListItem>
         <div class="col p-0 d-flex justify-content-end"  >
             <Avatar style="width: 30px; height: 30px" :item="issue.assignee"  />
         </div>
         <div class="col p-0 d-flex justify-content-center align-items-center">
             <span class="badge badge-secondary">
-                {{(issue.time_stats ? issue.time_stats.time_estimate : 0) / 60 | horusFormatGlobal}}
+                {{(issue.time_stats ? issue.time_stats.total_time_spent : 0) / 60 | horusFormatGlobal}}
             </span>
         </div>
       </li>

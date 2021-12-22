@@ -92,6 +92,33 @@
             </div>
           </div>
         </div>
+        
+        <div
+          v-if="milestones && milestones.length > 0"
+          class="row d-flex flex-column divider_top"
+        >
+          <header
+            class="
+              col-12
+              d-flex
+              mt-3
+              justify-content-between
+              align-items-center
+            "
+          >
+            <span class="f-18"> Milestone </span>
+            <BtnArrow v-bind:visible.sync="visibilities.milestone" />
+          </header>
+          <div v-show="visibilities.milestone" class="col-12  pb-3">
+            <div class="bg-light p-2 rounded">
+              <MultselectMilestone
+                @select_result="selectMilestone"
+                :options_select="milestone_validate"
+                :revoque="false"
+              />
+            </div>
+          </div>
+        </div>
 
         <div
           v-if="filds_status && filds_status.length > 0"
@@ -110,7 +137,7 @@
           </header>
           <div v-show="visibilities.state" class="col-12 pb-3 px-4">
             <div class="row bg-light p-2 rounded d-flex">
-              <BtnSwutch
+              <BtnSwitch
                 class="col-12"
                 @change-select="setFieldsStatus"
                 :labels="filds_status || []"
@@ -118,6 +145,7 @@
             </div>
           </div>
         </div>
+
       </template>
     </Dropdown>
   </div>
@@ -129,7 +157,9 @@ import BtnDropdown from "./BtnDropdown.vue";
 import moment from "moment";
 import MultselectAvatar from "./MultSelectAvatar.vue";
 import BtnArrow from "./BtnArrowIcon.vue";
-import BtnSwutch from "./BtnSwitch.vue";
+import BtnSwitch from "./BtnSwitch.vue";
+import MultselectMilestone from "../task/MultselectMilestone.vue";
+
 export default {
   name: "FilterDefault",
   props: {
@@ -137,8 +167,16 @@ export default {
     date_end: String,
     avatar_list: Array,
     filds_status: Array,
+    milestones: Array,
   },
-  components: { Dropdown, BtnDropdown, MultselectAvatar, BtnArrow, BtnSwutch },
+  components: {
+    Dropdown,
+    BtnDropdown,
+    MultselectAvatar,
+    BtnArrow,
+    BtnSwitch,
+    MultselectMilestone,
+  },
   data() {
     return {
       is_visible: false,
@@ -146,6 +184,7 @@ export default {
         period: true,
         avatar: true,
         state: true,
+        milestone: true
       },
       messageError: "",
       dateInit: "",
@@ -157,14 +196,20 @@ export default {
     this.dateEnd = this.date_end;
     this.dateInit = this.date_init;
   },
+  computed: {
+    milestone_validate() {
+      return this.milestones 
+        ? this.milestones.map(el => ({...el, $isDisabled: el.start_date === null && el.due_date === null}))
+        : []
+    }
+  },
   methods: {
     clickOut(event) {
       this.is_visible = this.is_visible ? false : this.is_visible;
     },
     setFieldsStatus(event) {
-      const state = event === 'all' ? null : event
-      this.$emit("change-filter", {state});
-
+      const state = event === "all" ? null : event;
+      this.$emit("change-filter", { state });
     },
 
     changeData(event) {
@@ -199,6 +244,27 @@ export default {
         filter.assignee_list = [member];
       }
       this.$emit("change-filter", filter);
+    },
+    selectMilestone(milestone) {
+      
+
+      console.log("Miçlest ==> ", milestone);
+
+      
+      if(milestone){
+        this.dateInit = milestone.start_date
+        this.dateEnd  = milestone.due_date
+      }
+      else {
+        this.dateInit =  this.date_init
+        this.dateEnd =   this.date_end
+      }
+      const filter = {
+          date_init: this.dateInit,
+          date_end: this.dateEnd,
+          milestone: milestone ? milestone.title : null
+       }
+      this.$emit('change-filter', filter)
     },
   },
 };
