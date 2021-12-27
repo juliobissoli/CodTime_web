@@ -2,7 +2,7 @@
   <div class="row p-0">
     <section class="col-12 bg-white p-3">
       <div class="page-wrapper">
-        <BarTop placeholder="Buscar tarefa" btn_label="+ Tarefa" >
+        <BarTop  @get-search="handleChangeFilter" placeholder="Buscar tarefa" btn_label="+ Tarefa" >
           <FilterDefault 
             :date_init="filter.date_init" 
             :date_end="filter.date_end"
@@ -120,8 +120,11 @@ export default {
   methods: {
     ...mapActions("task", ["setTasks"]),
     handleChangeFilter(event){
-      this.filter.date_init = event.date_init
-      this.filter.date_end = event.date_end
+      // this.filter.date_init = event.date_init
+      // this.filter.date_end = event.date_end
+
+      Object.assign(this.filter, event)
+
       this.setTasks({...event, project_id: this.id});
     },
 

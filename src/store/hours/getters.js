@@ -2,7 +2,9 @@ import moment from "moment";
 
 export default {
   commitsList(state) {
-    return state.commits;
+    return state.commits.sort((a, b) =>
+    moment(b.created_at).diff(moment(a.created_at))
+  );;
   },
 
   noteList(state) {

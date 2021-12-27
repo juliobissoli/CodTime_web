@@ -2,7 +2,7 @@
   <div class="row p-0">
     <section class="col-12 bg-white p-3">
       <div class="page-wrapper">
-        <BarTop placeholder="Buscar Horas" btn_label="Iniciar">
+        <BarTop @get-search="handleChangeFilter" placeholder="Buscar horas de issues" btn_label="Iniciar">
           <FilterDefault
             :date_init="filter.date_init"
             :date_end="filter.date_end"
@@ -110,7 +110,6 @@ export default {
     if(!this.projectDetail.preferential ){
        this.filter.assignee_id = this.userID
       }
-      console.log('Create ')
     this.setTasks({...this.filter, project_id: this.id })
     // .then((res) =>
       // this.handleGetNotes()

@@ -1,18 +1,19 @@
 <template>
   <div class="row bar_top">
-    <div class="col-8 search-input">
+    <div class="col search-input">
       <input
         type="text"
         :placeholder="placeholder"
         class="form-control"
         v-model="serachTocken"
+        v-debounce:500ms="serach"
       />
     </div>
-    <div class="col-2 px-0">
+    <div v-show="!not_scope" class="col-2 px-0">
       <!-- <button class="btn btn-block btn-outline-dark">Filtrar</button> -->
       <slot></slot>
     </div>
-    <div class="col-2">
+    <div v-show="btn_label" class="col-2 pr-0">
       <button class="btn btn-dark btn-block">{{btn_label}}</button>
     </div>
   </div>
@@ -61,7 +62,8 @@ export default {
   // props: ["title", "input", "btn", "placeholder", "font", "loading"],
   props: {
     placeholder: String,
-    btn_label: String
+    btn_label: String,
+    not_scope: {type: Boolean, default: false},
   },
   data() {
     return {
@@ -73,7 +75,7 @@ export default {
       this.$emit("button-clicked");
     },
     serach() {
-      this.$emit("get-search", this.serachTocken);
+      this.$emit("get-search",{search: this.serachTocken});
     },
   },
 };

@@ -7,7 +7,7 @@
           <div class="col-7">
             <UserOverview />
           </div>
-          <div class="col-5  d-flex justify-content-end bg-white  p-0">
+          <div class="col-5  d-flex justify-content-end bg-white pt-4  p-0">
             <div>
               <button
                 @click="newProject = !newProject"
@@ -55,6 +55,7 @@ import NewProject from "../../components/statistcst/NewProject";
 import UserOverview from "../../components/home/UserOverview.vue";
 import LastCommitItem from "../../components/home/LastCommitsItem.vue";
 import { mapActions, mapGetters } from "vuex";
+import moment from 'moment';
 export default {
   name: "WorArea",
   components: {
@@ -72,11 +73,20 @@ export default {
   async created() {
     if (this.projectList) {
       if (this.commitsList.length == 0) {
-        this.projectList.forEach((el) => {
-          this.setCommits(el.id);
-        });
+          this.setCommits(this.projectList.map(el=> el.id));
+
+        // this.projectList.forEach((el) => {
+          // this.setCommits(el.id);
+        // });
       }
+
+
     }
+
+    this.setTasks({
+      date_init: moment().startOf('month').format('YYYY-MM-DD'),
+      date_end: moment().endOf('month').format('YYYY-MM-DD'),
+      })
 
     // await this.setUser();
     // await this.setProjects().then(
@@ -94,9 +104,9 @@ export default {
     projectList() {
       if (this.projectList) {
         if (this.commitsList.length == 0) {
-          this.projectList.forEach((el) => {
-            this.setCommits(el.id);
-          });
+          
+          this.setCommits(this.projectList.map(el=> el.id));
+          // this.projectList.forEach((el) => {});
         }
       }
     },
@@ -104,6 +114,7 @@ export default {
   computed: {
     ...mapGetters("hours", ["commitsList"]),
     ...mapGetters("project", ["projectList", "allCollaborators"]),
+
     // ...mapGetters("/", ["projectList"]),
     // projectList(){
     //   return this.$store.getters.projectList
@@ -121,6 +132,8 @@ export default {
     ...mapActions("user_info", ["setUser"]),
     ...mapActions("hours", ["setCommits"]),
     ...mapActions("project", ["setProjects"]),
+    ...mapActions("task", ["setTasks"]),
+
   },
 };
 </script>

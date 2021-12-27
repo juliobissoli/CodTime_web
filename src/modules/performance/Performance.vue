@@ -6,7 +6,7 @@
         <div class="row px-1">
           <div class="col-8">
             <span class="title22">
-              Estatísticas desse mês
+              Estatísticas de
               <small class="f14-light">({{ filter | rangeDateGlobal }})</small>
             </span>
           </div>

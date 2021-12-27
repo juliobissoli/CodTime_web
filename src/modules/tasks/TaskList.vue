@@ -10,7 +10,11 @@
           <AvatarList  :list="collaboratorsFiltered" />
         </div>
         <div class="col-4">
-          <input type="text" class="form-control" />
+          <!-- <input type="text" class="form-control" /> -->
+        <BarTop @get-search="changeFilter" 
+        :not_scope="true"
+        placeholder="Buscar milestone" />
+
         </div>
         <div class="col-4 pr-1 d-flex justify-content-end">
           <FilterDefault 
@@ -61,11 +65,12 @@
 import TaskListItem from "../../components/task/ListTaskItem.vue";
 import FilterDefault from '../../components/utils/FilterDefalt.vue'
 import AvatarList from '../../components/utils/AvatarList.vue'
+import BarTop from '../../components/project/BarTop.vue'
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 export default {
   name: "TaskList",
-  components: { TaskListItem, FilterDefault, AvatarList },
+  components: { TaskListItem, FilterDefault, AvatarList, BarTop},
   data() {
     return {
       filter: {
@@ -102,7 +107,7 @@ export default {
     changeFilter(event){
       Object.assign(this.filter, event)
       this.setTasks(this.filter)
-    }
+    },
   },
 };
 </script>

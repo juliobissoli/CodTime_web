@@ -1,18 +1,31 @@
 import * as types from "../mutationTypes";
 import gitlab_api from "../../serve/gitlab_api";
 
-export const setCommits = async ({ commit }, project_id) => {
+export const setCommits = async ({ commit }, projects) => {
   return new Promise((resolve, reject) => {
-    gitlab_api.get(`projects/${project_id}/repository/commits`).then(
-        (res) => {
-        resolve(res.data);
-        commit(types.SET_COMMIT, res.data);
-    },
-    error => {
-        console.error('Erro no setCommits => ', error)
-        reject(error)
-    }
+    
+    Promise.all(projects.map((el) => handleGetCommits(el))).then(
+      (res) => {
+        let list = [];
+        res.forEach((el) => {
+          list = [...el, ...list];
+        });
+        commit(types.SET_COMMIT, list);
+      },
+
+      (error) => console.error(error)
     );
+    // gitlab_api.get(`projects/${project_id}/repository/commits`).then(
+    //     (res) => {
+        
+    //     resolve(res.data);
+    //     commit(types.SET_COMMIT, messageres.data);
+    // },
+    // error => {
+    //     console.error('Erro no setCommits => ', error)
+    //     reject(error)
+    // }
+    // );
   });
 };
 export const cleanNotes = async ({commit}) => {
@@ -33,3 +46,9 @@ export const setNotes = async ({commit}, issue) => {
     );
   });
 }
+
+const handleGetCommits = async (project_id) => {
+  return await gitlab_api.get(`projects/${project_id}/repository/commits`).then((res) => {
+    return res.data.map(el => ({...el, project_id}));
+  });
+};

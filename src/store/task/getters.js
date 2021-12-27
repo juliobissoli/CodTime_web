@@ -31,6 +31,7 @@ export default {
       let isseus_started = 0;
       let issues_estimation_count = 0;
       let issues_timer_count = 0;
+      let total_issues = 0
       let total_by_status = [0,1,2,3].map(i => ({status: i, time_spent: 0, time_estimate: 0, total_issues: 0}))
       let more_lasting_issues = null
       let less_lasting_issues = null
@@ -62,7 +63,7 @@ export default {
         isseus_started,
         issues_timer_count,
         issues_estimation_count,
-
+        total_issues: list.length,
         total_time_avg_issues: total_time_spent / issues_timer_count,
         total_estimate_avg_issues: time_estimate / issues_estimation_count,
 
@@ -84,6 +85,7 @@ export default {
         isseus_started: 0,
         issues_timer_count: 0,
         issues_estimation_count: 0,
+        total_issues: 0,
 
         total_time_avg_issues: 0,
         total_estimate_avg_issues: 0,

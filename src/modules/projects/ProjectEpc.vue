@@ -2,7 +2,7 @@
   <div class="row p-0">
     <section class="col-12 bg-white p-3">
       <div class="page-wrapper">
-        <BarTop placeholder="Buscar milestone" btn_label="+ Milestone">
+        <BarTop @get-search="handleChangeFilter" placeholder="Buscar milestone" btn_label="+ Milestone">
           <FilterDefault
             :filds_status="filds_status"
             @change-filter="handleChangeFilter"
@@ -93,6 +93,7 @@ export default {
     ...mapActions("task", ["setTasks"]),
 
     handleChangeFilter(event) {
+      console.log('Ta aqui ==> ', event )
       Object.assign(this.filter, event);
       this.setMilestone(this.filter);
       //   this.setTasks(this.filter);
