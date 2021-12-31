@@ -77,8 +77,9 @@
 <script>
 import AnimateLogin from "../components/AnimateLogin";
 import auth from "../utils/auth";
+import oauth2 from "../utils/oauth2";
 import Loading from "../components/utils/AnimateLoad.vue";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   name: "Login",
   components: { AnimateLogin, Loading },
@@ -95,6 +96,29 @@ export default {
     // isLogged() {
     //   return this.$store.state.isLogged;
     // },
+  },
+
+  created() {
+    const hash = this.$route.hash;
+    if (hash) {
+      console.log(hash);
+      let split = hash.split("&");
+      let str = split[0].split("=");
+      const token = str[1]
+
+      //  const t = RegExp(/\d+(?=#access_token=)/).exec(hash)
+      console.log('Tonken ===> ',token);
+
+      if (this.$route.query && this.$route.query.redirect) {
+        this.$router.push(this.$route.query.redirect);
+      } else {
+        // this.setUserLogin(this.isLogged);
+        oauth2.setAuth(token);
+        this.$router.push({ name: "Home" });
+
+        // this.isLoading = false;
+      };
+    }
   },
 
   watch: {
@@ -135,21 +159,22 @@ export default {
     //   }
     // },
     async login() {
-      this.isLoading = true;
-      this.isLogged = await auth.login(this.email, this.password);
-      if (this.isLogged) {
-        if (this.$route.query && this.$route.query.redirect) {
-          this.$router.push(this.$route.query.redirect);
-        } else {
-          // this.setUserLogin(this.isLogged);
-          this.$router.push({ name: "Home" });
+      oauth2.login();
+      // this.isLoading = true;
+      // this.isLogged = await auth.login(this.email, this.password);
+      // if (this.isLogged) {
+      //   if (this.$route.query && this.$route.query.redirect) {
+      //     this.$router.push(this.$route.query.redirect);
+      //   } else {
+      //     // this.setUserLogin(this.isLogged);
+      //     this.$router.push({ name: "Home" });
 
-          this.isLoading = false;
-        }
-      } else {
-        this.isLoading = false;
-        this.mensagemError = "Erro na autenticação";
-      }
+      //     this.isLoading = false;
+      //   }
+      // } else {
+      //   this.isLoading = false;
+      //   this.mensagemError = "Erro na autenticação";
+      // }
     },
   },
 };

@@ -27,8 +27,8 @@ export default {
   components: { CardProject },
   methods: {
     cardClicked(item) {
-      this.$store.commit("detailProject", item);
-      this.$router.push({ name: "StatistcstDetail" });
+      // this.$store.commit("detailProject", item);
+      // this.$router.push({ name: "StatistcstDetail" });
     },
   },
 };

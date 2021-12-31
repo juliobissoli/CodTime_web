@@ -9,19 +9,19 @@
         <button class="btn btn-sm btn-outline-dark">Iniciar</button>
       </div>
       <div
-        v-if="project.commit ? project.commits.length > 0 : false"
+        v-if="issues.length > 0"
         class="col-12"
       >
         <LabelColor
-          v-for="(commit, i) in project ? project.commits : []"
+          v-for="(commit, i) in issues"
           :key="i"
-          color="#cccccc"
+          :issues_status="commit.status "
         >
-          <span>{{ commit }}</span>
+          <span>{{ commit.title }}</span>
         </LabelColor>
       </div>
       <span v-else class="col-12 text-center text-muted p-3">
-        Nenhum Commit efetuado!
+        Nenhum issue nesse mês!
       </span>
       <!-- <div class="col-12 d-flex justify-content-between">
         <div class="pl-3 d-flex flex-column">
@@ -52,8 +52,16 @@ export default {
   components: { LabelColor, AvatarList },
   computed: {
     ...mapGetters("project", ["collaboratorsList"]),
+    ...mapGetters('task', { issueProject: "issueProject"}),
 
-    collaborators() {
+issues(){
+  // return this.issueProject || []
+  let list = this.issueProject(this.project.id) || []
+  return this.project ?  list.length > 3 ? list.splice(0, 3) : list  : []
+},
+
+
+collaborators() {
       const map = new Map();
       this.collaboratorsList.forEach((el) => {
         map.set(el.project_id, el.list);

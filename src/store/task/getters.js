@@ -20,7 +20,7 @@ export default {
     // });
   },
 
-  taskProject: (state) => (project_id) => {
+  issueProject: (state) => (project_id) => {
     return state.tasks.filter((el) => el.project_id === project_id);
   },
 

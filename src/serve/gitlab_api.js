@@ -1,8 +1,11 @@
 import axios from "axios";
 
-// const token = localStorage.getItem("token");
-// const headers = { "PRIVATE-TOKEN": "sVac-PRXRF_FYUEtUykH"};
-const headers = { "PRIVATE-TOKEN": process.env.VUE_APP_GITLAB_TOKEN};
+const token = localStorage.getItem("token");
+console.log('Servico ==> ', token)
+const headers = { Authorization: 'Bearer '+ token};
+// const headers = { "PRIVATE-TOKEN": process.env.VUE_APP_GITLAB_TOKEN};
+
+
 
 
 const api = axios.create({

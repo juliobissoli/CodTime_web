@@ -23,12 +23,14 @@ export default new Vuex.Store({
     loading: null,
     dataTamp: null,
     commits: null,
+
+    token: null,
+
   },
   getters: {
 
-    testeId: (state) => (id) => {
-      return id
-      // return state.todos.find(todo => todo.id === id)
+    token(state){
+      return state.token
     },
 
     projects(state) {
@@ -87,6 +89,11 @@ export default new Vuex.Store({
   },
   mutations: {
     //Tamp
+    setToken(state, token){
+      state.token = token
+    },
+
+
     setTemp(state, data) {
       state.dataTamp = data;
     },
@@ -153,6 +160,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    setToken({commit}, value){
+      const token = auth.token() || value || null
+      commit('setToken', token)
+    },
     async setValues({ commit }) {
       const uid = jwt_decode(auth.token()).uid;
       const body = {
