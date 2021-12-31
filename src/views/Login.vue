@@ -101,13 +101,11 @@ export default {
   created() {
     const hash = this.$route.hash;
     if (hash) {
-      console.log(hash);
       let split = hash.split("&");
       let str = split[0].split("=");
       const token = str[1]
 
-      //  const t = RegExp(/\d+(?=#access_token=)/).exec(hash)
-      console.log('Tonken ===> ',token);
+      // console.log('Tonken ===> ',token);
 
       if (this.$route.query && this.$route.query.redirect) {
         this.$router.push(this.$route.query.redirect);

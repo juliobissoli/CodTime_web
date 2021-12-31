@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 // import projectsList from "../data/projetcs";
 import api from "../serve/api";
-import auth from "../utils/auth";
+import auth from "../utils/oauth2";
 import jwt_decode from "jwt-decode";
 import modules from "./modules";
 import gitlab_api from '../serve/gitlab_api'
