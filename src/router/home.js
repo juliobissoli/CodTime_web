@@ -7,6 +7,9 @@ const homeRouter = {
   name: "Home",
   component: Home,
   redirect: { name: "Overview" },
+  meta: {
+    requiresAuth: true,
+  },
   children: [
     {
       path: "list",
@@ -14,12 +17,12 @@ const homeRouter = {
       component: Overview,
       props: true,
     },
-    {
-      path: "statistics",
-      name: "StatistcstDetail",
-      component: StatistcstDetail,
-      props: true,
-    },
+    // {
+    //   path: "statistics",
+    //   name: "StatistcstDetail",
+    //   component: StatistcstDetail,
+    //   props: true,
+    // },
   ],
 };
 

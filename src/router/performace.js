@@ -5,6 +5,9 @@ const performanceRouter = {
   path: "/performance",
   name: "Performance",
   component: Performance,
+  meta: {
+    requiresAuth: true,
+  },
 //   redirect: { name: "TaskList" },
 //   children: [
 //     {

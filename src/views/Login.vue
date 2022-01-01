@@ -1,77 +1,39 @@
 <template>
-  <div>
-    <div class="row login-page p-0 m-0">
-      <div class="col-lg-8 p-0 m-0 reght-area">
-        <div class="row p-0 mt-3 mb-3 mx-0 d-flex logo justify-content-center">
-          <img src="../assets/logo.svg" alt="" class="logo" />
-          <span class="ml-2"> CodTime </span>
-        </div>
-        <div class="row logo p-0 m-0">
-          <span
-            style="font-size: 22px"
-            class="col-md-12 p-3 d-flex justify-content-center"
-          >
-            Sua plataforma de gerenciamento de trabalho personalizada.
-          </span>
-        </div>
-
-        <div class="mx-5 p-5">
-          <AnimateLogin />
-        </div>
+  <section class="">
+    <header class="w-100 p-4 d-flex justify-content-between">
+      <div class="d-flex logo justify-content-center">
+        <img src="../assets/logo.svg" alt="" class="logo" />
+        <span class="ml-2"> CodTime </span>
       </div>
-      <div class="col-lg-4 p-0">
-        <div>
-          <Loading v-show="isLoading" />
-        </div>
-        <div class="left-area p-4 bg-whigt">
-          <div class="my-5">
-            <h1 class="mt-5">Bem-vindo ;)</h1>
-          </div>
 
-          <form class="mt-5 pt-5">
-            <div class="form-group">
-              <input
-                type="email"
-                v-model="email"
-                placeholder="Email"
-                class="form-control"
-                id="input-email"
-                aria-describedby="emailHelp"
-              />
-            </div>
-            <div class="form-group my-4">
-              <input
-                type="password"
-                v-model="password"
-                class="form-control"
-                placeholder="Senha"
-                id="input-password"
-              />
-            </div>
-            <button @click.prevent="login" class="btn btn-block">Entrar</button>
-            <div class="row mt-3">
-              <div class="col-lg-6">
-                <input id="remember" type="checkbox" />
-                <label for="remember" class="ml-2">Lembrar-me</label>
-              </div>
-              <div class="col-lg-6 text-right">
-                <span class="text-danger" style="cursor: pointer">
-                  Esqueci minha senha
-                </span>
-              </div>
-            </div>
-          </form>
-          <div
-            v-show="mensagemError"
-            class="alert alert-danger mt-3"
-            role="alert"
-          >
-            {{ mensagemError }}
-          </div>
-        </div>
+      <button
+        @click.prevent="login"
+        class="btn btn-dark d-flex align-items-center"
+      >
+        Entrar com GitLab
+        <i class="icon icon-gitlab ml-2"></i>
+      </button>
+    </header>
+    <aside class="w-100 page-wrapper p-5">
+      <h1 class="text-center mt-5">
+        Sua plataforma de análse de desempenho integrada ao GitLab
+      </h1>
+      <div
+        class="
+          d-flex
+          icons-area
+          w-100
+          justify-content-center
+          align-items-center
+        "
+      >
+        <!-- <img class="colors-cicle" src="../assets/img/colors-cicle.svg" alt=""> -->
+        <i class="icon m-4 icon-gitlab"></i>
+        <div class="line"></div>
+        <i class="icon m-4 icon-codetime"></i>
       </div>
-    </div>
-  </div>
+    </aside>
+  </section>
 </template>
 
 <script>
@@ -79,7 +41,7 @@ import AnimateLogin from "../components/AnimateLogin";
 import auth from "../utils/auth";
 import oauth2 from "../utils/oauth2";
 import Loading from "../components/utils/AnimateLoad.vue";
-import { mapGetters } from "vuex";
+
 export default {
   name: "Login",
   components: { AnimateLogin, Loading },
@@ -103,7 +65,7 @@ export default {
     if (hash) {
       let split = hash.split("&");
       let str = split[0].split("=");
-      const token = str[1]
+      const token = str[1];
 
       // console.log('Tonken ===> ',token);
 
@@ -115,7 +77,7 @@ export default {
         this.$router.push({ name: "Home" });
 
         // this.isLoading = false;
-      };
+      }
     }
   },
 
@@ -158,21 +120,6 @@ export default {
     // },
     async login() {
       oauth2.login();
-      // this.isLoading = true;
-      // this.isLogged = await auth.login(this.email, this.password);
-      // if (this.isLogged) {
-      //   if (this.$route.query && this.$route.query.redirect) {
-      //     this.$router.push(this.$route.query.redirect);
-      //   } else {
-      //     // this.setUserLogin(this.isLogged);
-      //     this.$router.push({ name: "Home" });
-
-      //     this.isLoading = false;
-      //   }
-      // } else {
-      //   this.isLoading = false;
-      //   this.mensagemError = "Erro na autenticação";
-      // }
     },
   },
 };
@@ -180,61 +127,44 @@ export default {
 
 <style lang="scss" scoped>
 // @import "../assets/styles/bootstrap";
-.left-area {
-  padding: 0;
-  height: 100vh;
-  color: #3f67cc;
-  h1 {
-    color: #333333;
-    font-weight: 300;
-  }
-  span,
-  label {
-    font-size: 13px;
-    cursor: pointer;
-  }
-  .btn {
-    background-color: transparent;
-    border: 1px solid #333333;
-    border-radius: 0.5rem !important;
-    color: #333333;
+.btn-dark {
+  .icon {
+    background-color: #ffffff;
+    width: 20px;
+    height: 20px;
   }
 }
-.reght-area {
-  padding: 0;
-  background-color: #f1f1f1;
-  height: 100vh;
+.colors-cicle {
+  position: absolute;
+  height: 300px;
+  width: 300px;
 }
-.login-page {
-  // background-color: #f8f9fa;
-  height: 100vh;
-  width: 100vw;
-  font-family: "Avenir Next W01", "Lato", "Karla", "Proxima Nova W01", "Rubik",
-    -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
-    Arial, sans-serif;
-  .form-control {
-    border-radius: 0.5rem !important;
-    border: 1px solid #333333;
-    input {
-      ::placeholder {
-        color: #444;
-      }
-    }
+.icons-area {
+  .line {
+    height: 2px;
+    width: 100px;
+    background-color: #333333;
   }
-  // background-color: #282733;
+
+  .icon {
+    height: 130px;
+    width: 130px;
+  }
 }
+
+
 .logo {
   display: flex;
   justify-content: center;
   align-items: center;
   img {
-    height: 45px;
-    width: 45px;
+    height: 40px;
+    width: 40px;
   }
   span {
     display: flex;
     align-items: center;
-    font-size: 35px;
+    font-size: 28px;
     font-weight: 300;
     color: #444;
   }
