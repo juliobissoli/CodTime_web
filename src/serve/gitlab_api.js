@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const token = localStorage.getItem("token");
-console.log('Servico ==> ', token)
+// console.log('Servico ==> ', token)
 const headers = { Authorization: 'Bearer '+ token};
 // const headers = { "PRIVATE-TOKEN": process.env.VUE_APP_GITLAB_TOKEN};
 

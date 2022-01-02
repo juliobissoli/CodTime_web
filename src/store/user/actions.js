@@ -1,6 +1,6 @@
 import * as types from '../mutationTypes'
 import gitlab_api from '../../serve/gitlab_api'
-
+import Router from  '../../router'
 
 export const setUser = ({commit}) => {
     return new Promise((resolve, reject) => {
@@ -11,6 +11,8 @@ export const setUser = ({commit}) => {
             },
             error => {
                 console.error(error);
+                console.log('res =>', error.response.status)
+                Router.push({name: 'Exception',  params: { code: error.response.status }})
                 reject(error)
             }
         )

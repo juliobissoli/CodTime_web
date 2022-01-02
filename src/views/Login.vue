@@ -17,7 +17,7 @@
       </button> -->
         </header>
         <h1 style="margin-top: 120px" class="mb-5">Olá :)</h1>
-        <spam class="my-3">Para acessas, entre com sua conta do GitLab</spam>
+        <span class="my-3">Para acessas, entre com sua conta do GitLab</span>
         <button
           @click.prevent="login"
           class="btn px-4 mt-3 mb-5 btn-dark d-flex align-items-center"
