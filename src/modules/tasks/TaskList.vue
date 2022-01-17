@@ -13,7 +13,7 @@
           <!-- <input type="text" class="form-control" /> -->
         <BarTop @get-search="changeFilter" 
         :not_scope="true"
-        placeholder="Buscar milestone" />
+        placeholder="Buscar por titulo ou descrição" />
 
         </div>
         <div class="col-4 pr-1 d-flex justify-content-end">

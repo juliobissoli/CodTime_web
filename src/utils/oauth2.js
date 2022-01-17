@@ -1,5 +1,5 @@
 import * as ClientOAuth2 from 'client-oauth2'
-// import gitla_api from  '../serve/gitlab_api'
+import gitla_api from  '../serve/gitlab_api'
 
 
 import axios from "axios";
@@ -9,10 +9,10 @@ import axios from "axios";
 const headers = { "PRIVATE-TOKEN": process.env.VUE_APP_GITLAB_TOKEN };
 
 
-const gitla_api = axios.create({
-    baseURL: 'https://gitlab.com',
-    headers,
-});
+// const gitla_api = axios.create({
+//     baseURL: 'https://gitlab.com',
+//     headers,
+// });
 // export default api;
 
 
@@ -92,6 +92,12 @@ class Oauth2 {
     static async setAuth(token) {
         localStorage.setItem("token", token);
         localStorage.setItem("logged", true);
+
+        const auth = 'Bearer ' + token
+        gitla_api.defaults.headers['Authorization'] = auth;
+
+        console.table(axios.defaults.headers.common)
+        console.table(gitla_api.defaults.headers.common)
     }
 
     static token() {

@@ -192,6 +192,11 @@ export default {
       all_members: true,
     };
   },
+  watch:{
+    dateInit(){
+      console.log("Altero dateInit => ", this.dateInit)
+    }
+  },
   created() {
     this.dateEnd = this.date_end;
     this.dateInit = this.date_init;

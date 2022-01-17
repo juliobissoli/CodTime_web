@@ -7,9 +7,9 @@
           <div class="col-12 px-4">
             <BarTop
               @get-search="handleChangeFilter"
-              placeholder="Buscar milestone"
+              placeholder="Buscar titulo ou descrição"
               :not_scope="true"
-              btn_label="+ Milestone"
+              btn_label="+ Projeto"
             />
           </div>
           <!-- <div class="col-10">
