@@ -10,7 +10,7 @@
       "VUE_APP_GITLAB_AUTH_CLIENT_SECRET": "38804e10ed447db4bbee1ae8951e958f9b74bd19832bb45e49fcd866a08adeac",
       "VUE_APP_GITLAB_AUTH_ACCESS_TOKEN_URL": "https://gitlab.com/oauth/access_token",
       "VUE_APP_GITLAB_AUTH_AUTHORIZATION_URL": "https://gitlab.com/oauth/authorize",
-      "VUE_APP_GITLAB_AUTH_REDIRECT_URL": "https://codtime-web-git-refature-reconfigurestore-jcsbissoli.vercel.app/"
+      "VUE_APP_GITLAB_AUTH_REDIRECT_URL": "http://localhost:8080"
 
     }
   }
