@@ -6,11 +6,11 @@
       "VUE_APP_GITLAB_API_BASE_URL": "https://gitlab.com/api/v4",
       "VUE_APP_GITLAB_TOKEN": "pYZwPARgx1Rnm_WsN337",
 
-      "VUE_APP_GITLAB_AUTH_CLIENT_ID": "6d1d80806fc45f39cc1e762b5fd5ed84b373136a21bd22f5164c99fd8bb30cc8",
-      "VUE_APP_GITLAB_AUTH_CLIENT_SECRET": "38804e10ed447db4bbee1ae8951e958f9b74bd19832bb45e49fcd866a08adeac",
+      "VUE_APP_GITLAB_AUTH_CLIENT_ID": "02b5f8864cf427e175cfacce8e1e229597ad554f312d9feb2a5d371258d7d520",
+      "VUE_APP_GITLAB_AUTH_CLIENT_SECRET": "aa06d866265756cd7fa91b53330bcec1aa8c10c09526bd3f500b2116fda59d40",
       "VUE_APP_GITLAB_AUTH_ACCESS_TOKEN_URL": "https://gitlab.com/oauth/access_token",
       "VUE_APP_GITLAB_AUTH_AUTHORIZATION_URL": "https://gitlab.com/oauth/authorize",
-      "VUE_APP_GITLAB_AUTH_REDIRECT_URL": "https://codtime-web-git-refature-reconfigurestore-jcsbissoli.vercel.app/"
+      "VUE_APP_GITLAB_AUTH_REDIRECT_URL": "https://codtime-web.vercel.app/login"
 
     }
   }
