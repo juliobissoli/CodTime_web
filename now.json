@@ -3,7 +3,7 @@
   "build": {
     "env": {
       "VUE_APP_API_BASE_URL": "//codtime-api.herokuapp.com/",
-      "VUE_APP_GITLAB_API_BASE_URL": "https://gitlab.com/api/v4",
+      "VUE_APP_GITLAB_API_BASE_URL": "https://gitlab.com",
       "VUE_APP_GITLAB_TOKEN": "pYZwPARgx1Rnm_WsN337",
 
       "VUE_APP_GITLAB_AUTH_CLIENT_ID": "02b5f8864cf427e175cfacce8e1e229597ad554f312d9feb2a5d371258d7d520",

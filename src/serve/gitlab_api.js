@@ -4,7 +4,7 @@ const token = localStorage.getItem("token");
 const headers = { Authorization: 'Bearer '+ token};
 
 const api = axios.create({
-  baseURL: process.env.VUE_APP_GITLAB_API_BASE_URL,
+  baseURL: process.env.VUE_APP_GITLAB_API_BASE_URL + '/api/v4' ,
   headers,
 });
 export default api;

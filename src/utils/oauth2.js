@@ -4,19 +4,6 @@ import gitla_api from  '../serve/gitlab_api'
 
 import axios from "axios";
 
-// const token = localStorage.getItem("token");
-// const headers = { "PRIVATE-TOKEN": "sVac-PRXRF_FYUEtUykH"};
-const headers = { "PRIVATE-TOKEN": process.env.VUE_APP_GITLAB_TOKEN };
-
-
-// const gitla_api = axios.create({
-//     baseURL: 'https://gitlab.com',
-//     headers,
-// });
-// export default api;
-
-
-
 const githubAuth = new ClientOAuth2({
     clientId: process.env.VUE_APP_GITLAB_AUTH_CLIENT_ID,//'1553d0633b02b5ad57488049a3a592590e13c88892b36a0a1826f82fd0011389',
     clientSecret: process.env.VUE_APP_GITLAB_AUTH_CLIENT_SECRET ,//'31ebce65b4ef5f6a0e3f38788d2ac3069daed85b79ae1ddf2c546c0a9d128e10',

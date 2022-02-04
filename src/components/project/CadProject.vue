@@ -13,41 +13,24 @@
         </div>
       </header>
       <div class="mb-2">
-        <!-- <span class="text-primary pr-1 divider_right">Sprint atual: 21</span>
-        <span class="text-secondary ml-1">Contribuição 32h 24min </span> -->
-        <span class="text-primary pr-1 divider_right"
-          >ID: {{ project.id }}</span
-        >
-        <span class="text-secondary ml-1"
-          >Ultimas atividade:
-          {{ project.last_activity_at | fromNowFormatGlobal }}</span
-        >
+        <span class="text-primary pr-1 divider_right" >
+          ID: {{ project.id }}
+        </span>
+        <span class="text-secondary ml-1">
+          Ultimas atividade:
+          {{ project.last_activity_at | fromNowFormatGlobal }}
+        </span>
       </div>
-      <!-- <span class="w-100">Repositório:</span> -->
       <div class="d-flex">
         <span>Repositório</span>
         <span class="bg-light rounded text-secondary px-2">
           {{ project.name_with_namespace }}
-          <!-- {{project.http_url_to_repo}} -->
         </span>
-        <!-- {{project}} -->
-        <!-- <div
-          v-for="(task, i) in project.tasks.length > 3
-            ? project.tasks.slice(0, 3)
-            : project.tasks"
-          :key="i"
-          class="mt-1 "
-        >
-          <TaskLabel :class_color="statusStyles.get(task.status).class">
-            <span class="text-secondary mr-1">#{{ task.id }}</span>
-            <span class="task-item">{{ task.name }}</span>
-          </TaskLabel>
-        </div> -->
+
       </div>
     </section>
     <footer class="d-flex flex-row-reverse px-4 py-3">
       <AvatarList :list="collaborators.get(project.id)" />
-      <!-- <span v-else class="text-muted">Somente você</span> -->
     </footer>
   </div>
 </template>
@@ -105,14 +88,6 @@ export default {
   }
   .task-area {
     height: 90px;
-
-    // .task-item {
-    //   width: 100px;
-    //   white-space: nowrap;
-    //   overflow: hidden;
-    //   text-overflow: ellipsis;
-    //   resize: horizontal;
-    // }
   }
 }
 </style>

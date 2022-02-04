@@ -5,16 +5,9 @@
         <header class="w-100 p-0 mb-1 d-flex justify-content-between">
           <div class="d-flex logo justify-content-center">
             <img src="../assets/logo.svg" alt="" class="logo" />
-            <span class="ml-2"> CodeTime </span>
+            <span class="ml-2"> CodTime </span>
           </div>
 
-          <!-- <button
-        @click.prevent="login"
-        class="btn btn-dark d-flex align-items-center"
-      >
-        Entrar com GitLab
-        <i class="icon icon-gitlab ml-2"></i>
-      </button> -->
         </header>
         <h1 style="margin-top: 120px" class="mb-5">Olá :)</h1>
         <span class="my-3">Para acessas, entre com sua conta do GitLab</span>
@@ -50,7 +43,7 @@
         >
           <i class="icon m-4 icon-gitlab"></i>
           <div class="line"></div>
-          <i class="icon m-4 icon-codetime"></i>
+          <i class="icon m-4 icon-codtime"></i>
           <!-- <img class="colors-cicle" src="../assets/img/colors-cicle.svg" alt=""> -->
         </div>
       </aside>

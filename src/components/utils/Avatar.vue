@@ -31,6 +31,7 @@ export default {
 .avatar {
   overflow: hidden;
   border-radius: 50%;
+  border: 1px solid #f1f1f1f1;
   .item {
     display: flex;
   }

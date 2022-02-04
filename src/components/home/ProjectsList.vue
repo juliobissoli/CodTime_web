@@ -11,11 +11,6 @@
       />
     </div>
   </div>
-  <!-- <div v-else class="row">
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12  mb-3">
-      <CardProject title="Criar projeto" tesks="" hours="" />
-    </div>
-  </div> -->
 </template>
 
 <script>
@@ -27,8 +22,7 @@ export default {
   components: { CardProject },
   methods: {
     cardClicked(item) {
-      // this.$store.commit("detailProject", item);
-      // this.$router.push({ name: "StatistcstDetail" });
+       this.$router.push({ name: "ProjectDetail", params: { id: item.id } });
     },
   },
 };

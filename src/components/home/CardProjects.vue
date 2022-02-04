@@ -6,7 +6,6 @@
     <div class="row p-0 m-0">
       <div class="col-12 p-3 px-4  d-flex d-flex justify-content-between">
         <h3 class="title">{{ project ? project.name : "--" }}</h3>
-        <!-- <button class="btn btn-sm btn-outline-dark">Iniciar</button> -->
       </div>
       <div
         v-if="issues.length > 0"
@@ -60,25 +59,15 @@ collaborators() {
     },
   },
   methods: {
-    clock(minutis) {
-      return minutis < 60
-        ? `${parseInt(minutis, 10)} min`
-        : `${Math.trunc(minutis / 60)}:${(minutis % 60).toFixed(0)}min`;
-    },
+
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .card_project {
-  //   background-color: #eee;
   border: 1px solid #fafafafa;
-  // border-radius: 0.5rem;
-  // cursor: pointer;
-  .icon {
-    background-color: #eee;
-    border-radius: 0.5rem;
-  }
+  cursor: pointer;
   .title {
     font-size: 22px;
     font-weight: 500;
