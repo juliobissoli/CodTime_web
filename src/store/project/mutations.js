@@ -37,8 +37,6 @@ export default {
 
     await gitlab_api.get(`projects/${project_id}/members/all`).then(
       (res) => {
-        console.log(res.data);
-
         state.map_collaborators_project.set(project_id, res.data);
         state.collaborators.push({ project_id, list: res.data });
         const colab_ids = state.all_collaborators.map(el => el.id)

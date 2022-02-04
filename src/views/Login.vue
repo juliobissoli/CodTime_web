@@ -76,11 +76,6 @@ export default {
       isLogged: false,
     };
   },
-  computed: {
-    // isLogged() {
-    //   return this.$store.state.isLogged;
-    // },
-  },
 
   created() {
     const hash = this.$route.hash;
@@ -89,39 +84,17 @@ export default {
       let str = split[0].split("=");
       const token = str[1];
 
-      // console.log('Tonken ===> ',token);
-
       if (this.$route.query && this.$route.query.redirect) {
         this.$router.push(this.$route.query.redirect);
       } else {
-        // this.setUserLogin(this.isLogged);
         oauth2.setAuth(token);
         this.$router.push({ name: "Home" });
-
-        // this.isLoading = false;
       }
     }
   },
 
   methods: {
-    // async login() {
-    //   // this.$store.commit("loading");
-    //   console.log(auth.loggedIn());
-    //   const isLogeed = await auth.login(this.email, this.password);
-    //   if (isLogeed) {
-    //     if (this.$route.query && this.$route.query.redirect) {
-    //       this.$router.push(this.$route.query.redirect);
-    //     } else {
-    //       // this.$store.commit("setUser");
-    //       // this.$store.commit("notLoading");
-    //       // await this.$store.commit("changeLogged", true);
-    //       await this.$store.dispatch("setValues");
-    //     }
-    //   } else {
-    //     this.$store.commit("notLoading");
-    //     this.mensagemError = "Erro na autenticação :(";
-    //   }
-    // },
+
     async login() {
       oauth2.login();
     },

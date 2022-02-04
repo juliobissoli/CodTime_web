@@ -194,7 +194,6 @@ export default {
   },
   watch:{
     dateInit(){
-      console.log("Altero dateInit => ", this.dateInit)
     }
   },
   created() {
@@ -250,12 +249,7 @@ export default {
       }
       this.$emit("change-filter", filter);
     },
-    selectMilestone(milestone) {
-      
-
-      console.log("Miçlest ==> ", milestone);
-
-      
+    selectMilestone(milestone) {      
       if(milestone){
         this.dateInit = milestone.start_date
         this.dateEnd  = milestone.due_date

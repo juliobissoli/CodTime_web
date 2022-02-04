@@ -87,11 +87,12 @@ export default {
   methods: {
     logout() {
       auth.logout()
-      this.$store.commit("logout");
+      // this.$store.commit("logout");
       this.$router.push({ name: "Login" });
     },
 
     goToSettings(){
+      if( this.selected !== 'UserSettings')
          this.$router.push({ name: "UserSettings" });
     },
 
@@ -99,8 +100,7 @@ export default {
       switch (id) {
         case 2: this.goToSettings(); break;
         case 3: this.logout(); break;
-        default:
-          console.log(`Resolver esses botoes ${expr}.`);
+        default: null
       }
     },
   },

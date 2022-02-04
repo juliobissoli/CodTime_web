@@ -47,8 +47,6 @@ export default {
   watch: {
     value() {
       this.$emit("select_result", this.value);
-      // this.$store.commit("selectProject", this.value);
-      // console.log(this.$store.state.projectSelected);
     },
     revoque() {
       this.value = this.revoque ? null : this.value;

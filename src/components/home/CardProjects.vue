@@ -6,33 +6,23 @@
     <div class="row p-0 m-0">
       <div class="col-12 p-3 px-4  d-flex d-flex justify-content-between">
         <h3 class="title">{{ project ? project.name : "--" }}</h3>
-        <button class="btn btn-sm btn-outline-dark">Iniciar</button>
+        <!-- <button class="btn btn-sm btn-outline-dark">Iniciar</button> -->
       </div>
       <div
         v-if="issues.length > 0"
-        class="col-12"
+        class="col-12 py-3"
       >
         <LabelColor
           v-for="(commit, i) in issues"
           :key="i"
           :issues_status="commit.status "
         >
-          <span>{{ commit.title }}</span>
+          <span>{{ commit.title }} </span>
         </LabelColor>
       </div>
       <span v-else class="col-12 text-center text-muted p-3">
         Nenhum issue nesse mês!
       </span>
-      <!-- <div class="col-12 d-flex justify-content-between">
-        <div class="pl-3 d-flex flex-column">
-          <span>Horas: </span>
-          <span>{{ clock(hours) }} </span>
-        </div>
-        <div class="d-flex flex-column text-center">
-          <span>Tarefas:</span>
-          <span>{{ tesks }}</span>
-        </div>
-      </div> -->
       <footer class="col-12 p-3 divider_top   d-flex flex-row-reverse">
         <AvatarList :list="collaborators.get(project.id)" />
       </footer>
@@ -90,8 +80,9 @@ collaborators() {
     border-radius: 0.5rem;
   }
   .title {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 500;
+    color: #444444;
   }
 }
 </style>

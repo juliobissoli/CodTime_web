@@ -6,7 +6,7 @@
         cy="12"
         r="6.5"
         :fill="
-          getColor(issues_status || class_color)
+        getColor()
         "
       />
     </svg>
@@ -20,9 +20,9 @@
 export default {
   name: "LabelColorIndicator",
   props: {
-    color: String,
-    class_color: String,
-    issues_status: Number,
+    color: { type: String, default: null},
+    class_color: { type: String, default: null},
+    issues_status: { type: Number, default: null},
   },
 
   computed: {
@@ -41,12 +41,14 @@ export default {
   },
 
   methods: {
-    getColor(value) {
-      if (!isNaN(value)) {
+    getColor() {
+      const value  = this.issues_status != null  ? this.issues_status : this.class_color
+
+      if (typeof value === 'number') {
         return this.issueMapColor.get(value) ? this.issueMapColor.get(value).color : '#cccccc'; 
       }
       else {
-        return this.mapColor.get(value)
+        return this.mapColor.get(value) || '#cccccc'
       }
     },
   },

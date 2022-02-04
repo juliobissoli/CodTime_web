@@ -117,7 +117,6 @@ export default {
   },
   watch: {
     taskList() {
-      console.log("Trigo a task");
       this.handleGetNotes()
     },
 

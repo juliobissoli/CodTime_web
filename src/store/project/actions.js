@@ -21,7 +21,7 @@ export const setProjects = async ({ commit, state }) => {
         resolve(res.data);
       },
       (error) => {
-        console.log("deu errado ==> ", error);
+        console.error("deu errado ==> ", error);
       }
     );
   });
@@ -50,7 +50,7 @@ export const getProjectDetail = async ({ state, commit }, id) => {
           resolve(res.data);
         },
         (error) => {
-          console.log("error getProjectDetail ", error);
+          console.error("error getProjectDetail ", error);
           reject(error);
         }
       );

@@ -51,11 +51,7 @@ export default {
       }, 4000);
     },
   },
-  methods: {
-    clickOut(event){
-      console.log('Ta aqui ', event)
-    }
-  }
+
 };
 </script>
 

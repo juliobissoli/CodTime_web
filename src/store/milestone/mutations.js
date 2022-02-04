@@ -6,12 +6,4 @@ export default {
       state.milestones = data
     },
     
-
-    // projects/1/members
   };
-
-  async function teste(el){
-
-    gitlab_api.get
-    console.log('Ta slçaams', el)
-  }

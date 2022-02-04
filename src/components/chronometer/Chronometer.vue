@@ -43,10 +43,6 @@ export default {
   methods: {
     finishRun() {
       this.selectTesck = true;
-      console.log("clico");
-      // this.$store.commit("finishTime");
-      // this.$store.commit("cleanSelectProject");
-      // console.log(this.$store.state.timeRuning);
     },
   },
 };

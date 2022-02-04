@@ -93,10 +93,8 @@ export default {
     ...mapActions("task", ["setTasks"]),
 
     handleChangeFilter(event) {
-      console.log('Ta aqui ==> ', event )
       Object.assign(this.filter, event);
       this.setMilestone(this.filter);
-      //   this.setTasks(this.filter);
     },
   },
 };

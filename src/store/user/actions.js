@@ -11,7 +11,6 @@ export const setUser = ({commit}) => {
             },
             error => {
                 console.error(error);
-                console.log('res =>', error.response.status)
                 Router.push({name: 'Exception',  params: { code: error.response.status }})
                 reject(error)
             }

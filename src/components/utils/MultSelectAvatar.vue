@@ -40,8 +40,6 @@ export default {
   watch: {
     value() {
       this.$emit("select_result", this.value);
-      // this.$store.commit("selectProject", this.value);
-      // console.log(this.$store.state.projectSelected);
     },
     all_members(){
       this.value = this.all_members ? null : this.value
@@ -53,15 +51,6 @@ export default {
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style lang="scss">
-// .multiselect__tags {
-//   border: 2px solid #ced4da !important;
-//   padding-top: 3px;
-//   line-height: 14px !important;
-//   min-height: 28px;
-//   height: 30px;
-//   overflow: hidden;
-// }
-
 .multiselect {
   min-height: 31px;
 

@@ -140,7 +140,6 @@ export default {
       return moment(item).format("(HH:ss) DD MMM");
     },
     changePageCommit(page) {
-      console.log(page);
       this.$store.dispatch("getCommits", {
         currentPage: page,
         perPage: this.perPage,
