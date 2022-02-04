@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     ...mapGetters("hours", { dateRange: "daysInterval" }),
-    ...mapGetters("task", ["statisticsTotals"]),
+    ...mapGetters("issue", ["statisticsTotals"]),
 
     chartData() {
       return {

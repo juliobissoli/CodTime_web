@@ -55,16 +55,16 @@ export default {
   },
   created() {
     this.setMilestone(this.filter).then((res) => {
-      this.setTasks({ milestone: res.map((el) => el.title) });
+      this.setIssues({ milestone: res.map((el) => el.title) });
     });
   },
   computed: {
     ...mapGetters("milestone", ["milestoneList"]),
-    ...mapGetters("task", ["taskList"]),
+    ...mapGetters("issue", ["issueList"]),
     issuesMap() {
       const map = new Map();
       let res;
-      this.taskList.forEach((el) => {
+      this.issueList.forEach((el) => {
         if (el.milestone) {
           res = map.get(el.milestone.id);
           map.set(
@@ -84,13 +84,13 @@ export default {
 
   watch: {
     milestoneList() {
-      this.setTasks({ milestone: this.milestoneList.map((el) => el.title) });
+      this.setIssues({ milestone: this.milestoneList.map((el) => el.title) });
     },
   },
 
   methods: {
     ...mapActions("milestone", ["setMilestone"]),
-    ...mapActions("task", ["setTasks"]),
+    ...mapActions("issue", ["setIssues"]),
 
     handleChangeFilter(event) {
       Object.assign(this.filter, event);

@@ -110,13 +110,13 @@ export default {
     if(!this.projectDetail.preferential ){
        this.filter.assignee_id = this.userID
       }
-    this.setTasks({...this.filter, project_id: this.id })
+    this.setIssues({...this.filter, project_id: this.id })
     // .then((res) =>
       // this.handleGetNotes()
     // );
   },
   watch: {
-    taskList() {
+    issueList() {
       this.handleGetNotes()
     },
 
@@ -128,7 +128,7 @@ export default {
       "mapCollaborators",
       'collaboratorsList'
     ]),
-    ...mapGetters("task", ["taskList"]),
+    ...mapGetters("issue", ["issueList"]),
     ...mapGetters("hours", ["noteList"]),
     ...mapGetters("user_info", ["userID"]),
 
@@ -156,7 +156,7 @@ export default {
   },
   methods: {
     ...mapActions("hours", ["setNotes", "cleanNotes"]),
-    ...mapActions("task", ["setTasks"]),
+    ...mapActions("issue", ["setIssues"]),
 
 
     handleChangeFilter(event) {
@@ -164,13 +164,13 @@ export default {
       // this.filter.date_end = event.date_end;
       Object.assign(this.filter, event)
 
-      this.setTasks(this.filter);
+      this.setIssues(this.filter);
     },
 
     handleGetNotes(){
       this.cleanNotes()
-      if (this.taskList.length > 0) {
-        this.taskList.forEach((el) => {
+      if (this.issueList.length > 0) {
+        this.issueList.forEach((el) => {
           this.setNotes(el);
         });
       }

@@ -69,7 +69,7 @@ import BarTop from '../../components/project/BarTop.vue'
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 export default {
-  name: "TaskList",
+  name: "IssueList",
   components: { TaskListItem, FilterDefault, AvatarList, BarTop},
   data() {
     return {
@@ -85,11 +85,11 @@ export default {
   created() {
     if (this.projectList.length > 0) {
       this.filter.project_id = this.projectList.map((el) => el.id)
-      this.setTasks({ ...this.filter, project_id: this.projectList.map((el) => el.id) });
+      this.setIssues({ ...this.filter, project_id: this.projectList.map((el) => el.id) });
     }
   },
   computed: {
-    ...mapGetters("task", ["mapTasks2State"]),
+    ...mapGetters("issue", ["mapTasks2State"]),
     ...mapGetters("project", ["projectList", 'allCollaborators']),
 
     collaboratorsFiltered(){
@@ -99,14 +99,14 @@ export default {
   watch: {
     projectList() {
       this.filter.project_id = this.projectList.map((el) => el.id)
-      this.setTasks({ ...this.filter, project_id: this.projectList.map((el) => el.id)});
+      this.setIssues({ ...this.filter, project_id: this.projectList.map((el) => el.id)});
     },
   },
   methods: {
-    ...mapActions("task", ["setTasks"]),
+    ...mapActions("issue", ["setIssues"]),
     changeFilter(event){
       Object.assign(this.filter, event)
-      this.setTasks(this.filter)
+      this.setIssues(this.filter)
     },
   },
 };

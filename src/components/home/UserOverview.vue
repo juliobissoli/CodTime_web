@@ -38,7 +38,7 @@ export default {
   components: { Avatar, Chart, LabelColor },
   computed: {
     ...mapGetters("user_info", ["userInfo"]),
-    ...mapGetters("task", ["statisticsTotals"]),
+    ...mapGetters("issue", ["statisticsTotals"]),
     stylesIssues() {
       return this.$store.getters.mapGlobalTaskStatusStyle;
     },

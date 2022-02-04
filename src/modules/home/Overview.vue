@@ -73,7 +73,7 @@ export default {
 
     }
 
-    this.setTasks({
+    this.setIssues({
       date_init: moment().startOf('month').format('YYYY-MM-DD'),
       date_end: moment().endOf('month').format('YYYY-MM-DD'),
       })
@@ -102,7 +102,7 @@ export default {
     ...mapActions("user_info", ["setUser"]),
     ...mapActions("hours", ["setCommits"]),
     ...mapActions("project", ["setProjects"]),
-    ...mapActions("task", ["setTasks"]),
+    ...mapActions("issue", ["setIssues"]),
 
   },
 };
