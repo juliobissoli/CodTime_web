@@ -1,51 +1,18 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import projectsList from "../data/projetcs";
-import api from "../serve/api";
-import auth from "../utils/oauth2";
-import jwt_decode from "jwt-decode";
 import modules from "./modules";
-import gitlab_api from '../serve/gitlab_api'
-import * as types from './mutationTypes'
-import moment from "moment";
+import  HelperData from '../data/helper'
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    // user: null,
-    // uid: null,
-    // isLogged: false,
-    // projects: [],
-    // projectsGit: [],
-    // projectSelected: null,
-    // projectDetail: null,
-    // timeRuning: null,
-    // loading: null,
-    // dataTamp: null,
-    // commits: null,
-
-    // token: null,
-
+    helper_is_visible: false,
+    helper_topic: null,
+    helper_url_redirect: null,
+    helper_info: null,
   },
   getters: {
-
-    // token(state){
-    //   return state.token
-    // },
-
-    // projects(state) {
-    //   return state.projects.map((el) => {
-    //     el.total = el.tescks.lenght;
-    //   });
-    // },
-    // isRunning(state) {
-    //   return state.timeRuning ? state.timeRuning.is_running : false;
-    // },
-    // commitList(state) {
-    //   return state.commits
-    //     ? state.commits
-    //     : { data: [], currentPage: null, perPage: 20 };
-    // },
 
     mapPriority() {
       return new Map([
@@ -56,9 +23,6 @@ export default new Vuex.Store({
       );
     },
 
-    // projectList(state){
-    //   return state.projectsGit
-    // },
 
     mapGlobalTaskStatusStyle(state) {
       return new Map([
@@ -82,6 +46,30 @@ export default new Vuex.Store({
       );
     },
 
+    helperIsVisible(state){
+      return state.helper_is_visible;
+    },
+
+    helperInfo(state){
+      if(state.helper_url_redirect){
+        state.helper_info.redirect  = state.helper_url_redirect
+      }
+      return state.helper_info ||
+      {
+        title: "Cadastro de Issues",
+        description: "Uma breve descrição sobre oq esse assunto",
+        stages: [
+          'Como fazer passo 1',
+          'Como fazer passo 2',
+          'Como fazer passo 3',
+        ],
+        obs: null,
+        image: "nome_da_image",
+        redirect: state.url_redirect || 'https://gitlab.com/projects/new',
+        doc_url: 'https://docs.gitlab.com/'
+      }
+    }
+
 
   },
   mutations: {
@@ -89,7 +77,27 @@ export default new Vuex.Store({
     //   state.isLogged = false;
     //   auth.logout();
     // }
+    setHelper(state, data){
+      state.helper_is_visible = data.visibility
+      state.helper_topic = data.topic
+      state.helper_url_redirect = data.url_redirect || null
+      if(data.topic){
+        state.helper_info = HelperData[data.topic]
+      }
+      else {
+        state.helper_info = null
+      }
+    }
+    
   },
-  actions: {},
+  actions: {
+    showHelper({commit}, {topic, url_redirect}){
+      commit("setHelper", {visibility: true ,topic, url_redirect})
+    },
+
+    collapseHelper({commit}){
+      commit("setHelper", {visibility: false ,topic: null, url_redirect: null})
+    }
+  },
   modules
 });

@@ -1,5 +1,6 @@
 <template>
   <div class="app p-0 m-0">
+    <HelperModal />
     <div>
       <MainMenu />
     </div>
@@ -11,10 +12,12 @@
 
 <script>
 import MainMenu from "../components/MainMenu.vue";
+import Modal from '../components/utils/Modal.vue'
+import HelperModal from '../components/HelperModal.vue'
 import {mapActions} from 'vuex'
 export default {
   name: "CodTime",
-  components: { MainMenu },
+  components: { MainMenu, Modal, HelperModal },
   async created() {
     if (!this.user || !this.projects) {
       await this.setUser();

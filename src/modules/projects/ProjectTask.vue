@@ -2,7 +2,12 @@
   <div class="row p-0">
     <section class="col-12 bg-white p-3">
       <div class="page-wrapper">
-        <BarTop  @get-search="handleChangeFilter" placeholder="Buscar tarefa" btn_label="+ Tarefa" >
+        <BarTop  
+          @get-search="handleChangeFilter" 
+          placeholder="Buscar tarefa"
+          btn_label="+ Tarefa"
+          @btn-clicked="showHelper({topic: 'issue',  url_redirect: projectDetail.web_url || null})"
+          >
           <FilterDefault 
             :date_init="filter.date_init" 
             :date_end="filter.date_end"
@@ -94,6 +99,8 @@ export default {
   },
   methods: {
     ...mapActions("issue", ["setIssues"]),
+    ...mapActions(['showHelper']),
+
     handleChangeFilter(event){
       // this.filter.date_init = event.date_init
       // this.filter.date_end = event.date_end

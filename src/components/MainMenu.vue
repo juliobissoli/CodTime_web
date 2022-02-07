@@ -57,7 +57,7 @@ import Avatar from "./utils/Avatar.vue";
 import DropdownMenu from "./DropdownMenu.vue";
 
 import auth from '../utils/auth'
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "BarTop",
   components: { Avatar, DropdownMenu },
@@ -65,7 +65,7 @@ export default {
     return {
       selected: "",
       list_menu: [
-        { danger: false, label: "Iniciar Trabalho" },
+        { danger: false, label: "Adicionar hora" },
         { danger: false, label: "Criara Projeto" },
         { danger: false, label: "Configurações" },
         { danger: true, label: "Deslogar" },
@@ -85,6 +85,7 @@ export default {
     this.selected = this.$router.history.current.name;
   },
   methods: {
+    ...mapActions(['showHelper']),
     logout() {
       auth.logout()
       // this.$store.commit("logout");
@@ -98,6 +99,8 @@ export default {
 
     handleClickDropdown(id) {
       switch (id) {
+        case 0 : this.showHelper({topic: "hour"}) ,console.log("New hours"); break;
+        case 1 :  this.showHelper({topic: "project"}) , console.log("New project"); break;
         case 2: this.goToSettings(); break;
         case 3: this.logout(); break;
         default: null

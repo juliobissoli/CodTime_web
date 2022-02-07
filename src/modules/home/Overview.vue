@@ -9,18 +9,18 @@
           <div class="col-5  d-flex justify-content-end bg-white pt-4  p-0">
             <div>
               <button
-                @click="newProject = !newProject"
+                @click="showHelper({topic: 'project'})"
                 class="btn btn-outline-dark px-5"
               >
-                Projeto
+                + Projeto
               </button>
             </div>
             <div class="pl-3">
               <button
-                @click="newProject = !newProject"
+                @click="showHelper({topic: 'hour'} )"
                 class=" btn btn-dark px-5"
               >
-                Iniciar
+                + Hora
               </button>
             </div>
           </div>
@@ -103,6 +103,7 @@ export default {
     ...mapActions("hours", ["setCommits"]),
     ...mapActions("project", ["setProjects"]),
     ...mapActions("issue", ["setIssues"]),
+    ...mapActions(['showHelper'])
 
   },
 };
