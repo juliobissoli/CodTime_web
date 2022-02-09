@@ -24,12 +24,11 @@
           <strong>
             <a href="https://gitlab.com/users/sign_in">GitLab</a>
           </strong>
-
         </small>
       </aside>
       <aside class="col-6 info-area p-5">
         <h3 class="text-center my-5">
-          Sua plataforma de análse de desempenho integrada ao GitLab
+          Sua plataforma de análise de desempenho integrada ao GitLab
         </h3>
         <div
           class="

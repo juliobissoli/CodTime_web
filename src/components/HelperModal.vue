@@ -5,9 +5,6 @@
     </template>
     <template>
       <div class="row info-area">
-        <!-- <div class="col-12">
-          <p>{{ helperInfo.description }}</p>
-        </div> -->
         <h5 class="col-12">Passo a passo</h5>
         <ol class="col-12 p-4">
           <li v-for="(item, i) in helperInfo.stages" :key="i" class="mx-1 p-1">
