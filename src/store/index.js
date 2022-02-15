@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import modules from "./modules";
 import  HelperData from '../data/helper'
+import state from "./project/state";
 
 Vue.use(Vuex);
 
@@ -11,8 +12,17 @@ export default new Vuex.Store({
     helper_topic: null,
     helper_url_redirect: null,
     helper_info: null,
+    
+    new_url: null
+
   },
   getters: {
+
+    newUrl(state){
+      console.log("Teste ==> ", localStorage.getItem("private_base_url"))
+      return state.new_url;
+      // return "https://gitlab.com"
+    },
 
     mapPriority() {
       return new Map([
@@ -87,6 +97,9 @@ export default new Vuex.Store({
       else {
         state.helper_info = null
       }
+    },
+    setNewUrl(state, url){
+      state.new_url = url;
     }
     
   },
@@ -97,7 +110,12 @@ export default new Vuex.Store({
 
     collapseHelper({commit}){
       commit("setHelper", {visibility: false ,topic: null, url_redirect: null})
+    },
+
+    changeNewUrl({commit}, url){
+      commit('setNewUrl', url)
     }
   },
+
   modules
 });

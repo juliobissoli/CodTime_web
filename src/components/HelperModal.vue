@@ -1,5 +1,5 @@
 <template>
-  <Modal v-show="helperIsVisible" :small="true" @close="collapseHelper()">
+  <Modal v-show="helperIsVisible" @close="collapseHelper()">
     <template v-slot:header>
       {{ helperInfo.title }}
     </template>

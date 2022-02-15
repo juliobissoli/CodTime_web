@@ -1,7 +1,9 @@
 <template>
   <transition name="slide-fade">
     <div class="modal" v-on:click.self="$emit('close')">
-      <div class="modal_body d-flex flex-column justify-content-between p-3 px-2">
+      <div class="modal_body d-flex flex-column justify-content-between p-3 px-2"
+      :style="'width:' + (small ? '580px;' : '700px;')"
+      >
         <header class="row header border-bottom">
           <div class="col-10 pl-2 d-flex align-items-end">
             <slot name="header"></slot>
@@ -35,7 +37,7 @@
 <script>
 export default {
   name: "ModalDefalt",
-  props: ["open", "messageError", "large"],
+  props: ["open", "messageError", "large", "small"],
   watch: {
     messageError() {
       setTimeout(() => {
@@ -63,7 +65,7 @@ export default {
 .modal_body {
   background-color: #ffffff;
   height: auto;
-  width: 700px;
+  
   overflow-y: auto;
   border-radius: 10px;
   i {
