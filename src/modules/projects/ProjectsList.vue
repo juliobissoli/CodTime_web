@@ -9,6 +9,7 @@
               @get-search="handleChangeFilter"
               placeholder="Buscar titulo ou descrição"
               :not_scope="true"
+              @btn-clicked="showHelper({topic: 'project'})"
               btn_label="+ Projeto"
             />
           </div>
@@ -63,6 +64,7 @@ export default {
   },
   methods: {
     ...mapActions("project", ["setProjects"]),
+    ...mapActions(['showHelper']),
 
     changeToPage(project) {
       this.$router.push({ name: "ProjectDetail", params: { id: project.id } });

@@ -11,10 +11,18 @@
             <small>{{ item }}</small>
           </li>
         </ol>
+        <h6 v-show="helperInfo.obs" class="col-12">Obs.:</h6>
+        <ul v-show="helperInfo.obs" class="col-12 p-3">
+          <li v-for="(item, i) in helperInfo.obs" :key="i" class="mx-1 p-1">
+            <small>{{ item }}</small>
+          </li>
+        </ul>
         <div class="col-12 p-2 bg-light rounded" style="height: 300px">
           <span class="text-secondary">imagem</span>
         </div>
       </div>
+
+      
     </template>
     <template v-slot:footer>
       <div class="d-flex flex-column">

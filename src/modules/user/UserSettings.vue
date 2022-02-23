@@ -31,21 +31,22 @@
           </div>
 
           <div class="row box-input divider_bottom" style="margin-top: 6em">
-            <label class="col-12 mb-4"> Ajudas </label>
+            <label class="col-12 mb-4"> Url do servido GitLab </label>
             <div class="col-12 pb-4">
-              <span>Url</span>
-         
+              <span class="text-primary bg-white shadow-sm rounded p-2">{{urlGitLab}}</span>
+
             </div>
           </div>
 
           <div class="row box-input divider_bottom" style="margin-top: 6em">
-            <label class="col-12 mb-4"> URL de acesso </label>
+            <label class="col-12 mb-4">Painel de ajudas </label>
             <div class="col-12 pb-4">
-              <span></span>
               <BtnSwitch
                 @change-select="setFieldsHelper"
                 :labels="fields_helper || []"
+                :first="modeHelperStart"
               />
+              <small class="text-secondary">Os painéis de ajuda dão a opção de redirecionamento para o GitLab. Deseja abrir os pais ou ser redirecionado diretamente?</small>
             </div>
           </div>
         </aside>
@@ -62,8 +63,8 @@ export default {
   data() {
     return {
       fields_helper: [
-        { value: "modal", text: "Mostrar popup de ajuda" },
-        { value: "redirect", text: "Redirecionamento diretamente" },
+        { value: "modal", text: "Sempre mostrar ajuda" },
+        { value: "redirect", text: "Sempre ser redirecionado" },
       ],
     };
   },
@@ -75,11 +76,16 @@ export default {
   components: { Avatar, BtnSwitch },
   computed: {
     ...mapGetters("user_info", ["userInfo"]),
+    ...mapGetters(['urlGitLab']),
+
+    modeHelperStart(){
+      return localStorage.getItem("mode_helper") || 'modal'
+    }
   },
   methods: {
     ...mapActions("user_info", ["setUser"]),
     setFieldsHelper(event) {
-      console.log("mudo ", event);
+      localStorage.setItem("mode_helper", event)
     },
   },
 };

@@ -19,9 +19,12 @@ export default new Vuex.Store({
   getters: {
 
     newUrl(state){
-      console.log("Teste ==> ", localStorage.getItem("private_base_url"))
       return state.new_url;
       // return "https://gitlab.com"
+    },
+
+    urlGitLab(state){
+      return localStorage.getItem("private_base_url") ||  process.env.VUE_APP_GITLAB_API_BASE_URL
     },
 
     mapPriority() {
@@ -97,6 +100,7 @@ export default new Vuex.Store({
       else {
         state.helper_info = null
       }
+     
     },
     setNewUrl(state, url){
       state.new_url = url;
@@ -104,8 +108,11 @@ export default new Vuex.Store({
     
   },
   actions: {
-    showHelper({commit}, {topic, url_redirect}){
-      commit("setHelper", {visibility: true ,topic, url_redirect})
+    showHelper({commit, getters}, {topic, url_redirect}){
+      let redirect_only = localStorage.getItem("mode_helper") == 'redirect';
+      commit("setHelper", {visibility: !redirect_only ,topic, url_redirect})
+      if(redirect_only)
+        window.open(getters.helperInfo.redirect, '_blank');
     },
 
     collapseHelper({commit}){
