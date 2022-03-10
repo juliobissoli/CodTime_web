@@ -28,14 +28,14 @@ const project_detailRouter = {
       meta: { requiresAuth: true },
     },
     {
-      path: "epc",
+      path: "milestones",
       name: "ProjectEpc",
       props: true,
       component: ProjectEpc,
       meta: { requiresAuth: true },
     },
     {
-      path: "task",
+      path: "issues",
       name: "ProjectTask",
       props: true,
       component: ProjectTask,
