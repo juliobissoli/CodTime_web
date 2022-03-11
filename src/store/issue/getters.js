@@ -1,5 +1,5 @@
 export default {
-  taskList(state) {
+  issueList(state) {
     return state.tasks;
   },
 

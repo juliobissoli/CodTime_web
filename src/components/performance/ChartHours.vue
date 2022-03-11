@@ -5,7 +5,7 @@
       <!-- <div style="width: 150px" class="d-flex">
         <BtbDropdown label="Dia"/>
       </div> -->
-      Media de trabalho diário estimado =
+      Média de trabalho diário estimado =
       {{ (avgEstimateWor * 60) | horusFormatGlobal }}
     </span>
     <Chart
@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     ...mapGetters("hours", { dateRange: "daysInterval" }),
-    ...mapGetters("task", ["statisticsTotals"]),
+    ...mapGetters("issue", ["statisticsTotals"]),
 
     chartData() {
       return {

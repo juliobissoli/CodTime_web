@@ -41,7 +41,7 @@ export default {
   components: { LabelColor, AvatarList },
   computed: {
     ...mapGetters("project", ["collaboratorsList"]),
-    ...mapGetters('task', { issueProject: "issueProject"}),
+    ...mapGetters('issue', { issueProject: "issueProject"}),
 
 issues(){
   // return this.issueProject || []

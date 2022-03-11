@@ -2,7 +2,12 @@
   <div class="row p-0">
     <section class="col-12 bg-white p-3">
       <div class="page-wrapper">
-        <BarTop @get-search="handleChangeFilter" placeholder="Buscar milestone" btn_label="+ Milestone">
+        <BarTop 
+          @get-search="handleChangeFilter"
+          placeholder="Buscar milestone"
+          btn_label="+ Milestone"
+          @btn-clicked="showHelper({topic: 'milestone',  url_redirect: projectDetail.web_url || null})"
+          >
           <FilterDefault
             :filds_status="filds_status"
             @change-filter="handleChangeFilter"
@@ -55,16 +60,17 @@ export default {
   },
   created() {
     this.setMilestone(this.filter).then((res) => {
-      this.setTasks({ milestone: res.map((el) => el.title) });
+      this.setIssues({ milestone: res.map((el) => el.title) });
     });
   },
   computed: {
     ...mapGetters("milestone", ["milestoneList"]),
-    ...mapGetters("task", ["taskList"]),
+    ...mapGetters("project", ['projectDetail']),
+    ...mapGetters("issue", ["issueList"]),
     issuesMap() {
       const map = new Map();
       let res;
-      this.taskList.forEach((el) => {
+      this.issueList.forEach((el) => {
         if (el.milestone) {
           res = map.get(el.milestone.id);
           map.set(
@@ -84,13 +90,15 @@ export default {
 
   watch: {
     milestoneList() {
-      this.setTasks({ milestone: this.milestoneList.map((el) => el.title) });
+      this.setIssues({ milestone: this.milestoneList.map((el) => el.title) });
     },
   },
 
   methods: {
     ...mapActions("milestone", ["setMilestone"]),
-    ...mapActions("task", ["setTasks"]),
+    ...mapActions("issue", ["setIssues"]),
+    ...mapActions(['showHelper']),
+
 
     handleChangeFilter(event) {
       Object.assign(this.filter, event);

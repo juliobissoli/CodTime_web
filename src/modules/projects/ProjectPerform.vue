@@ -60,7 +60,7 @@
         </div>
         <div class="col-5 p-1">
           <ChartStatus :list_data="statisticsTotals.total_by_status" />
-          <IssuesStats class="mt-2" :issues="taskList" />
+          <IssuesStats class="mt-2" :issues="issueList" />
         </div>
       </div>
       <div class="row p-0 mt-3">
@@ -88,10 +88,6 @@
             </small>
           </CardStatistics>
         </div>
-        <!-- <div class="col-2 p-4 bg-white rounded shadow-sm">
-          <span>Issue mais duradoura</span>
-          <CardIssue :task="taskList.length > 0 ? taskList[0] : null" />
-        </div> -->
       </div>
     </section>
   </div>
@@ -136,7 +132,7 @@ export default {
         { entity: "total_time_avg_issues", title: "HORAS MEDIA POR ISSUE" },
         {
           entity: "total_time_avg_issues_relative",
-          title: "TEMPO MEDIA DE ISSUE RELAT.",
+          title: "TEMPO MÉDIA DE ISSUE REAL.",
         },
         { entity: "time_estimate", title: "TOTAL HORAS ESTIMADO" },
         {
@@ -145,7 +141,7 @@ export default {
         },
         {
           entity: "total_estimate_avg_issues_relative",
-          title: "ESTIMATIVA MEDIA DE ISSUE RELAT.",
+          title: "ESTIMATIVA MÉDIA DE ISSUE REAL.",
         },
       ],
       filter: {
@@ -161,17 +157,17 @@ export default {
     if (!this.projectDetail.preferential) {
       this.filter.assignee_id = this.userID;
     }
-    this.setTasks(this.filter).then((res) => this.handleGetNotes());
+    this.setIssues(this.filter).then((res) => this.handleGetNotes());
     this.setMilestone({project_id: this.id})
   },
   watch: {
-    taskList() {
+    issueList() {
       this.handleGetNotes();
     },
   },
   computed: {
     ...mapGetters("project", ["projectDetail"]),
-    ...mapGetters("task", ["taskList", "statisticsTotals"]),
+    ...mapGetters("issue", ["issueList", "statisticsTotals"]),
     ...mapGetters("milestone", ["milestoneList"]),
     ...mapGetters("user_info", ["userID"]),
     ...mapGetters("hours", { hoursDate: "notesToDate" }),
@@ -201,18 +197,18 @@ export default {
 
   methods: {
     ...mapActions("hours", ["setNotes", "cleanNotes"]),
-    ...mapActions("task", ["setTasks"]),
+    ...mapActions("issue", ["setIssues"]),
     ...mapActions('milestone', ['setMilestone']),
 
     handleChangeFilter(event) {
       Object.assign(this.filter, event);
-      this.setTasks(this.filter);
+      this.setIssues(this.filter);
     },
 
     handleGetNotes() {
       this.cleanNotes();
-      if (this.taskList.length > 0) {
-        this.taskList.forEach((el) => {
+      if (this.issueList.length > 0) {
+        this.issueList.forEach((el) => {
           this.setNotes(el);
         });
       }

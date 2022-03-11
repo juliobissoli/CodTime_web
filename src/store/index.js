@@ -1,51 +1,31 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import projectsList from "../data/projetcs";
-import api from "../serve/api";
-import auth from "../utils/oauth2";
-import jwt_decode from "jwt-decode";
 import modules from "./modules";
-import gitlab_api from '../serve/gitlab_api'
-import * as types from './mutationTypes'
-import moment from "moment";
+import  HelperData from '../data/helper'
+import state from "./project/state";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    // user: null,
-    // uid: null,
-    // isLogged: false,
-    // projects: [],
-    // projectsGit: [],
-    // projectSelected: null,
-    // projectDetail: null,
-    // timeRuning: null,
-    // loading: null,
-    // dataTamp: null,
-    // commits: null,
-
-    // token: null,
+    helper_is_visible: false,
+    helper_topic: null,
+    helper_url_redirect: null,
+    helper_info: null,
+    
+    new_url: null
 
   },
   getters: {
 
-    // token(state){
-    //   return state.token
-    // },
+    newUrl(state){
+      return state.new_url;
+      // return "https://gitlab.com"
+    },
 
-    // projects(state) {
-    //   return state.projects.map((el) => {
-    //     el.total = el.tescks.lenght;
-    //   });
-    // },
-    // isRunning(state) {
-    //   return state.timeRuning ? state.timeRuning.is_running : false;
-    // },
-    // commitList(state) {
-    //   return state.commits
-    //     ? state.commits
-    //     : { data: [], currentPage: null, perPage: 20 };
-    // },
+    urlGitLab(state){
+      return localStorage.getItem("private_base_url") ||  process.env.VUE_APP_GITLAB_API_BASE_URL
+    },
 
     mapPriority() {
       return new Map([
@@ -56,9 +36,6 @@ export default new Vuex.Store({
       );
     },
 
-    // projectList(state){
-    //   return state.projectsGit
-    // },
 
     mapGlobalTaskStatusStyle(state) {
       return new Map([
@@ -82,6 +59,30 @@ export default new Vuex.Store({
       );
     },
 
+    helperIsVisible(state){
+      return state.helper_is_visible;
+    },
+
+    helperInfo(state){
+      if(state.helper_url_redirect){
+        state.helper_info.redirect  = state.helper_url_redirect
+      }
+      return state.helper_info ||
+      {
+        title: "Cadastro de Issues",
+        description: "Uma breve descrição sobre oq esse assunto",
+        stages: [
+          'Como fazer passo 1',
+          'Como fazer passo 2',
+          'Como fazer passo 3',
+        ],
+        obs: null,
+        image: "nome_da_image",
+        redirect: state.url_redirect || 'https://gitlab.com/projects/new',
+        doc_url: 'https://docs.gitlab.com/'
+      }
+    }
+
 
   },
   mutations: {
@@ -89,7 +90,39 @@ export default new Vuex.Store({
     //   state.isLogged = false;
     //   auth.logout();
     // }
+    setHelper(state, data){
+      state.helper_is_visible = data.visibility
+      state.helper_topic = data.topic
+      state.helper_url_redirect = data.url_redirect || null
+      if(data.topic){
+        state.helper_info = HelperData[data.topic]
+      }
+      else {
+        state.helper_info = null
+      }
+     
+    },
+    setNewUrl(state, url){
+      state.new_url = url;
+    }
+    
   },
-  actions: {},
+  actions: {
+    showHelper({commit, getters}, {topic, url_redirect}){
+      let redirect_only = localStorage.getItem("mode_helper") == 'redirect';
+      commit("setHelper", {visibility: !redirect_only ,topic, url_redirect})
+      if(redirect_only)
+        window.open(getters.helperInfo.redirect, '_blank');
+    },
+
+    collapseHelper({commit}){
+      commit("setHelper", {visibility: false ,topic: null, url_redirect: null})
+    },
+
+    changeNewUrl({commit}, url){
+      commit('setNewUrl', url)
+    }
+  },
+
   modules
 });

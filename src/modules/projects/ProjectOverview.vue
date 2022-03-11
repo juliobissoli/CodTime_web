@@ -29,51 +29,18 @@
                 >Ultimo acesso:
                 {{ projectDetail.last_activity_at | fromNowFormatGlobal }}
               </small>
-              <!-- <div class=" row mt-2 p-2 m-0 rounded shadow-sm bg-white d-flex justify-content-around " >
-                <div class="d-flex flex-column col-4 align-items-center">
-                  <span class="text-secondary">EPCS</span>
-                  <span>12</span>
-                </div>
-                <div
-                  class="
-                    divider_left divider_right
-                    d-flex
-                    flex-column
-                    col-4
-                    align-items-center
-                  "
-                >
-                  <span class="text-secondary">Tarefas</span>
-                  <span>12</span>
-                </div>
-                <div class="d-flex flex-column col-4 align-items-center">
-                  <span class="text-secondary">COMMITS</span>
-                  <span>{{projectDetail.statistics ? projectDetail.statistics.commit_count : ''}}</span>
-                </div>
-              </div> -->
             </div>
           </section>
-          <!-- <div class="col-4 p-1">
-            <legend>Colaboradores</legend>
-            <div
-              v-for="(collaborator, c) in collaborators"
-              :key="c"
-            >
-              <CollaboratorItem class="mt-3" :collaborator="collaborator" />
-            </div>
-            <button class="mt-3 btn btn-sm btn-block btn-dark">
-              + colaborador
-            </button>
-          </div> -->
+ 
         </div>
         <div class="row mt-5">
           <legend class="p-0 col-12 my-1 d-flex justify-content-between align-items-center">
             Colaboradores
-            <div class="d-flex align-items-center">
+            <!-- <div class="d-flex align-items-center">
               <button class="btn btn-sm btn-block btn-dark">
                 + colaborador
               </button>
-            </div>
+            </div> -->
           </legend>
           <div class="col-12 py-2 chart shadow-sm bg-white rounded ">
             <Table>
@@ -131,15 +98,6 @@ export default {
     accessMap() {
       return this.$store.getters.mapGlobalAccessLevel;
     },
-    // ...mapGetters("project", ["collaboratorsList"]),
-
-    // collaborators() {
-    //   const map = new Map();
-    //   this.collaboratorsList.forEach((el) => {
-    //     map.set(el.project_id, el.list);
-    //   });
-    //   return map;
-    // },
   },
 };
 </script>

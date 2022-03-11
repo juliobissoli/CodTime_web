@@ -2,7 +2,12 @@
   <div class="row p-0">
     <section class="col-12 bg-white p-3">
       <div class="page-wrapper">
-        <BarTop @get-search="handleChangeFilter" placeholder="Buscar horas de issues" btn_label="Iniciar">
+        <BarTop 
+          @get-search="handleChangeFilter"
+            placeholder="Buscar horas de issues"
+            btn_label="Iniciar"
+            @btn-clicked="showHelper({topic: 'hour',  url_redirect: projectDetail.web_url || null})"
+            >
           <FilterDefault
             :date_init="filter.date_init"
             :date_end="filter.date_end"
@@ -110,13 +115,13 @@ export default {
     if(!this.projectDetail.preferential ){
        this.filter.assignee_id = this.userID
       }
-    this.setTasks({...this.filter, project_id: this.id })
+    this.setIssues({...this.filter, project_id: this.id })
     // .then((res) =>
       // this.handleGetNotes()
     // );
   },
   watch: {
-    taskList() {
+    issueList() {
       this.handleGetNotes()
     },
 
@@ -128,7 +133,7 @@ export default {
       "mapCollaborators",
       'collaboratorsList'
     ]),
-    ...mapGetters("task", ["taskList"]),
+    ...mapGetters("issue", ["issueList"]),
     ...mapGetters("hours", ["noteList"]),
     ...mapGetters("user_info", ["userID"]),
 
@@ -156,7 +161,9 @@ export default {
   },
   methods: {
     ...mapActions("hours", ["setNotes", "cleanNotes"]),
-    ...mapActions("task", ["setTasks"]),
+    ...mapActions("issue", ["setIssues"]),
+    ...mapActions(['showHelper']),
+
 
 
     handleChangeFilter(event) {
@@ -164,13 +171,13 @@ export default {
       // this.filter.date_end = event.date_end;
       Object.assign(this.filter, event)
 
-      this.setTasks(this.filter);
+      this.setIssues(this.filter);
     },
 
     handleGetNotes(){
       this.cleanNotes()
-      if (this.taskList.length > 0) {
-        this.taskList.forEach((el) => {
+      if (this.issueList.length > 0) {
+        this.issueList.forEach((el) => {
           this.setNotes(el);
         });
       }

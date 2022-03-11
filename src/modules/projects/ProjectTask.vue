@@ -2,7 +2,12 @@
   <div class="row p-0">
     <section class="col-12 bg-white p-3">
       <div class="page-wrapper">
-        <BarTop  @get-search="handleChangeFilter" placeholder="Buscar tarefa" btn_label="+ Tarefa" >
+        <BarTop  
+          @get-search="handleChangeFilter" 
+          placeholder="Buscar tarefa"
+          btn_label="+ Tarefa"
+          @btn-clicked="showHelper({topic: 'issue',  url_redirect: projectDetail.web_url || null})"
+          >
           <FilterDefault 
             :date_init="filter.date_init" 
             :date_end="filter.date_end"
@@ -16,7 +21,7 @@
       <header class="d-flex divider_bottom justify-content-between">
         <div class="d-flex align-items-center">
           <span class="title22">
-            Issues({{taskList.length}})
+            Issues({{issueList.length}})
             <small class="f14-light">({{ filter | rangeDateGlobal }})</small>
           </span>
           <span v-for="(item, i) in status_view" :key="i" class="ml-1 badge" :class="'badge-'+taskStyles.get(item.status).class">
@@ -37,23 +42,6 @@
           <CardTask :task="task" />
         </div>
       </section>
-      <!-- <section v-for="item in status_view" :key="item.status" class="row mt-3">
-        <div class="col-12 mb-2 px-3 text-secondary">
-          <div class="divider_bottom d-flex w-100 ">
-            <button @click="item.is_visible = !item.is_visible"  class="btn btn-sm text-secondary text-uppercase d-flex">
-              {{  taskStyles.get(item.status).label}}
-              <i class="icon " :class="item.is_visible ? 'icon-arrow_down' : 'icon-arrow_up'"></i>
-            </button>
-          </div>
-        </div>
-        <div
-          class="col-3 mb-3"
-          v-for="(task, i) in item.is_visible ? mapTasks2State.get(item.status) : []"
-          :key="i"
-        >
-          <CardTask :task="task" />
-        </div>
-      </section> -->
     </section>
   </div>
 </template>
@@ -85,15 +73,7 @@ export default {
     };
   },
   created() {
-    // this.setFilter({
-    //   date_init: "2021-11-10", //fim
-    //   date_end: "2021-11-20", //inicio
-    //   search: 'Estruturar',
-    //   project_id: this.id,
-    // });
-    // if (this.issues.length === 0) {
-    this.setTasks(this.filter);
-    // }
+    this.setIssues(this.filter);
   },
   computed: {
     ...mapGetters("project", [
@@ -101,13 +81,13 @@ export default {
       "mapCollaborators",
       'collaboratorsList'
     ]),
-    ...mapGetters("task", ["mapTasks2State", 'taskList']),
+    ...mapGetters("issue", ["mapTasks2State", 'issueList']),
     taskStyles() {
       return this.$store.getters.mapGlobalTaskStatusStyle;
     },
 
     tasksFiltered(){
-      return this.taskList.sort((a, b) => a.status - b.status)
+      return this.issueList.sort((a, b) => a.status - b.status)
     },
 
     members(){
@@ -118,14 +98,16 @@ export default {
     ...mapState('project', ['map_collaborators_project'])
   },
   methods: {
-    ...mapActions("task", ["setTasks"]),
+    ...mapActions("issue", ["setIssues"]),
+    ...mapActions(['showHelper']),
+
     handleChangeFilter(event){
       // this.filter.date_init = event.date_init
       // this.filter.date_end = event.date_end
 
       Object.assign(this.filter, event)
 
-      this.setTasks({...event, project_id: this.id});
+      this.setIssues({...event, project_id: this.id});
     },
 
   },

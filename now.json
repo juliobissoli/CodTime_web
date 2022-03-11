@@ -8,8 +8,8 @@
 
       "VUE_APP_GITLAB_AUTH_CLIENT_ID": "02b5f8864cf427e175cfacce8e1e229597ad554f312d9feb2a5d371258d7d520",
       "VUE_APP_GITLAB_AUTH_CLIENT_SECRET": "aa06d866265756cd7fa91b53330bcec1aa8c10c09526bd3f500b2116fda59d40",
-      "VUE_APP_GITLAB_AUTH_ACCESS_TOKEN_URL": "https://gitlab.com/oauth/access_token",
-      "VUE_APP_GITLAB_AUTH_AUTHORIZATION_URL": "https://gitlab.com/oauth/authorize",
+      "VUE_APP_GITLAB_AUTH_ACCESS_TOKEN_URL": "https://gitlab.labes.inf.ufes.br/oauth/access_token",
+      "VUE_APP_GITLAB_AUTH_AUTHORIZATION_URL": "https://gitlab.labes.inf.ufes.br/oauth/authorize",
       "VUE_APP_GITLAB_AUTH_REDIRECT_URL": "https://codtime-web.vercel.app/login"
 
     }

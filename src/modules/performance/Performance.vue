@@ -137,22 +137,22 @@ export default {
     if (this.projectList.length > 0) {
       this.filter.assignee_id = this.userID
       this.filter.project_id =  this.projectList.map((el) => el.id)
-      this.setTasks(this.filter);
+      this.setIssues(this.filter);
     }
   },
   watch: {
     projectList() {
       this.filter.project_id =  this.projectList.map((el) => el.id)
-      this.setTasks(this.filter);
+      this.setIssues(this.filter);
     },
   },
     watch: {
-    taskList() {
+    issueList() {
       this.handleGetNotes();
     },
   },
   computed: {
-    ...mapGetters("task", ["taskList", 'statisticsTotals']),
+    ...mapGetters("issue", ["issueList", 'statisticsTotals']),
     ...mapGetters('project', ['projectList']),
     ...mapGetters("user_info", ["userID"]),
     ...mapGetters("hours", { hoursDate: "notesToDate" }),
@@ -164,7 +164,7 @@ export default {
     horsForProject() {
       const map = new Map();
       let res;
-      this.taskList.forEach((el) => {
+      this.issueList.forEach((el) => {
         res = map.get(el.project_id);
         map.set(el.project_id, (res || 0) + el.time_stats.total_time_spent);
       });
@@ -173,12 +173,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions("task", ["setTasks"]),
+    ...mapActions("issue", ["setIssues"]),
     ...mapActions("hours", ["setNotes", "cleanNotes"]),
 
     changeFilter(event){
       Object.assign(this.filter, event)
-      this.setTasks(this.filter);
+      this.setIssues(this.filter);
 
     },
 
@@ -194,8 +194,8 @@ export default {
 
     handleGetNotes() {
       this.cleanNotes();
-      if (this.taskList.length > 0) {
-        this.taskList.forEach((el) => {
+      if (this.issueList.length > 0) {
+        this.issueList.forEach((el) => {
           this.setNotes(el);
         });
       }

@@ -14,7 +14,7 @@
       <slot></slot>
     </div>
     <div v-show="btn_label" class="col-2 pr-0">
-      <button class="btn btn-dark btn-block">{{btn_label}}</button>
+      <button @click="$emit('btn-clicked')" class="btn btn-dark btn-block">{{btn_label}}</button>
     </div>
   </div>
   <!-- <div class="bar_top row">
