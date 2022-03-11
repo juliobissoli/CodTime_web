@@ -5,7 +5,7 @@
         <BarTop 
           @get-search="handleChangeFilter"
             placeholder="Buscar horas de issues"
-            btn_label="Iniciar"
+            btn_label="+ Horas"
             @btn-clicked="showHelper({topic: 'hour',  url_redirect: projectDetail.web_url || null})"
             >
           <FilterDefault
