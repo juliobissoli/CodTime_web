@@ -17,9 +17,9 @@
             <small>{{ item }}</small>
           </li>
         </ul>
-        <div class="col-12 p-2 bg-light rounded" style="height: 300px">
+        <!-- <div class="col-12 p-2 bg-light rounded" style="height: 300px">
           <span class="text-secondary">imagem</span>
-        </div>
+        </div> -->
       </div>
 
       

@@ -1,11 +1,11 @@
 export default {
   issue: {
     title: "Cadastro de Issues",
-    description: "Uma breve descrição sobre oq esse assunto",
+    description: "Uma breve descrição sobre o assunto",
     stages: ["Selecione o projeto a qual deseja cadastrar a issue",
              "Clique em 'Issue' no menu lateral do projeto",
              "Clique em 'New issue' no conto superior direito (caso não haja issues no projeto selecionado o botão estará centralizado)",
-             "Preencha as informações desejada, clique em 'Create issue'"
+             "Preencha as informações desejada, clique em 'Create issues'"
             ],
     obs: null,
     image: "nome_da_image",
@@ -14,7 +14,7 @@ export default {
   },
   project: {
     title: "Cadastro de Projetos",
-    description: "Uma breve descrição sobre oq esse assunto",
+    description: "Uma breve descrição sobre o  assunto",
     stages: ["Selecione o tipo de projeto desejado (usaremos o 'blank project como exemplo')",
              "Preencha as informações desejada, clique em 'Create project'"
             ],
@@ -25,7 +25,7 @@ export default {
   },
   hour: {
     title: "Cadastro de horas",
-    description: "Uma breve descrição sobre oq esse assunto",
+    description: "Uma breve descrição sobre o  assunto",
     stages: [
             "Selecione o projeto e a issue a desejada",
             "Na area de adicionar 'comentários' na issue, que está abaixo do histórico de ações da issue (se a issue tiver muitas ações sera necessário scrolar a pagina para baixo)",
@@ -46,7 +46,7 @@ export default {
   },
   milestone: {
     title: "Cadastro de milestone",
-    description: "Uma breve descrição sobre oq esse assunto",
+    description: "Uma breve descrição sobre o  assunto",
     stages: ["Selecione o projeto a qual deseja cadastrar a issue",
              "Clique em 'Issue' no menu lateral do projeto",
              "Na sub-lista que que expandiu abaixo do botão 'Issues', clique em 'Milestone'",

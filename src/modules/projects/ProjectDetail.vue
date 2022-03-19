@@ -8,7 +8,7 @@
         </button>
         <button class="btn_menu_item f-light" :class="selected === 'ProjectOverview' ? 'selected' : ''">
           <router-link :to="{ name: 'ProjectOverview' }">
-            <span class="m-1">Visão Gera</span></router-link>
+            <span class="m-1">Visão Geral</span></router-link>
         </button>
         <button class="btn_menu_item f-light"  :class="selected === 'ProjectEpc' ? 'selected' : ''">
           <router-link :to="{ name: 'ProjectEpc' }" >
