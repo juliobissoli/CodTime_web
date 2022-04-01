@@ -118,11 +118,11 @@ export default {
     return {
           fields_totals: [
             {entity: 'total_time_spent', title: "TOTAL DE HORAS"},
-            {entity: 'total_time_avg_issues', title: "HORAS MEDIA POR ISSUE"},
-            {entity: 'total_time_avg_issues_relative', title: "TEMPO MEDIA DE ISSUE RELAT."},
+            {entity: 'total_time_avg_issues', title: "HORAS MÉDIA POR ISSUE"},
+            {entity: 'total_time_avg_issues_relative', title: "TEMPO MÉDIA DE ISSUE RELAT."},
             {entity: 'time_estimate', title: "TOTAL HORAS ESTIMADO"},
-            {entity: 'total_estimate_avg_issues', title: "HORAS ESTIMADA MEDIA POR ISSUE"},
-            {entity: 'total_estimate_avg_issues_relative', title: "ESTIMATIVA MEDIA DE ISSUE RELAT."},
+            {entity: 'total_estimate_avg_issues', title: "HORAS ESTIMADAS MÉDIA POR ISSUE"},
+            {entity: 'total_estimate_avg_issues_relative', title: "ESTIMATIVA MÉDIA DE ISSUE RELAT."},
       ],
       filter: {
         date_init: moment().startOf("month").format("YYYY-MM-DD"), //fim
