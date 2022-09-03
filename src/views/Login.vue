@@ -52,11 +52,11 @@
         </header>
 
         <h1 style="margin-top: 120px" class="mb-5">Olá :)</h1>
-        <span class="m-1">Para acessas, entre com sua conta do GitLab</span>
+        <span class="m-1">Para acessar, entre com sua conta do GitLab</span>
         <div class="d-flex mt-3 mb-5">
           <!-- <button
             @click.prevent="login"
-            class="btn px-4 btn-dark d-flex align-items-center"
+            class="btn btn-lg px-4 btn-dark d-flex align-items-center"
           >
             Entrar com servidor padrão
           </button> -->

@@ -132,7 +132,7 @@ export default {
         { entity: "total_time_avg_issues", title: "HORAS MEDIA POR ISSUE" },
         {
           entity: "total_time_avg_issues_relative",
-          title: "TEMPO MEDIA DE ISSUE RELAT.",
+          title: "TEMPO MÉDIA DE ISSUE REAL.",
         },
         { entity: "time_estimate", title: "TOTAL HORAS ESTIMADO" },
         {
@@ -141,7 +141,7 @@ export default {
         },
         {
           entity: "total_estimate_avg_issues_relative",
-          title: "ESTIMATIVA MEDIA DE ISSUE RELAT.",
+          title: "ESTIMATIVA MÉDIA DE ISSUE REAL.",
         },
       ],
       filter: {

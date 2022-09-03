@@ -33,8 +33,9 @@
           <div class="row box-input divider_bottom" style="margin-top: 6em">
             <label class="col-12 mb-4"> Url do servido GitLab </label>
             <div class="col-12 pb-4">
-              <span class="text-primary bg-white shadow-sm rounded p-2">{{urlGitLab}}</span>
-
+              <span class="text-primary bg-white shadow-sm rounded p-2">{{
+                urlGitLab
+              }}</span>
             </div>
           </div>
 
@@ -46,7 +47,10 @@
                 :labels="fields_helper || []"
                 :first="modeHelperStart"
               />
-              <small class="text-secondary">Os painéis de ajuda dão a opção de redirecionamento para o GitLab. Deseja abrir os pais ou ser redirecionado diretamente?</small>
+              <small class="text-secondary">
+                Os painéis de ajuda dão a opção de redirecionamento para o
+                GitLab. Deseja abri-los ou ser redirecionado diretamente?
+              </small>
             </div>
           </div>
         </aside>
@@ -76,23 +80,24 @@ export default {
   components: { Avatar, BtnSwitch },
   computed: {
     ...mapGetters("user_info", ["userInfo"]),
-    ...mapGetters(['urlGitLab']),
+    ...mapGetters(["urlGitLab"]),
 
-    modeHelperStart(){
-      return localStorage.getItem("mode_helper") || 'modal'
-    }
+    modeHelperStart() {
+      return localStorage.getItem("mode_helper") || "modal";
+    },
   },
   methods: {
     ...mapActions("user_info", ["setUser"]),
     setFieldsHelper(event) {
-      localStorage.setItem("mode_helper", event)
+      localStorage.setItem("mode_helper", event);
     },
   },
 };
 </script>
 <style lang="scss" scoped>
 section {
-  height: calc(100vh - 65px);
+   max-height: calc(100vh - 65px);
+  height: 100vh;
   background-color: #ffffff;
 }
 
