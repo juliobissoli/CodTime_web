@@ -21,11 +21,19 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Ex.: https://gitlab.my.serve.com"
+              placeholder="https://gitla.my-server.com"
               v-model="new_url"
             />
           </div>
-          <div class="col-12">
+          <div class="col-12 mt-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="token"
+              v-model="token"
+            />
+          </div>
+          <div class="col-12 mt-2">
             <button class="w-100 mt-2 btn btn-dark"
             @click="handleChangeUrl()">
               Alterar e logar
@@ -46,18 +54,17 @@
         <h1 style="margin-top: 120px" class="mb-5">Olá :)</h1>
         <span class="m-1">Para acessas, entre com sua conta do GitLab</span>
         <div class="d-flex mt-3 mb-5">
-          <button
+          <!-- <button
             @click.prevent="login"
             class="btn px-4 btn-dark d-flex align-items-center"
           >
-            <!-- <i class="icon icon-gitlab mr-2"></i> -->
             Entrar com servidor padrão
-          </button>
+          </button> -->
           <button
             @click.prevent="changeUrlIsVisible = !changeUrlIsVisible"
-            class="btn btn-outline-dark px-4 ml-3 d-flex align-items-center"
+            class="btn btn-dark px-4 d-flex align-items-center"
           >
-            Entrar com servidor privado
+            Escolher servidor e altenticar
           </button>
         </div>
 
@@ -105,6 +112,7 @@ export default {
       isLoading: false,
       isLogged: false,
       changeUrlIsVisible: false,
+      token: '',
       new_url: ''
     };
   },
@@ -137,10 +145,15 @@ export default {
     },
     handleChangeUrl(){
       this.changeNewUrl(this.new_url)
-      // this.$store.dispatch('changeNewUrl', this.new_url)
-      oauth2.login(this.new_url);
+      this.$store.dispatch('changeNewUrl', this.new_url)
+      // oauth2.login(this.new_url);
+      localStorage.setItem("token", this.token);
+      localStorage.setItem("logged", true);
+
+      
       this.changeUrlIsVisible = false
       this.new_url = null
+      this.$router.push({ name: "Home" });
     }
   },
 };
