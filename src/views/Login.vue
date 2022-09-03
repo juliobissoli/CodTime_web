@@ -16,22 +16,32 @@
         </small>
       </template>
       <template v-slot:footer>
+        <form>
+
         <div class="row">
           <div class="col-12">
             <input
               type="text"
               class="form-control"
-              placeholder="Ex.: https://gitlab.my.serve.com"
+              placeholder="https://gitla.my-server.com"
               v-model="new_url"
             />
           </div>
-          <div class="col-12">
-            <button class="w-100 mt-2 btn btn-dark"
-            @click="handleChangeUrl()">
-              Alterar e logar
+          <div class="col-12 mt-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="token"
+              v-model="token"
+            />
+          </div>
+          <div class="col-12 mt-2">
+            <button class="w-100 mt-2 btn btn-dark" @click="handleChangeUrl()">
+              logar
             </button>
           </div>
         </div>
+        </form>
       </template>
     </Modal>
     <section class="row p-0 m-0">
@@ -47,6 +57,12 @@
         <span class="m-1">Para acessar, entre com sua conta do GitLab</span>
         <div class="d-flex mt-3 mb-5">
           <button
+            @click.prevent="changeUrlIsVisible = !changeUrlIsVisible"
+            class="btn btn-dark px-4 d-flex align-items-center"
+          >
+            Entrar com servidor privado
+          </button>
+          <!-- <button
             @click.prevent="login"
             class="btn btn px-4 btn-dark d-flex align-items-center"
           >
@@ -55,10 +71,10 @@
           </button>
           <button
             @click.prevent="changeUrlIsVisible = !changeUrlIsVisible"
-            class="btn btn-outline-dark px-4 ml-3 d-flex align-items-center"
+            class="btn btn-dark px-4 d-flex align-items-center"
           >
             Entrar com servidor privado
-          </button>
+          </button> -->
         </div>
 
         <small class="pt-4">
@@ -78,7 +94,7 @@
           <i class="icon m-4 icon-gitlab"></i>
           <div class="line"></div>
           <i class="icon m-4 icon-codtime"></i>
-          <!-- <img class="colors-cicle" src="../assets/img/colors-cicle.svg" alt=""> -->
+          -->
         </div>
       </aside>
     </section>
@@ -92,7 +108,7 @@ import oauth2 from "../utils/oauth2";
 import Loading from "../components/utils/AnimateLoad.vue";
 import Modal from "../components/utils/Modal.vue";
 import Table from "../components/utils/Table.vue";
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Login",
@@ -105,7 +121,8 @@ export default {
       isLoading: false,
       isLogged: false,
       changeUrlIsVisible: false,
-      new_url: ''
+      token: "",
+      new_url: "",
     };
   },
 
@@ -119,29 +136,33 @@ export default {
       if (this.$route.query && this.$route.query.redirect) {
         this.$router.push(this.$route.query.redirect);
       } else {
-        console.log("test ==> ", this.newUrl)
+        console.log("test ==> ", this.newUrl);
         oauth2.setAuth(token);
         this.$router.push({ name: "Home" });
       }
     }
   },
   computed: {
-    ...mapGetters(['newUrl'])
+    ...mapGetters(["newUrl"]),
   },
 
   methods: {
-    ...mapActions(['changeNewUrl']),
+    ...mapActions(["changeNewUrl"]),
     login() {
-      oauth2.logout()
+      oauth2.logout();
       oauth2.login();
     },
-    handleChangeUrl(){
-      this.changeNewUrl(this.new_url)
-      // this.$store.dispatch('changeNewUrl', this.new_url)
-      oauth2.login(this.new_url);
-      this.changeUrlIsVisible = false
-      this.new_url = null
-    }
+    handleChangeUrl() {
+      this.changeNewUrl(this.new_url);
+      this.$store.dispatch("changeNewUrl", this.new_url);
+      // oauth2.login(this.new_url);
+      localStorage.setItem("token", this.token);
+      localStorage.setItem("logged", true);
+
+      this.changeUrlIsVisible = false;
+      this.new_url = null;
+      this.$router.push({ name: "Home" });
+    },
   },
 };
 </script>

@@ -104,6 +104,8 @@ export default new Vuex.Store({
     },
     setNewUrl(state, url){
       state.new_url = url;
+      localStorage.setItem("private_base_url", url);
+
     }
     
   },
