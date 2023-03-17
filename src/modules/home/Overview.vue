@@ -3,10 +3,10 @@
     <div class="row  bg-white ">
       <div class="col-12  my-5 pb-5  page-wrapper ">
         <div class="row p-0">
-          <div class="col-7">
+          <div class="col-12 col-md-7">
             <UserOverview />
           </div>
-          <div class="col-5  d-flex justify-content-end bg-white pt-4  p-0">
+          <div class="col-12 col-md-5  d-flex justify-content-end bg-white pt-5  p-0">
             <div>
               <button
                 @click="showHelper({topic: 'project'})"

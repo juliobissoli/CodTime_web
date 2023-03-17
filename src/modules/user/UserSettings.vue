@@ -2,15 +2,15 @@
   <section class="row bg-white">
     <div class="col-12 page-wrapper">
       <div class="row">
-        <aside class="col-4 mt-5 p-5">
-          <Avatar :item="userInfo" />
+        <aside class="col-12 col-md-4 mt-5 p-5">
+          <Avatar :item="userInfo" :size="250" style="width: 250px"/>
           <!-- <footer class="d-flex justify-content-center">
             <button class="mt-1 btn btn-outline-dark">
               Alterar avatar
             </button>
           </footer> -->
         </aside>
-        <aside class="col-8 mt-5 pr-5">
+        <aside class="col-12 col-md-8 mt-5 pr-5">
           <div class="row box-input divider_bottom" style="margin-top: 6em">
             <label class="col-12" for="">
               Username

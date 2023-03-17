@@ -1,9 +1,9 @@
 <template>
   <div class="row">
-    <div class="col-5 px-4 d-flex justify-content-center">
-      <Avatar  style="height: 10vw; width: 10vw;" :item="userInfo" />
+    <div class="col-12 col-md-5 px-4 d-flex justify-content-center">
+      <Avatar  style="width: 218px;" :size="218" :item="userInfo" />
     </div>
-    <div class="col-7 d-flex pt-4 flex-column">
+    <div class="col-12 col-md-7 d-flex pt-4 flex-column">
       <h1>{{ userInfo.username }}</h1>
       <Chart
         :small="true"

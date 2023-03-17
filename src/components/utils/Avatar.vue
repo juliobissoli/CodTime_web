@@ -3,7 +3,7 @@
     <div v-if="item" class="avatar">
       <div class="item" >
         
-        <img :src="item.avatar_url" :class="small ? 'small' : ''" />
+        <img :src="item.avatar_url" :class="small ? 'small' : ''" :style="size ? { width:size + 'px', height:size + 'px'} : ''" />
         <div class="discribe">
           <span class="label">{{ item.name }}</span>
         </div>
@@ -85,6 +85,6 @@ img {
   // display: flex;
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 </style>
