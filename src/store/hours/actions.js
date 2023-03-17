@@ -48,7 +48,7 @@ export const setNotes = async ({commit}, issue) => {
 }
 
 const handleGetCommits = async (project_id) => {
-  return await gitlab_api.get(`projects/${project_id}/repository/commits`).then((res) => {
+  return await gitlab_api.get(`projects/${project_id}/repository/commits?per_page=3&page=1`).then((res) => {
     return res.data.map(el => ({...el, project_id}));
   });
 };

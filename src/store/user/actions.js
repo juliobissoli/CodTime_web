@@ -21,5 +21,5 @@ export const setUser = ({commit}) => {
 
 const handleGetAvatar = (url) => {
     let str = url.split("s=80")
-    return `${str[0]}s=400${str[1]}`
+    return str.length > 1 ? `${str[0]}s=400${str[1]} ` : url
 }

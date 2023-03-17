@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-row">
+  <div class="d-flex">
     <svg class="pointer" height="24" width="24">
       <circle
         cx="12"
@@ -10,7 +10,7 @@
         "
       />
     </svg>
-    <div class="ml-1">
+    <div class="ml-1 text-truncate max-w">
       <slot></slot>
     </div>
   </div>
@@ -59,7 +59,9 @@ export default {
 .line {
   border-left: 3px solid #ccc;
 }
-
+.max-w{
+  width: calc(100% - 30px);
+}
 .pointer {
   // position: absolute;
 }

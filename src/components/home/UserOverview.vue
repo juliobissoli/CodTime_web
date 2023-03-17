@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-5 px-4">
-      <Avatar :item="userInfo" />
+    <div class="col-5 px-4 d-flex justify-content-center">
+      <Avatar  style="height: 10vw; width: 10vw;" :item="userInfo" />
     </div>
     <div class="col-7 d-flex pt-4 flex-column">
       <h1>{{ userInfo.username }}</h1>
@@ -62,3 +62,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.box-full{
+  // height: 300px;
+  // width: 300px;
+}
+</style>

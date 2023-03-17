@@ -3,11 +3,11 @@
     <div class="col-12 p-4 px-4 bg-white divider_bottom">
       <div class="row px-3">
         <div class="col-4 p-0 d-flex align-items-center">
-          <span class="title22 mr-4">
+          <span class="title22 mr-4 text-truncate">
             Tarefas de:
             <small class="f14-light">({{ filter | rangeDateGlobal }})</small>
           </span>
-          <AvatarList  :list="collaboratorsFiltered" />
+          <AvatarList  :list="collaboratorsFiltered" :max="5" />
         </div>
         <div class="col-4">
           <!-- <input type="text" class="form-control" /> -->

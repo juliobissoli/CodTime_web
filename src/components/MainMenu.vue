@@ -42,7 +42,7 @@
           >
             <template v-slot:header>
               <div class="p-0" style="height: 40px; width: 40px">
-                <Avatar :item="userInfo.avatar_url ? userInfo : null" size="40" />
+                <Avatar :item="userInfo.avatar_url ? userInfo : null"  />
               </div>
             </template>
           </DropdownMenu>

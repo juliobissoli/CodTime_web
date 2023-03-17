@@ -2,6 +2,7 @@
   <div>
     <div v-if="item" class="avatar">
       <div class="item" >
+        
         <img :src="item.avatar_url" :class="small ? 'small' : ''" />
         <div class="discribe">
           <span class="label">{{ item.name }}</span>
@@ -32,8 +33,11 @@ export default {
   overflow: hidden;
   border-radius: 50%;
   border: 1px solid #f1f1f1f1;
+
   .item {
     display: flex;
+      height: 100%;
+      width: 100%;
   }
   @media (max-width: 756px) {
     .small {
@@ -78,8 +82,9 @@ export default {
 }
 
 img {
+  // display: flex;
   max-width: 100%;
   max-height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 </style>

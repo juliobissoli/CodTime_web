@@ -16,6 +16,7 @@
     <template slot="option" slot-scope="{ option }">
       <div class="d-flex align-items-center">
         <div style="width: 30px; height: 30px">
+          
           <Avatar :item="option" />
         </div>
         <small class="ml-1 text-truncate">{{ option.name }} </small>
